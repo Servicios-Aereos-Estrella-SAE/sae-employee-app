@@ -1,20 +1,29 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+/* eslint-disable require-jsdoc */
+ 
+import React from 'react'
+import { Provider as PaperProvider } from 'react-native-paper'
+import { AppNavigator } from './src/presentation/navigation/app-navigator'
+import {
+  ThemeProvider,
+  useAppTheme
+} from './src/presentation/theme/theme-context'
+import './src/shared/domain/i18n/i18n'
+
+// Wrap everything in our theme provider
+const ThemedApp: React.FC = () => {
+  const { theme } = useAppTheme()
+
+  return (
+    <PaperProvider theme={theme}>
+      <AppNavigator />
+    </PaperProvider>
+  )
+}
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <ThemeProvider>
+      <ThemedApp />
+    </ThemeProvider>
+  )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

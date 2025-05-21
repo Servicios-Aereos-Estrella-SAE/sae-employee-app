@@ -1,29 +1,72 @@
 {
   "expo": {
-    "name": "my-app-ts",
-    "slug": "my-app-ts",
+    "name": "Empleados SAE",
+    "slug": "sae-empleados",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
+    // "sdkVersion": "53.0.0",
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#303e67"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false,
+      "bundleIdentifier": "com.sae.saeempleados",
+      "infoPlist": {
+        "NSFaceIDUsageDescription": "Face ID is used to authenticate the user"
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#093057"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.sae.saeempleados",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "d685a705-a875-401d-af68-b0344be036fc"
+      }
+    },
+    "owner": "wilvardosae"
   }
 }
+
+// {
+//   "expo": {
+//     "name": "my-app-ts",
+//     "slug": "my-app-ts",
+//     "version": "1.0.0",
+//     "orientation": "portrait",
+//     "icon": "./assets/icon.png",
+//     "userInterfaceStyle": "light",
+//     "newArchEnabled": true,
+//     "splash": {
+//       "image": "./assets/splash-icon.png",
+//       "resizeMode": "contain",
+//       "backgroundColor": "#ffffff"
+//     },
+//     "ios": {
+//       "supportsTablet": true
+//     },
+//     "android": {
+//       "adaptiveIcon": {
+//         "foregroundImage": "./assets/adaptive-icon.png",
+//         "backgroundColor": "#ffffff"
+//       },
+//       "edgeToEdgeEnabled": true
+//     },
+//     "web": {
+//       "favicon": "./assets/favicon.png"
+//     }
+//   }
+// }

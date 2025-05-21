@@ -1,0 +1,45 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "ok": "OK",
+    "authentication": {
+      "biometricPromptMessage": "SAE Biometric Authentication",
+      "biometricFallbackLabel": "Use Password and Email"
+    }
+  },
+  "screens": {
+    "authentication": {
+      "title": "Sign In",
+      "welcome": "Hello {{name}}!",
+      "email": "Email",
+      "password": "Password",
+      "forgotPassword": "Forgot your password?",
+      "loginButton": "Sign In",
+      "or": "OR"
+    }
+  },
+  "components": {
+    "biometricButton": {
+      "label": "Biometric Access"
+    }
+  },
+  "errors": {
+    "loginFailed": "Login failed",
+    "unknownError": "Unknown error occurred, please try again later",
+    "requiredFieldException": "The field {{fieldName}} is required",
+    "invalidFieldFormatException": "The field {{fieldName}} has an invalid format",
+    "requiredAllFieldsException": "All fields marked with (*) are required",
+    "loginFailedNoTokenProvided": "Login failed, no token provided",
+    "loginFailedNoAuthenticationStatus": "Login failed, no authentication status",
+    "authenticationEntityRequired": "AuthenticationEntity is required to save authentication information",
+    "invalidAuthenticationState": "AuthenticationEntity has an invalid authentication state",
+    "authenticationStorageError": "Error saving authentication information",
+    "authenticationGetStorageError": "Error getting authentication information",
+    "biometricAuthenticationError": "Error authenticating with biometrics",
+    "biometricNotAvailable": "Biometric authentication is not available on this device",
+    "invalidLoginType": "Invalid login type"
+  }
+}

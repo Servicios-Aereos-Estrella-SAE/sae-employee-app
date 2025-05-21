@@ -1,0 +1,45 @@
+{
+  "common": {
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito",
+    "cancel": "Cancelar",
+    "ok": "Aceptar",
+    "authentication": {
+      "biometricPromptMessage": "Autenticación biométrica",
+      "biometricFallbackLabel": "Usar contraseña y correo electrónico"
+    }
+  },
+  "screens": {
+    "authentication": {
+      "title": "Iniciar Sesión",
+      "welcome": "¡Hola {{name}}!",
+      "email": "Correo Electrónico",
+      "password": "Contraseña",
+      "forgotPassword": "¿Olvidaste tu contraseña?",
+      "loginButton": "Entrar",
+      "or": "O"
+    }
+  },
+  "components": {
+    "biometricButton": {
+      "label": "Acceso con Biometría"
+    }
+  },
+  "errors": {
+    "loginFailed": "Error al iniciar sesión",
+    "unknownError": "Ocurrió un error desconocido",
+    "requiredFieldException": "El campo {{fieldName}} es requerido",
+    "invalidFieldFormatException": "El campo {{fieldName}} tiene un formato inválido",
+    "requiredAllFieldsException": "Todos los campos con (*) son requeridos",
+    "loginFailedNoTokenProvided": "Error al iniciar sesión, no se pudo obtener el token de autenticación",
+    "loginFailedNoAuthenticationStatus": "Error al iniciar sesión, no se pudo obtener el estado de autenticación",
+    "authenticationEntityRequired": "AuthenticationEntity es necesario para guardar la información de autenticación",
+    "invalidAuthenticationState": "AuthenticationEntity no tiene un estado de autenticación válido",
+    "authenticationStorageError": "Error al guardar la información de autenticación",
+    "authenticationGetStorageError": "Error al obtener la información de autenticación",
+    "biometricAuthenticationError": "Error al autenticar con biometría",
+    "biometricNotAvailable": "No se puede usar la biometría en este dispositivo",
+    "invalidLoginType": "Tipo de inicio de sesión inválido"
+  }
+}
