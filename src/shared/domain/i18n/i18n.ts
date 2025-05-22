@@ -5,7 +5,7 @@ import * as Localization from 'expo-localization'
 import es from './locales/es.json'
 import en from './locales/en.json'
 
-i18n.use(initReactI18next).init({
+i18n .use(initReactI18next).init({
   resources: {
     es: {
       translation: es
@@ -19,6 +19,6 @@ i18n.use(initReactI18next).init({
   interpolation: {
     escapeValue: false
   }
-})
+}).catch(console.error)
 
 export default i18n

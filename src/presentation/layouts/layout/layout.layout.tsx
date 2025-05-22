@@ -1,4 +1,3 @@
-import React from 'react'
 import { View } from 'react-native'
 import Header from './header/header.layout'
 // import SidebarLayout  from './sidebar/sidebar.loyout'

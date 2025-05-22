@@ -32,16 +32,16 @@ export class LoginController {
       loginCredentials: {
         email: loginAuthenticationDTO.email,
         password: loginAuthenticationDTO.password
-      }
+      },
+      createdAt: new Date()
     })
 
     const authenticationResult =
       await this.loginAuthentication.run(authentication)
 
-    if (
-      !authenticationResult ||
-      !authenticationResult.props.authState?.isAuthenticated
-    ) {
+    const isAuthenticated = authenticationResult?.props?.authState?.isAuthenticated as boolean
+
+    if (!isAuthenticated) {
       throw new Error(i18next.t('errors.loginFailed'))
     }
 

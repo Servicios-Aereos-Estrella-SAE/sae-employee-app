@@ -1,4 +1,3 @@
-import React from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import { Text } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'

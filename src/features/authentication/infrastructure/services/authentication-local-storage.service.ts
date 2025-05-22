@@ -56,7 +56,8 @@ export class AuthenticationLocalStorageService {
         const authenticationEntity = new AuthenticationEntity({
           authState: authenticationObject.properties.authState,
           loginCredentials: authenticationObject.properties.loginCredentials,
-          userName: authenticationObject.properties.userName
+          userName: authenticationObject.properties.userName,
+          createdAt: authenticationObject.properties.createdAt
         })
 
         if (

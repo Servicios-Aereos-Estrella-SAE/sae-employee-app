@@ -23,4 +23,10 @@ export interface IAuthentication {
    * @type {string | null | undefined}
    */
   readonly userName?: string | null
+
+  /**
+   * Fecha de creación de la autenticación
+   * @type {Date}
+   */
+  readonly createdAt: Date
 }

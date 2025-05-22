@@ -119,7 +119,8 @@ export class LoginAPIRepository implements Pick<AuthenticationPorts, 'login'> {
           isAuthenticated: true
         },
         userName: userName,
-        loginCredentials: authentication.props.loginCredentials
+        loginCredentials: authentication.props.loginCredentials,
+        createdAt: new Date()
       })
 
       if (

@@ -31,7 +31,7 @@ const AuthenticationScreenController = () => {
     useNavigation<NativeStackNavigationProp<RootStackParamList>>()
 
   useEffect(() => {
-    initializeApp()
+    initializeApp().catch(console.error)
   })
 
   /**

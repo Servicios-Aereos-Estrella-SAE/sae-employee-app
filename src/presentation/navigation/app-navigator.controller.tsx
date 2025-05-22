@@ -10,7 +10,7 @@ const AppNavigatorController = () => {
   // const authService = new AuthService(userController)
 
   useEffect(() => {
-    checkAuthState()
+    checkAuthState().catch(console.error)
   }, [])
 
   const checkAuthState = async () => {

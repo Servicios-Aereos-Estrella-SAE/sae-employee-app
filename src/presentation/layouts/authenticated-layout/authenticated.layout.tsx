@@ -34,7 +34,7 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
       }
     }
 
-    validateSession()
+    validateSession().catch(console.error)
   }, [navigation])
 
   if (isValidating) {

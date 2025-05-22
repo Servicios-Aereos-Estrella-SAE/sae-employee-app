@@ -1,4 +1,3 @@
-import React from 'react'
 import { Button as PaperButton } from 'react-native-paper'
 import { Dimensions, StyleSheet } from 'react-native'
 import { useAppTheme } from '../../theme/theme-context'

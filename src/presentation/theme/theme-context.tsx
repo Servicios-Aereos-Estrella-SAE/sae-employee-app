@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { THEME_STORAGE_KEY } from '@env'
 import { useColorScheme, AppState, AppStateStatus } from 'react-native'
