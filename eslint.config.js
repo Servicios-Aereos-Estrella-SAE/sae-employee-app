@@ -107,7 +107,16 @@ export default [
   },
   // Override for presentation files
   {
-    files: ['src/presentation/**/*.{ts,tsx}'],
+    files: ['presentation/**/*.{ts,tsx}'],
+    rules: {
+      '@typescript-eslint/explicit-function-return-type': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-unsafe-member-access': 'off'
+    }
+  },
+  {
+    files: ['navigation/**/*.{ts,tsx}'],
     rules: {
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/no-explicit-any': 'off',

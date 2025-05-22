@@ -37,7 +37,7 @@ export const AuthenticationScreen: React.FC = () => {
       <StatusBar style="light" translucent={true} />
 
       <Image
-        source={require('../../../../assets/app-headbanner-2.png')}
+        source={require('../../../assets/app-headbanner-2.png')}
         style={style.logoImage}
       />
 

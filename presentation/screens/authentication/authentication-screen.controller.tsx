@@ -2,13 +2,13 @@
 import React, { useState, useEffect } from 'react'
 import { Alert } from 'react-native'
 import { useTranslation } from 'react-i18next'
-import { LoginController } from '../../../features/authentication/infrastructure/controllers/login.controller'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { RootStackParamList } from '../../navigation/types/types'
-import { AuthStateController } from '../../../features/authentication/infrastructure/controllers/auth-state.controller'
-import { ELoginTypes } from '../../../features/authentication/application/types/login-types.enum'
-import { BiometricsService } from '../../../features/authentication/infrastructure/services/biometrics.service'
+import { RootStackParamList } from '../../../navigation/types/types'
+import { LoginController } from '../../../src/features/authentication/infrastructure/controllers/login.controller'
+import { ELoginTypes } from '../../../src/features/authentication/application/types/login-types.enum'
+import { AuthStateController } from '../../../src/features/authentication/infrastructure/controllers/auth-state.controller'
+import { BiometricsService } from '../../../src/features/authentication/infrastructure/services/biometrics.service'
 
 /**
  * Controlador de la pantalla de autenticación

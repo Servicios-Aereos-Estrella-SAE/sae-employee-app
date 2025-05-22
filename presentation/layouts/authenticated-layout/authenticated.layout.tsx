@@ -3,9 +3,9 @@ import { View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import AuthenticatedLayoutStyle from './authenticated-layout.style'
-import { AuthStateController } from '../../../features/authentication/infrastructure/controllers/auth-state.controller'
-import { RootStackParamList } from '../../navigation/types/types'
 import Layout from '../layout/layout.layout'
+import { RootStackParamList } from '../../../navigation/types/types'
+import { AuthStateController } from '../../../src/features/authentication/infrastructure/controllers/auth-state.controller'
 interface AuthenticatedLayoutProps {
   children: React.ReactNode
 }
