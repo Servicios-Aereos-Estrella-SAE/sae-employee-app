@@ -1,19 +1,8 @@
 import { Button as PaperButton } from 'react-native-paper'
-import { Dimensions, StyleSheet } from 'react-native'
-import { useAppTheme } from '../../theme/theme-context'
+import useButtonStyles from './button.style'
+import { IButtonProps } from './types/button-props.interface'
 
-const { height } = Dimensions.get('window')
-
-interface ButtonProps {
-  title: string
-  onPress: () => void
-  loading?: boolean
-  mode?: 'text' | 'outlined' | 'contained'
-  disabled?: boolean
-  icon?: string
-}
-
-export const Button: React.FC<ButtonProps> = ({
+export const Button: React.FC<IButtonProps> = ({
   title,
   onPress,
   loading = false,
@@ -21,7 +10,7 @@ export const Button: React.FC<ButtonProps> = ({
   disabled = false,
   icon
 }) => {
-  const { theme } = useAppTheme()
+  const styles = useButtonStyles()
 
   return (
     <PaperButton
@@ -34,20 +23,13 @@ export const Button: React.FC<ButtonProps> = ({
       contentStyle={styles.buttonContent}
       theme={{
         colors: {
-          primary: theme.colors.primary
+          primary: styles.themePrimary.color
         }
       }}
-      labelStyle={{ color: theme.colors.buttonText }}
+      labelStyle={{ color: styles.labelStyle.color }}
       uppercase
     >
       {title}
     </PaperButton>
   )
 }
-
-const styles = StyleSheet.create({
-  button: {},
-  buttonContent: {
-    height: height * 0.05
-  }
-})

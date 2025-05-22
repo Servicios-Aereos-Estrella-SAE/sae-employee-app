@@ -1,6 +1,6 @@
 import { View } from 'react-native'
 import Header from './header/header.layout'
-// import SidebarLayout  from './sidebar/sidebar.loyout'
+// import Sidebar from '../../components/sidebar/sidebar.component'
 import useLayoutStyle from './layout.style'
 import LayoutController from './layout.controller'
 import ILayoutProps from './types/layout-props.interface'
@@ -13,7 +13,7 @@ const Layout: React.FC<ILayoutProps> = (props) => {
     <View style={[styles.container]}>
       <Header onMenuPress={controller.handleMenuPress} />
       <View style={styles.content}>{controller.props.children}</View>
-      {/* <SidebarLayout
+      {/* <Sidebar
         isOpen={controller.isSidebarOpen}
         onClose={controller.handleCloseSidebar}
       /> */}

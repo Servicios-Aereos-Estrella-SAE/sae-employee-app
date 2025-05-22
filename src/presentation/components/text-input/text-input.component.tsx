@@ -1,21 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { TextInput as PaperTextInput } from 'react-native-paper'
-import { StyleSheet, View, Text, Dimensions } from 'react-native'
-import { useAppTheme } from '../../theme/theme-context'
-const { height } = Dimensions.get('window')
+import { View, Text } from 'react-native'
+import useTextInputStyles from './text-input.style'
+import { ITextInputProps } from './types/text-input-props.interface'
+import TextInputController from './text-input.controller'
 
-interface TextInputProps {
-  label: string
-  value: string
-  onChangeText: (text: string) => void
-  secureTextEntry?: boolean
-  error?: string
-  keyboardType?: 'default' | 'email-address' | 'numeric' | 'phone-pad'
-  leftIcon?: string
-  rightIcon?: string
-}
-
-export const TextInput: React.FC<TextInputProps> = ({
+export const TextInput: React.FC<ITextInputProps> = ({
   label,
   value,
   onChangeText,
@@ -25,46 +15,40 @@ export const TextInput: React.FC<TextInputProps> = ({
   leftIcon,
   rightIcon
 }) => {
-  const [passwordVisible, setPasswordVisible] = useState(false)
-  const { theme } = useAppTheme()
-
-  const togglePasswordVisibility = () => {
-    setPasswordVisible(!passwordVisible)
-  }
+  const controller = TextInputController()
+  const styles = useTextInputStyles()
 
   return (
     <View style={styles.container}>
-      {/* Label fijo en la parte superior */}
-      <Text style={[styles.labelText, { color: theme.colors.text }]}>
+      <Text style={[styles.labelText]}>
         {label}
       </Text>
 
-      {/* Input con modo flat para evitar la animación del label */}
       <PaperTextInput
         value={value}
         onChangeText={onChangeText}
-        secureTextEntry={secureTextEntry && !passwordVisible}
+        secureTextEntry={secureTextEntry && !controller.passwordVisible}
         error={!!error}
         keyboardType={keyboardType}
-        style={[styles.input, { backgroundColor: theme.colors.surface }]}
+        style={[styles.input]}
         mode="outlined"
         placeholder=""
         placeholderTextColor="transparent"
         theme={{
           colors: {
-            primary: theme.colors.primary,
-            background: theme.colors.surface,
-            placeholder: theme.colors.placeholder,
-            text: theme.colors.text
+            primary: styles.primaryColor.color,
+            background: styles.backgroundColor.color,
+            placeholder: styles.placeholderColor.color,
+            text: styles.textColor.color
           },
           roundness: 25
         }}
-        outlineStyle={[styles.outline, { borderColor: theme.colors.border }]}
+        outlineStyle={[styles.outline]}
         left={
           leftIcon ? (
             <PaperTextInput.Icon
               icon={leftIcon}
-              color={theme.colors.textSecondary}
+              color={styles.textSecondaryColor.color}
               size={18}
             />
           ) : undefined
@@ -72,52 +56,22 @@ export const TextInput: React.FC<TextInputProps> = ({
         right={
           rightIcon && secureTextEntry ? (
             <PaperTextInput.Icon
-              icon={passwordVisible ? 'eye-off' : 'eye'}
-              color={theme.colors.textSecondary}
+              icon={controller.passwordVisible ? 'eye-off' : 'eye'}
+              color={styles.textSecondaryColor.color}
               size={18}
-              onPress={togglePasswordVisibility}
+              onPress={controller.togglePasswordVisibility}
             />
           ) : rightIcon ? (
             <PaperTextInput.Icon
               icon={rightIcon}
-              color={theme.colors.textSecondary}
+              color={styles.textSecondaryColor.color}
               size={18}
             />
           ) : undefined
         }
       />
 
-      {/* Mensaje de error si existe */}
       {error && <Text style={styles.errorText}>{error}</Text>}
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    marginBottom: 16
-  },
-  labelText: {
-    color: '#303e67',
-    fontSize: 14,
-    marginBottom: 4,
-    fontWeight: '500',
-    paddingLeft: 12
-  },
-  input: {
-    backgroundColor: '#ffffff',
-    height: height * 0.055,
-    paddingHorizontal: 5
-  },
-  outline: {
-    borderRadius: 25,
-    borderWidth: 1,
-    borderColor: '#e2ebf6'
-  },
-  errorText: {
-    color: '#FF0000',
-    fontSize: 12,
-    marginTop: 4,
-    paddingLeft: 12
-  }
-})
