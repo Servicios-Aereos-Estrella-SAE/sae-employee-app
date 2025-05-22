@@ -13,8 +13,8 @@ import {
 import { StatusBar } from 'expo-status-bar'
 import { useFocusEffect } from '@react-navigation/native'
 import AuthenticatedLayout from '../../layouts/authenticated-layout/authenticated.layout'
-import { CheckInIcon } from '../../icons/check-in/check-in.icon'
-import { CheckOutIcon } from '../../icons/check-out/check-out.icon'
+import { CheckInIcon } from '../../icons/check-in-icon/check-in.icon'
+import { CheckOutIcon } from '../../icons/check-out-icon/check-out.icon'
 // import { UserController } from '../../../models/user-old/infrastructure/UserController'
 // import { useAppTheme } from '../../theme/ThemeContext'
 
