@@ -50,16 +50,13 @@ export class LoginAPIRepository implements Pick<AuthenticationPorts, 'login'> {
    * Realiza el proceso de autenticación del usuario contra la API
    * <br />
    * - Se almacena el token de autenticación en el almacenamiento local para futuras solicitudes.
-   * @param {AuthenticationEntity} authentication: Authentication - Objeto Authentication con las credenciales de inicio de sesión
    * @returns {Promise<AuthenticationEntity>} Promesa que resuelve a un objeto Authentication con los datos del usuario y token de sesión
    * @throws { RequiredAllFieldsException } si no se proporcionan las credenciales
    * @throws { RequiredFieldException } si algún campo de las credenciales está vacío
    * @throws { InvalidFieldFormatException } si algún campo de las credenciales tiene formato inválido
    * @throws { Error } si hay problemas de conexión con la API
    */
-  async login(
-    authentication: AuthenticationEntity
-  ): Promise<AuthenticationEntity> {
+  async login(authentication: AuthenticationEntity): Promise<AuthenticationEntity> {
     try {
       if (!authentication.props.loginCredentials) {
         throw new RequiredAllFieldsException()

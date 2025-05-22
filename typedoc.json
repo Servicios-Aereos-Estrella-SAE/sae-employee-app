@@ -1,0 +1,22 @@
+{
+  "entryPoints": ["./src"],
+  "entryPointStrategy": "expand",
+  "out": "docs",
+  "name": "SAE Employee, App",
+  "includeVersion": true,
+  "hideGenerator": true,
+  "navigationLinks": {
+    "GitHub": "https://github.com/your-username/sae-employee-app"
+  },
+  "visibilityFilters": {
+    "protected": true,
+    "private": false,
+    "inherited": true,
+    "external": true
+  },
+  "categorizeByGroup": true,
+  "searchInComments": true,
+  "plugin": [],
+  "skipErrorChecking": true,
+  "theme": "default"
+} 

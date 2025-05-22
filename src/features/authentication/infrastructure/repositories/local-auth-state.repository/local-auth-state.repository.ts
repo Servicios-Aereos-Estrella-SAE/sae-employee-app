@@ -6,7 +6,6 @@ import { AuthenticationPorts } from '../../../domain/ports/authentication.ports.
 /**
  * Obtener el estado de autenticación del usuario desde el almacenamiento local en el dispositivo
  * @class LocalAuthStateRepository
- * @implements {Pick<AuthenticationPorts, 'getAuthState'>}
  */
 export class LocalAuthStateRepository implements Pick<AuthenticationPorts, 'getAuthState'>
 {

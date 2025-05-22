@@ -17,6 +17,7 @@ export default [
       'commitlint.config.cjs',
       'App copy.tsx',
       'App.tsx',
+      '**/docs/**'
     ]
   },
   // JS files (babel config, etc.)

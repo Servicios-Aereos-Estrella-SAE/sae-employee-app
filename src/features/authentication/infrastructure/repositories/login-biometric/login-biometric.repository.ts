@@ -48,14 +48,12 @@ interface SessionResponse {
 /**
  * Repositorio que implementa la comunicación con la API para procesos de autenticación mediante biometría
  * @class LoginBiometricRepository
- * @implements {Pick<AuthenticationPorts, 'login'>}
  */
 export class LoginBiometricRepository implements Pick<AuthenticationPorts, 'login'> {
   private readonly authState: GetAuthStateUsecase
 
   /**
    * Constructor de la clase LoginBiometricRepository
-   * @constructor
    */
   constructor() {
     const authStateRepository = new LocalAuthStateRepository()
@@ -153,7 +151,8 @@ export class LoginBiometricRepository implements Pick<AuthenticationPorts, 'logi
           isAuthenticated: true
         },
         userName: userName,
-        loginCredentials: credentials
+        loginCredentials: credentials,
+        createdAt: new Date()
       })
 
       if (

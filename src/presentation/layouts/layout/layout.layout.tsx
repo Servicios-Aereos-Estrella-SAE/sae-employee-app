@@ -7,7 +7,6 @@ import Header from '../../components/header/header.component'
 
 /**
  * Layout principal de la aplicación
- * @component
  * @param {ILayoutProps} props - Propiedades del layout
  * @returns {JSX.Element} Layout principal de la aplicación
  */

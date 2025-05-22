@@ -20,7 +20,6 @@ import SidebarItem from '../sidebar-item/sidebar-item.component'
 
 /**
  * Componente Sidebar para la aplicación
- * @component
  * @param {ISidebarProps} props - Propiedades del sidebar
  * @returns {JSX.Element} Componente Sidebar
  */

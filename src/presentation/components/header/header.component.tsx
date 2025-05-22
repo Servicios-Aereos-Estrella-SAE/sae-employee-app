@@ -7,7 +7,6 @@ import IHeaderProps from './types/header-props.interface'
 
 /**
  * Componente Header para la aplicación
- * @component
  * @param {Function} props.onMenuPress - Función a ejecutar cuando se presiona el botón de menú
  * @returns {JSX.Element} Componente Header
  */
