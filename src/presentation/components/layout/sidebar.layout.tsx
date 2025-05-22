@@ -88,7 +88,7 @@ const ThemeIcon = ({ color, isDark }: { color: string; isDark: boolean }) => (
   </Svg>
 )
 
-const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
+const SidebarLayout: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   const translateX = React.useRef(new Animated.Value(-width)).current
   const insets = useSafeAreaInsets()
   const { theme, themeType, toggleTheme } = useAppTheme()
@@ -110,11 +110,11 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
 
   const handleLogout = async () => {
     // await authService.clearAuthState()
-    navigation.replace('Login')
+    navigation.replace('authenticationScreen')
   }
   const handleFullLogout = async () => {
     // await authService.clearFullAuthState()
-    navigation.replace('Login')
+    navigation.replace('authenticationScreen')
   }
 
   return (
@@ -386,4 +386,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Sidebar
+export default SidebarLayout

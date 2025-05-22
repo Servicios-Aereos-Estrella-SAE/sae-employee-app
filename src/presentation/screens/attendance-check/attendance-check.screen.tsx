@@ -13,8 +13,8 @@ import {
 import { StatusBar } from 'expo-status-bar'
 import { useFocusEffect } from '@react-navigation/native'
 import AuthenticatedLayout from '../../layouts/authenticated-layout/authenticated.layout'
-import { CheckInIcon } from '../../components/icons/CheckInIcon'
-import { CheckInOutIcon } from '../../components/icons/CheckInOutIcon'
+import { CheckInIcon } from '../../components/icons/check-in.icon'
+import { CheckOutIcon } from '../../components/icons/check-out.icon'
 // import { UserController } from '../../../models/user-old/infrastructure/UserController'
 // import { useAppTheme } from '../../theme/ThemeContext'
 
@@ -134,7 +134,7 @@ export const AttendanceCheckScreen: React.FC = () => {
         ]}
       >
         <ImageBackground
-          source={require('../../../../assets/images/dots.jpg')}
+          source={require('../../../../assets/images/dots.png')}
           style={styles.backgroundImage}
           imageStyle={{ opacity: themeType === 'dark' ? 0 : 0.8 }}
         >
@@ -217,7 +217,7 @@ export const AttendanceCheckScreen: React.FC = () => {
                     }
                   ]}
                 >
-                  <CheckInOutIcon
+                  <CheckOutIcon
                     size={24}
                     color={
                       checkInTime
@@ -252,7 +252,7 @@ export const AttendanceCheckScreen: React.FC = () => {
                     { backgroundColor: theme.colors.indicator }
                   ]}
                 >
-                  <CheckInOutIcon
+                  <CheckOutIcon
                     size={24}
                     color={theme.colors.textSecondary}
                   />
@@ -279,7 +279,7 @@ export const AttendanceCheckScreen: React.FC = () => {
                     { backgroundColor: theme.colors.indicator }
                   ]}
                 >
-                  <CheckInOutIcon
+                  <CheckOutIcon
                     size={24}
                     color={theme.colors.textSecondary}
                   />
@@ -306,7 +306,7 @@ export const AttendanceCheckScreen: React.FC = () => {
                     { backgroundColor: theme.colors.indicator }
                   ]}
                 >
-                  <CheckInOutIcon
+                  <CheckOutIcon
                     size={24}
                     color={theme.colors.textSecondary}
                   />

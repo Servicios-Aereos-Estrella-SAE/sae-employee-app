@@ -1,12 +1,12 @@
 import React from 'react'
 import Svg, { Path } from 'react-native-svg'
 
-interface CheckInOutIconProps {
+interface CheckOutIconProps {
   size?: number
   color?: string
 }
 
-export const CheckInOutIcon: React.FC<CheckInOutIconProps> = ({
+export const CheckOutIcon: React.FC<CheckOutIconProps> = ({
   size = 24,
   color = '#88a4bf'
 }) => {

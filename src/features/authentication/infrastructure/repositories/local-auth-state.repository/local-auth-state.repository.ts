@@ -1,6 +1,6 @@
  
 import { AuthenticationLocalStorageService } from '../../services/authentication-local-storage.service'
-import { AuthenticationEntity } from '../../../domain/entities/authenticationEntity.js'
+import { AuthenticationEntity } from '../../../domain/entities/authentication-entity.js'
 import { AuthenticationPorts } from '../../../domain/ports/authentication.ports.js'
 
 /**

@@ -3,7 +3,7 @@
 
 import * as SecureStore from 'expo-secure-store'
 import { AUTHENTICATION_KEY } from '@env'
-import { AuthenticationEntity } from '../../domain/entities/authenticationEntity'
+import { AuthenticationEntity } from '../../domain/entities/authentication-entity'
 import i18next from 'i18next'
 
 /**

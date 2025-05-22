@@ -1,6 +1,6 @@
 import { GetAuthStateUsecase } from '../../application/get-auth-state/get-auth-state.usecase'
 import { LocalAuthStateRepository } from '../repositories/local-auth-state.repository/local-auth-state.repository'
-import { AuthenticationEntity } from '../../domain/entities/authenticationEntity'
+import { AuthenticationEntity } from '../../domain/entities/authentication-entity'
 
 /**
  * Controlador para obtener el estado de autenticación del usuario

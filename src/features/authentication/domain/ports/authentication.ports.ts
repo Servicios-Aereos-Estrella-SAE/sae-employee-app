@@ -1,4 +1,4 @@
-import { AuthenticationEntity } from '../entities/authenticationEntity'
+import { AuthenticationEntity } from '../entities/authentication-entity'
 
 /**
  * Interfaz que define los puertos de autenticación para la comunicación con servicios externos

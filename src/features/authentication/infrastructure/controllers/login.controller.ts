@@ -1,6 +1,6 @@
 import { LoginAuthenticationUsecase } from '../../application/login-authentication/login-authentication.usecase'
 import { ILoginAuthenticationDTO } from '../../application/login-authentication/login-authentication.dto'
-import { AuthenticationEntity } from '../../domain/entities/authenticationEntity'
+import { AuthenticationEntity } from '../../domain/entities/authentication-entity'
 import i18next from 'i18next'
 import { LoginRepositoryFactory } from '../factories/login-repository.factory'
 

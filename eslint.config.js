@@ -1,9 +1,10 @@
-import typescriptPlugin from '@typescript-eslint/eslint-plugin';
-import typescriptParser from '@typescript-eslint/parser';
-import reactPlugin from 'eslint-plugin-react';
-import reactHooksPlugin from 'eslint-plugin-react-hooks';
-import prettierPlugin from 'eslint-plugin-prettier';
-import js from '@eslint/js';
+import typescriptPlugin from '@typescript-eslint/eslint-plugin'
+import typescriptParser from '@typescript-eslint/parser'
+import reactPlugin from 'eslint-plugin-react'
+import reactHooksPlugin from 'eslint-plugin-react-hooks'
+import prettierPlugin from 'eslint-plugin-prettier'
+import js from '@eslint/js'
+import unicornPlugin from 'eslint-plugin-unicorn'
 
 export default [
   js.configs.recommended,
@@ -40,7 +41,8 @@ export default [
       '@typescript-eslint': typescriptPlugin,
       'react': reactPlugin,
       'react-hooks': reactHooksPlugin,
-      'prettier': prettierPlugin
+      'prettier': prettierPlugin,
+      'unicorn': unicornPlugin
     },
     languageOptions: {
       parser: typescriptParser,
@@ -151,7 +153,13 @@ export default [
           selector: 'parameter',
           format: ['camelCase']
         }
-      ]
+      ],
+      'unicorn/filename-case': [
+        'error',
+        {
+          case: 'kebabCase'
+        }
+      ],
     }
   }
-]; 
+] 

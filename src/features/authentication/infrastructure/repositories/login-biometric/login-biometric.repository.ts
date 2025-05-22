@@ -1,5 +1,5 @@
  
-import { AuthenticationEntity } from '../../../domain/entities/authenticationEntity'
+import { AuthenticationEntity } from '../../../domain/entities/authentication-entity'
 import { AuthenticationPorts } from '../../../domain/ports/authentication.ports'
 import { RequiredFieldException } from '../../../../../shared/domain/exceptions/required-field.exception'
 import { InvalidFieldFormatException } from '../../../../../shared/domain/exceptions/invalid-field-format.exception'
