@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native'
-import { IAppTheme } from '../../../theme/app-theme.interface'
-import { useAppTheme } from '../../../theme/theme-context'
+import { IAppTheme } from '../../theme/app-theme.interface'
+import { useAppTheme } from '../../theme/theme-context'
 
 const createHeaderLayoutStyle = (theme: IAppTheme) =>
   StyleSheet.create({

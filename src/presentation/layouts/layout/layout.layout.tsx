@@ -1,10 +1,16 @@
 import { View } from 'react-native'
-import Header from './header/header.layout'
-// import Sidebar from '../../components/sidebar/sidebar.component'
+import Sidebar from '../../components/sidebar/sidebar.component'
 import useLayoutStyle from './layout.style'
 import LayoutController from './layout.controller'
-import ILayoutProps from './types/layout-props.interface'
+import { ILayoutProps } from './types/layout-props.interface'
+import Header from '../../components/header/header.component'
 
+/**
+ * Layout principal de la aplicación
+ * @component
+ * @param {ILayoutProps} props - Propiedades del layout
+ * @returns {JSX.Element} Layout principal de la aplicación
+ */
 const Layout: React.FC<ILayoutProps> = (props) => {
   const controller = LayoutController(props)
   const styles = useLayoutStyle()
@@ -13,10 +19,10 @@ const Layout: React.FC<ILayoutProps> = (props) => {
     <View style={[styles.container]}>
       <Header onMenuPress={controller.handleMenuPress} />
       <View style={styles.content}>{controller.props.children}</View>
-      {/* <Sidebar
+      <Sidebar
         isOpen={controller.isSidebarOpen}
         onClose={controller.handleCloseSidebar}
-      /> */}
+      />
     </View>
   )
 }

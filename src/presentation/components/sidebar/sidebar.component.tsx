@@ -18,6 +18,12 @@ import { ChangeAccountIcon } from '../../icons/change-account-icon/change-accoun
 import { LogoutIcon } from '../../icons/logout-icon/logout.icon'
 import SidebarItem from '../sidebar-item/sidebar-item.component'
 
+/**
+ * Componente Sidebar para la aplicación
+ * @component
+ * @param {ISidebarProps} props - Propiedades del sidebar
+ * @returns {JSX.Element} Componente Sidebar
+ */
 const SidebarLayout: React.FC<ISidebarProps> = ({ isOpen, onClose }) => {
   const controller = SidebarController({ isOpen, onClose })
   const styles = useSidebarStyles(controller.translateX)
@@ -110,7 +116,7 @@ const SidebarLayout: React.FC<ISidebarProps> = ({ isOpen, onClose }) => {
               <SidebarItem
                 icon={
                   <ThemeIcon
-                    color={styles.sidebarIconText.color}
+                    color={styles.sidebarIcon.color}
                     isDark={controller.themeType === 'dark'}
                   />
                 }
@@ -124,7 +130,7 @@ const SidebarLayout: React.FC<ISidebarProps> = ({ isOpen, onClose }) => {
 
             <View style={styles.menuGroup}>
               <SidebarItem
-                icon={<ChangeAccountIcon color={styles.sidebarIconText.color} />}
+                icon={<ChangeAccountIcon color={styles.sidebarIcon.color} />}
                 label="Cambiar de Cuenta"
                 textColor={styles.sidebarIconText.color}
                 onPress={controller.handleFullLogout}
