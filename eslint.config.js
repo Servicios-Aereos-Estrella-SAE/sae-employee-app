@@ -11,7 +11,9 @@ export default [
     ignores: [
       'node_modules/**',
       'babel.config.js',
+      'babel.config.cjs',
       'commitlint.config.js',
+      'commitlint.config.cjs',
       'App copy.tsx',
       'App.tsx',
     ]

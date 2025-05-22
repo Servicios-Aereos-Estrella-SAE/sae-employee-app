@@ -12,7 +12,6 @@ import './src/shared/domain/i18n/i18n'
 // Wrap everything in our theme provider
 const ThemedApp: React.FC = () => {
   const { theme } = useAppTheme()
-
   return (
     <PaperProvider theme={theme}>
       <AppNavigator />

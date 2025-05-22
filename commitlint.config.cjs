@@ -5,4 +5,4 @@ module.exports = {
     'body-max-line-length': [2, 'never', Infinity],
     'header-max-length': [2, 'never', Infinity]
   }
-}
+} 

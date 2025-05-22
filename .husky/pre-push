@@ -1,0 +1,25 @@
+# #!/usr/bin/env sh
+# . "$(dirname -- "$0")/_/husky.sh"
+
+echo "🔍 Verificando código antes de push..."
+
+# Ejecutar linter primero
+echo "🧹 Ejecutando linter..."
+echo " - En caso de que falle, se detendrá el push"
+echo " - Ejecuta 'npm run lint' para ver la salida completa"
+echo ""
+lint_output=$(npm run lint 2>&1)
+lint_status=$?
+
+if [ $lint_status -ne 0 ]; then
+  echo ""
+  echo "❌ ERROR: El linter encontró problemas con código de salida $lint_status"
+  echo "Por favor, corrija los errores de linting antes de hacer push."
+  exit 1
+fi
+
+echo "✅ Linter pasó correctamente!"
+
+echo "Procediendo con el push..."
+echo ""
+exit 0
