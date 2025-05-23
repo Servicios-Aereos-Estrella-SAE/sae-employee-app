@@ -188,4 +188,4 @@ const AuthenticationScreenController = () => {
   }
 }
 
-export default AuthenticationScreenController
+export { AuthenticationScreenController }

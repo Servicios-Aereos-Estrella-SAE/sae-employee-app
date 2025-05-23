@@ -18,7 +18,7 @@ import { TextInput } from '../../components/text-input/text-input.component'
 import { Button } from '../../components/button/button.component'
 import { BiometricButton } from '../../components/biometric-button/biometric-button.component'
 
-import AuthenticationScreenController from './authentication-screen.controller'
+import { AuthenticationScreenController } from './authentication-screen.controller'
 import useAuthenticationStyle from './authentication.style'
 
 export const AuthenticationScreen: React.FC = () => {
