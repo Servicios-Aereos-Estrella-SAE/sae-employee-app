@@ -134,7 +134,7 @@ export const AttendanceCheckScreen: React.FC = () => {
         ]}
       >
         <ImageBackground
-          source={require('../../../assets/images/dots.png')}
+          source={require('../../../assets/images/background-attendance.png')}
           style={styles.backgroundImage}
           imageStyle={{ opacity: themeType === 'dark' ? 0 : 0.8 }}
         >
