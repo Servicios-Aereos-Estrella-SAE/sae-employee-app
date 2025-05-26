@@ -21,6 +21,10 @@ import { BiometricButton } from '../../components/biometric-button/biometric-but
 import { AuthenticationScreenController } from './authentication-screen.controller'
 import useAuthenticationStyle from './authentication.style'
 
+/**
+ * @description AuthenticationScreen es la pantalla que permite al usuario autenticarse con correo electrónico y contraseña
+ * @returns {React.FC}
+ */
 export const AuthenticationScreen: React.FC = () => {
   const controller = AuthenticationScreenController()
   const style = useAuthenticationStyle()
