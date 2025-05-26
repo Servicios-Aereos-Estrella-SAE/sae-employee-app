@@ -1,6 +1,9 @@
+import { EmailVO } from '../../../../shared/domain/value-objects/email.vo'
+import { IntegerIdVO } from '../../../../shared/domain/value-objects/integer-id.vo'
+
 export interface IUser {
-  id: number | null
-  email: string
+  id: IntegerIdVO | null
+  email: EmailVO
   password: string
   token: string | null
   pinCode: string | null
