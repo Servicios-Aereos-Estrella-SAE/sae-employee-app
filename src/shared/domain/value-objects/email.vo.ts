@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import { InvalidFieldFormatException } from '../exceptions/invalid-field-format.exception'
 
 /**
@@ -11,18 +12,43 @@ export class EmailVO {
    * - Valida que el correo electrónico sea válido.
    */
   constructor(private readonly email: string) {
-    if (!this.isValidEmail(email)) {
-      throw new InvalidFieldFormatException('email')
-    }
+    this.isValidEmail(email)
+    this.ensureNoSqlInjection(email)
   }
 
   /**
    * Valida si el correo electrónico es válido.
    * @param {string} email - El correo electrónico a validar.
-   * @returns {boolean} - true si el correo electrónico es válido, false en caso contrario.
+   * @returns {void}
    */
-  private isValidEmail(email: string): boolean {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+  private isValidEmail(email: string): void {
+    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+    if (!regex.test(email)) {
+      throw new InvalidFieldFormatException('email')
+    }
+  }
+
+  /**
+   * Valida que el correo electrónico no contenga patrones de inyección SQL
+   * @param value - El correo electrónico a validar
+   * @throws {InvalidFieldFormatException} Si se detectan patrones de inyección SQL
+   * @return {void}
+   */
+  private ensureNoSqlInjection(email: string): void {
+    const sqlInjectionPatterns = [
+      /(\%27)|(\')|(\-\-)|(\%23)|(#)/i,
+      /((\%3D)|(=))[^\n]*((\%27)|(\')|(\-\-)|(\%3B)|(;))/i,
+      /\w*((\%27)|(\'))((\%6F)|o|(\%4F))((\%72)|r|(\%52))/i,
+      /((\%27)|(\'))union/i,
+      /exec(\s|\+)+(s|x)p\w+/i,
+      /insert|update|delete|drop|truncate|alter/i
+    ]
+
+    for (const pattern of sqlInjectionPatterns) {
+      if (pattern.test(email)) {
+        throw new InvalidFieldFormatException('email')
+      }
+    }
   }
 
   /**
