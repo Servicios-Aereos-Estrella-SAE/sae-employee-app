@@ -7,6 +7,9 @@ import { HttpService } from '../../../../../shared/infrastructure/services/http-
 import { AuthenticationLocalStorageService } from '../../services/authentication-local-storage.service'
 import { AxiosError } from 'axios'
 import i18next from 'i18next'
+import { IntegerIdVO } from '../../../../../shared/domain/value-objects/integer-id.vo'
+import { EmailVO } from '../../../../../shared/domain/value-objects/email.vo'
+import { ActiveVO } from '../../../../../shared/domain/value-objects/active.vo'
 
 interface LoginResponse {
   status: number
@@ -86,14 +89,14 @@ export class LoginAPIRepository implements Pick<AuthenticationPorts, 'login'> {
 
       const userName = await this.getSessionUserName()
       const user = {
-        id: parseInt(responseData.user.userId),
-        email: responseData.user.userEmail,
+        id: new IntegerIdVO(parseInt(responseData.user.userId)),
+        email: new EmailVO(responseData.user.userEmail),
         password: responseData.user.userPassword,
         token: responseData.token,
         pinCode: responseData.user.userPinCode,
-        active: responseData.user.userActive,
-        personId: parseInt(responseData.user.personId),
-        roleId: parseInt(responseData.user.roleId),
+        active: new ActiveVO(responseData.user.userActive ? 1 : 0),
+        personId: responseData.user.personId ? new IntegerIdVO(parseInt(responseData.user.personId)) : null,
+        roleId: responseData.user.roleId ? new IntegerIdVO(parseInt(responseData.user.roleId)) : null,
         pinCodeExpiresAt: responseData.user.pinCodeExpiresAt
           ? new Date(responseData.user.pinCodeExpiresAt)
           : null,

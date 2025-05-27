@@ -1,4 +1,3 @@
- 
 import { AuthenticationEntity } from '../../../domain/entities/authentication-entity'
 import { AuthenticationPorts } from '../../../domain/ports/authentication.ports'
 import { RequiredFieldException } from '../../../../../shared/domain/exceptions/required-field.exception'
@@ -11,6 +10,9 @@ import i18next from 'i18next'
 import { BiometricsService } from '../../services/biometrics.service'
 import { GetAuthStateUsecase } from '../../../application/get-auth-state/get-auth-state.usecase'
 import { LocalAuthStateRepository } from '../local-auth-state.repository/local-auth-state.repository'
+import { IntegerIdVO } from '../../../../../shared/domain/value-objects/integer-id.vo'
+import { EmailVO } from '../../../../../shared/domain/value-objects/email.vo'
+import { ActiveVO } from '../../../../../shared/domain/value-objects/active.vo'
 
 interface LoginResponse {
   status: number
@@ -121,14 +123,14 @@ export class LoginBiometricRepository implements Pick<AuthenticationPorts, 'logi
 
       const userName = await this.getSessionUserName()
       const user = {
-        id: parseInt(responseData.user.userId),
-        email: responseData.user.userEmail,
+        id: new IntegerIdVO(parseInt(responseData.user.userId)),
+        email: new EmailVO(responseData.user.userEmail),
         password: responseData.user.userPassword,
         token: responseData.token,
         pinCode: responseData.user.userPinCode,
-        active: responseData.user.userActive,
-        personId: parseInt(responseData.user.personId),
-        roleId: parseInt(responseData.user.roleId),
+        active: new ActiveVO(responseData.user.userActive ? 1 : 0),
+        personId: responseData.user.personId ? new IntegerIdVO(parseInt(responseData.user.personId)) : null,
+        roleId: responseData.user.roleId ? new IntegerIdVO(parseInt(responseData.user.roleId)) : null,
         pinCodeExpiresAt: responseData.user.pinCodeExpiresAt
           ? new Date(responseData.user.pinCodeExpiresAt)
           : null,
