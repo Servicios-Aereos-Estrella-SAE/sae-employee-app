@@ -7,8 +7,8 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from '../../../navigation/types/types'
 import { LoginController } from '../../../src/features/authentication/infrastructure/controllers/login.controller'
 import { ELoginTypes } from '../../../src/features/authentication/application/types/login-types.enum'
-import { AuthCredentialsController } from '../../../src/features/authentication/infrastructure/controllers/auth-credentials.controller'
 import { BiometricsService } from '../../../src/features/authentication/infrastructure/services/biometrics.service'
+import { AuthStateController } from '../../../src/features/authentication/infrastructure/controllers/auth-state.controller'
 
 /**
  * Controlador de la pantalla de autenticación
@@ -76,8 +76,6 @@ const AuthenticationScreenController = () => {
       })
 
       await setAuthStateData()
-
-      // Alert.alert('Login exitoso', 'Usuario autenticado correctamente')
       navigation.replace('attendanceCheck')
     } catch (error) {
       Alert.alert(
@@ -98,16 +96,19 @@ const AuthenticationScreenController = () => {
    */
   const setAuthStateData = async (): Promise<void> => {
     try {
-      const authCredentialsController = new AuthCredentialsController()
-      const authCredentials = await authCredentialsController.getAuthCredentials()
+      const authStateController = new AuthStateController()
+      const authState = await authStateController.getAuthState()
 
-      if (!authCredentials || !authCredentials.props.authState?.isAuthenticated) {
+      if (!authState || !authState.props.authState?.isAuthenticated) {
         return
       }
 
-      setHasStoredCredentials(!!authCredentials?.props.authState?.isAuthenticated)
-      setUserName(authCredentials?.props.userName || '')
-      setEmail(authCredentials?.props.loginCredentials?.email || '')
+      if (authState.props.authState?.user?.props.person) {
+        setUserName(authState.props.authState.user.props.person.props.firstname || '')
+      }
+
+      setHasStoredCredentials(!!authState?.props.authState?.isAuthenticated)
+      setEmail(authState?.props.loginCredentials?.email || '')
       return
     } catch (error) {
       throw new Error(t('errors.authenticationGetStorageError'))

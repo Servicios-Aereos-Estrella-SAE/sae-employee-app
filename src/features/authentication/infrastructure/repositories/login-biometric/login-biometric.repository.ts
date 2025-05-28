@@ -8,8 +8,8 @@ import { AuthenticationLocalStorageService } from '../../services/authentication
 import { AxiosError } from 'axios'
 import i18next from 'i18next'
 import { BiometricsService } from '../../services/biometrics.service'
-import { GetAuthStateUsecase } from '../../../application/get-auth-state/get-auth-state.usecase'
-import { LocalAuthCredentialsRepository } from '../local-auth-credentials.repository/local-auth-credentials.repository'
+import { GetAuthCredentialsUsecase } from '../../../application/get-auth-credentials/get-auth-credentials.usecase'
+import { LocalAuthCredentialsRepository } from '../local-auth-credentials/local-auth-credentials.repository'
 import { IntegerIdVO } from '../../../../../shared/domain/value-objects/integer-id.vo'
 import { EmailVO } from '../../../../../shared/domain/value-objects/email.vo'
 import { ActiveVO } from '../../../../../shared/domain/value-objects/active.vo'
@@ -53,14 +53,14 @@ interface SessionResponse {
  * @class LoginBiometricRepository
  */
 export class LoginBiometricRepository implements Pick<AuthenticationPorts, 'login'> {
-  private readonly authCredentials: GetAuthStateUsecase
+  private readonly authCredentials: GetAuthCredentialsUsecase
 
   /**
    * Constructor de la clase LoginBiometricRepository
    */
   constructor() {
     const authCredentialsRepository = new LocalAuthCredentialsRepository()
-    this.authCredentials = new GetAuthStateUsecase(authCredentialsRepository)
+    this.authCredentials = new GetAuthCredentialsUsecase(authCredentialsRepository)
   }
 
   /**
@@ -122,7 +122,6 @@ export class LoginBiometricRepository implements Pick<AuthenticationPorts, 'logi
 
       HttpService.setBearerToken(responseData.token)
 
-      const userName = await this.getSessionUserName()
       const user = {
         id: new IntegerIdVO(parseInt(responseData.user.userId)),
         email: new EmailVO(responseData.user.userEmail),
@@ -153,7 +152,6 @@ export class LoginBiometricRepository implements Pick<AuthenticationPorts, 'logi
           token: responseData.token,
           isAuthenticated: true
         },
-        userName: userName,
         loginCredentials: credentials,
         createdAt: new Date()
       })

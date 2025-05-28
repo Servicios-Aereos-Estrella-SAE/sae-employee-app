@@ -97,7 +97,6 @@ export class LoginAPIRepository implements Pick<AuthenticationPorts, 'login'> {
           token: responseData.token,
           isAuthenticated: true
         },
-        userName: 'userName',
         loginCredentials: authentication.props.loginCredentials,
         createdAt: new Date()
       })

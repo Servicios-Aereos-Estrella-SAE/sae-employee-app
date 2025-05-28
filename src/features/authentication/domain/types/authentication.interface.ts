@@ -19,12 +19,6 @@ export interface IAuthentication {
   readonly loginCredentials?: ILoginCredentials
 
   /**
-   * Nombre del usuario autenticado
-   * @type {string | null | undefined}
-   */
-  readonly userName?: string | null
-
-  /**
    * Fecha de creación de la autenticación
    * @type {Date}
    */

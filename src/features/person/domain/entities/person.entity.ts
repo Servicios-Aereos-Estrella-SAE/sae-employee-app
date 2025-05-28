@@ -17,4 +17,19 @@ export class PersonEntity {
   get props(): IPerson {
     return this.properties
   }
+
+  /**
+   * Obtiene el nombre completo de la persona.
+   * @returns {string} - Nombre completo de la persona.
+   */
+  getFullName(): string {
+    if (!this.properties.firstname && !this.properties.lastname && !this.properties.secondLastname) {
+      return ''
+    }
+
+    const firstName = `${this.properties.firstname || ''}`.trim()
+    const lastName = `${this.properties.lastname || ''}`.trim()
+    const secondLastName = `${this.properties.secondLastname || ''}`.trim()
+    return `${firstName} ${lastName} ${secondLastName}`.trim()
+  }
 }

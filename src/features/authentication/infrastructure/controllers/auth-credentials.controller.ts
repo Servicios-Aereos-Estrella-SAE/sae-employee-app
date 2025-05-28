@@ -1,5 +1,5 @@
-import { GetAuthStateUsecase } from '../../application/get-auth-state/get-auth-state.usecase'
-import { LocalAuthCredentialsRepository } from '../repositories/local-auth-credentials.repository/local-auth-credentials.repository'
+import { GetAuthCredentialsUsecase } from '../../application/get-auth-credentials/get-auth-credentials.usecase'
+import { LocalAuthCredentialsRepository } from '../repositories/local-auth-credentials/local-auth-credentials.repository'
 import { AuthenticationEntity } from '../../domain/entities/authentication-entity'
 
 /**
@@ -8,14 +8,14 @@ import { AuthenticationEntity } from '../../domain/entities/authentication-entit
  */
 export class AuthCredentialsController {
   private readonly repository: LocalAuthCredentialsRepository
-  private readonly usecase: GetAuthStateUsecase
+  private readonly usecase: GetAuthCredentialsUsecase
 
   /**
    * Constructor del controlador de autenticación
    */
   constructor() {
     this.repository = new LocalAuthCredentialsRepository()
-    this.usecase = new GetAuthStateUsecase(this.repository)
+    this.usecase = new GetAuthCredentialsUsecase(this.repository)
   }
 
   /**

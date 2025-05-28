@@ -7,6 +7,12 @@ import { AuthenticationEntity } from '../../domain/entities/authentication-entit
 import i18next from 'i18next'
 import { IAuthentication } from '../../domain/types/authentication.interface'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { IEmployee } from '../../../employee/domain/types/employee.interface'
+import { IUser } from '../../../user/domain/types/user.interface'
+import { IPerson } from '../../../person/domain/types/person.interface'
+import { EmployeeEntity } from '../../../employee/domain/entiities/employee.entity'
+import { PersonEntity } from '../../../person/domain/entities/person.entity'
+import { UserEntity } from '../../../user/domain/entities/user.entity'
 
 /**
  * Clase para gestionar el almacenamiento seguro de información del usuario
@@ -38,6 +44,13 @@ export class AuthenticationLocalStorageService {
       throw new Error(i18next.t('errors.authenticationStorageError'))
     }
   }
+
+  /**
+   * Guarda el estado de autenticación del usuario
+   * @param {AuthenticationEntity} authenticationEntity - Objeto AuthenticationEntity
+   * @throws {Error} Si hay un error al guardar el estado de autenticación
+   * @returns {Promise<void>}
+   */
   async localStoreAuthenticationState(authenticationEntity: AuthenticationEntity): Promise<void> {
     if (!authenticationEntity) {
       throw new Error(i18next.t('errors.authenticationEntityRequired'))
@@ -78,10 +91,23 @@ export class AuthenticationLocalStorageService {
       const authenticationObject = authenticationStored ? JSON.parse(authenticationStored) : null
 
       if (authenticationObject) {
+        const responseEmployee = authenticationObject.properties.authState?.user?.properties?.person?.properties?.employee as IEmployee
+        const employee = new EmployeeEntity(responseEmployee)
+
+        const responsePerson = authenticationObject.properties.authState?.user?.properties?.person?.properties as IPerson
+        responsePerson.employee = employee
+        const person = new PersonEntity(responsePerson)
+
+        const responseUser = authenticationObject.properties.authState?.user?.properties as IUser
+        responseUser.person = person
+        const user = new UserEntity(responseUser)
+
         const authenticationEntity = new AuthenticationEntity({
-          authState: authenticationObject.properties.authState,
+          authState: {
+            ...authenticationObject.properties.authState,
+            user: user
+          },
           loginCredentials: authenticationObject.properties.loginCredentials,
-          userName: authenticationObject.properties.userName,
           createdAt: authenticationObject.properties.createdAts
         })
 
