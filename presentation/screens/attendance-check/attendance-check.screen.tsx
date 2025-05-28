@@ -12,6 +12,7 @@ import { CheckInIcon } from '../../icons/check-in-icon/check-in.icon'
 import { CheckOutIcon } from '../../icons/check-out-icon/check-out.icon'
 import useAttendanceCheckStyle from './attendance-check.style'
 import { AttendanceCheckScreenController } from './attendance-check-screen.controller'
+import Clock from '../../components/clock/clock.component'
 
 /**
  * Pantalla para registro de asistencia
@@ -58,14 +59,11 @@ export const AttendanceCheckScreen: React.FC = () => {
 
             {/* Contenido inferior en fondo blanco */}
             <View style={styles.bottomCard}>
-              <View style={styles.timeContainer}>
-                <Text style={styles.hour}>
-                  {controller.hour}
-                </Text>
-                <Text style={styles.date}>
-                  {controller.date.charAt(0).toUpperCase() + controller.date.slice(1)}
-                </Text>
-              </View>
+              <Clock 
+                style={styles.timeContainer}
+                hourStyle={styles.hour}
+                dateStyle={styles.date}
+              />
               {/* Indicadores */}
               <View style={styles.indicatorsContainer}>
                 <View style={[ styles.indicator, controller.checkInTime && styles.indicatorActive ]}>
