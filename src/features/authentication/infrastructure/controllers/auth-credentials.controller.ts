@@ -1,20 +1,20 @@
 import { GetAuthStateUsecase } from '../../application/get-auth-state/get-auth-state.usecase'
-import { LocalAuthStateRepository } from '../repositories/local-auth-state.repository/local-auth-state.repository'
+import { LocalAuthCredentialsRepository } from '../repositories/local-auth-credentials.repository/local-auth-credentials.repository'
 import { AuthenticationEntity } from '../../domain/entities/authentication-entity'
 
 /**
  * Controlador para obtener el estado de autenticación del usuario
  * @class AuthStateController
  */
-export class AuthStateController {
-  private readonly repository: LocalAuthStateRepository
+export class AuthCredentialsController {
+  private readonly repository: LocalAuthCredentialsRepository
   private readonly usecase: GetAuthStateUsecase
 
   /**
    * Constructor del controlador de autenticación
    */
   constructor() {
-    this.repository = new LocalAuthStateRepository()
+    this.repository = new LocalAuthCredentialsRepository()
     this.usecase = new GetAuthStateUsecase(this.repository)
   }
 
@@ -22,7 +22,7 @@ export class AuthStateController {
    * Obtiene el estado de autenticación del usuario
    * @returns {Promise<AuthenticationEntity | null>} Promesa que resuelve a la entidad de autenticación con los datos de sesión o null si no existe
    */
-  async getAuthState(): Promise<AuthenticationEntity | null> {
+  async getAuthCredentials(): Promise<AuthenticationEntity | null> {
     return await this.usecase.run()
   }
 }

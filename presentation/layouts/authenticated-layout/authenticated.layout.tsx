@@ -5,7 +5,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import AuthenticatedLayoutStyle from './authenticated-layout.style'
 import Layout from '../layout/layout.layout'
 import { RootStackParamList } from '../../../navigation/types/types'
-import { AuthStateController } from '../../../src/features/authentication/infrastructure/controllers/auth-state.controller'
+import { AuthCredentialsController } from '../../../src/features/authentication/infrastructure/controllers/auth-credentials.controller'
 interface AuthenticatedLayoutProps {
   children: React.ReactNode
 }
@@ -20,10 +20,10 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
   useEffect(() => {
     const validateSession = async () => {
       try {
-        const authStateController = new AuthStateController()
-        const authState = await authStateController.getAuthState()
+        const authCredentialsController = new AuthCredentialsController()
+        const authCredentials = await authCredentialsController.getAuthCredentials()
         
-        if (!authState) {
+        if (!authCredentials) {
           navigation.replace('authenticationScreen')
         }
       // eslint-disable-next-line @typescript-eslint/no-unused-vars

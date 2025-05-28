@@ -7,7 +7,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from '../../../navigation/types/types'
 import { LoginController } from '../../../src/features/authentication/infrastructure/controllers/login.controller'
 import { ELoginTypes } from '../../../src/features/authentication/application/types/login-types.enum'
-import { AuthStateController } from '../../../src/features/authentication/infrastructure/controllers/auth-state.controller'
+import { AuthCredentialsController } from '../../../src/features/authentication/infrastructure/controllers/auth-credentials.controller'
 import { BiometricsService } from '../../../src/features/authentication/infrastructure/services/biometrics.service'
 
 /**
@@ -98,16 +98,16 @@ const AuthenticationScreenController = () => {
    */
   const setAuthStateData = async (): Promise<void> => {
     try {
-      const authStateController = new AuthStateController()
-      const authState = await authStateController.getAuthState()
+      const authCredentialsController = new AuthCredentialsController()
+      const authCredentials = await authCredentialsController.getAuthCredentials()
 
-      if (!authState || !authState.props.authState?.isAuthenticated) {
+      if (!authCredentials || !authCredentials.props.authState?.isAuthenticated) {
         return
       }
 
-      setHasStoredCredentials(!!authState?.props.authState?.isAuthenticated)
-      setUserName(authState?.props.userName || '')
-      setEmail(authState?.props.loginCredentials?.email || '')
+      setHasStoredCredentials(!!authCredentials?.props.authState?.isAuthenticated)
+      setUserName(authCredentials?.props.userName || '')
+      setEmail(authCredentials?.props.loginCredentials?.email || '')
       return
     } catch (error) {
       throw new Error(t('errors.authenticationGetStorageError'))

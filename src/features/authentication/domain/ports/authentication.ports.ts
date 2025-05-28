@@ -25,10 +25,10 @@ export interface AuthenticationPorts {
   // storeAuthState(authenticationEntity: AuthenticationEntity): Promise<void>
 
   /**
-   * Obtiene el estado de autenticación del usuario
+   * Obtiene las credenciales de autenticación del usuario
    * @returns {Promise<AuthenticationEntity | null>} Promesa que resuelve a la entidad de autenticación con los datos de sesión o null si no existe
    */
-  getAuthState(): Promise<AuthenticationEntity | null>
+  getAuthCredentials(): Promise<AuthenticationEntity | null>
 
   // saveAuthState(token: string, user: User): Promise<void>;
   // getAuthState(): Promise<{ token: string | null; user: User | null }>;

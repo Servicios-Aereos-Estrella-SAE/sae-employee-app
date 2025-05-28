@@ -19,9 +19,7 @@ export class LoginController {
    * @returns {Promise<AuthenticationEntity>} Promesa que resuelve a un objeto Authentication con los datos de la sesión
    * @throws { Error } si hay problemas de conexión con la API
    */
-  async login(
-    loginAuthenticationDTO: ILoginAuthenticationDTO
-  ): Promise<AuthenticationEntity> {
+  async login(loginAuthenticationDTO: ILoginAuthenticationDTO): Promise<AuthenticationEntity> {
     const loginRepository = new LoginRepositoryFactory().repository(
       loginAuthenticationDTO.type
     )
@@ -36,9 +34,7 @@ export class LoginController {
       createdAt: new Date()
     })
 
-    const authenticationResult =
-      await this.loginAuthentication.run(authentication)
-
+    const authenticationResult = await this.loginAuthentication.run(authentication)
     const isAuthenticated = authenticationResult?.props?.authState?.isAuthenticated as boolean
 
     if (!isAuthenticated) {

@@ -9,10 +9,11 @@ import { AxiosError } from 'axios'
 import i18next from 'i18next'
 import { BiometricsService } from '../../services/biometrics.service'
 import { GetAuthStateUsecase } from '../../../application/get-auth-state/get-auth-state.usecase'
-import { LocalAuthStateRepository } from '../local-auth-state.repository/local-auth-state.repository'
+import { LocalAuthCredentialsRepository } from '../local-auth-credentials.repository/local-auth-credentials.repository'
 import { IntegerIdVO } from '../../../../../shared/domain/value-objects/integer-id.vo'
 import { EmailVO } from '../../../../../shared/domain/value-objects/email.vo'
 import { ActiveVO } from '../../../../../shared/domain/value-objects/active.vo'
+import { UserEntity } from '../../../../user/domain/entities/user.entity'
 
 interface LoginResponse {
   status: number
@@ -52,14 +53,14 @@ interface SessionResponse {
  * @class LoginBiometricRepository
  */
 export class LoginBiometricRepository implements Pick<AuthenticationPorts, 'login'> {
-  private readonly authState: GetAuthStateUsecase
+  private readonly authCredentials: GetAuthStateUsecase
 
   /**
    * Constructor de la clase LoginBiometricRepository
    */
   constructor() {
-    const authStateRepository = new LocalAuthStateRepository()
-    this.authState = new GetAuthStateUsecase(authStateRepository)
+    const authCredentialsRepository = new LocalAuthCredentialsRepository()
+    this.authCredentials = new GetAuthStateUsecase(authCredentialsRepository)
   }
 
   /**
@@ -87,15 +88,15 @@ export class LoginBiometricRepository implements Pick<AuthenticationPorts, 'logi
         throw new Error(i18next.t('errors.biometricAuthenticationError'))
       }
 
-      const authState = await this.authState.run()
+      const authCredentials = await this.authCredentials.run()
 
-      if (!authState) {
+      if (!authCredentials) {
         throw new Error(i18next.t('errors.authenticationGetStorageError'))
       }
 
       const credentials = {
-        email: authState.props.loginCredentials?.email || '',
-        password: authState.props.loginCredentials?.password || ''
+        email: authCredentials.props.loginCredentials?.email || '',
+        password: authCredentials.props.loginCredentials?.password || ''
       }
 
       if (!credentials) {
@@ -148,7 +149,7 @@ export class LoginBiometricRepository implements Pick<AuthenticationPorts, 'logi
 
       const newAuthentication = new AuthenticationEntity({
         authState: {
-          user: user,
+          user: new UserEntity(user),
           token: responseData.token,
           isAuthenticated: true
         },
@@ -167,9 +168,8 @@ export class LoginBiometricRepository implements Pick<AuthenticationPorts, 'logi
       const authenticationLocalStorageService =
         new AuthenticationLocalStorageService()
 
-      await authenticationLocalStorageService.localStoreAuthentication(
-        newAuthentication
-      )
+      await authenticationLocalStorageService.localStoreAuthentication(newAuthentication)
+      await authenticationLocalStorageService.localStoreAuthenticationState(newAuthentication)
 
       return newAuthentication
     } catch (error) {

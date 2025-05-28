@@ -1,4 +1,4 @@
-import { IUser } from '../../../user/domain/types/user.interface'
+import { UserEntity } from '../../../user/domain/entities/user.entity'
 
 /**
  * Interfaz que define el estado de autenticación
@@ -9,7 +9,7 @@ export interface IAuthState {
    * Información del usuario autenticado
    * @type {IUser | undefined}
    */
-  readonly user?: IUser
+  readonly user?: UserEntity
 
   /**
    * Token de autenticación
