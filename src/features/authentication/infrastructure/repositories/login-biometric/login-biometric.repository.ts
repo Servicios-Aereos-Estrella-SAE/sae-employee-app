@@ -14,6 +14,12 @@ import { IntegerIdVO } from '../../../../../shared/domain/value-objects/integer-
 import { EmailVO } from '../../../../../shared/domain/value-objects/email.vo'
 import { ActiveVO } from '../../../../../shared/domain/value-objects/active.vo'
 import { UserEntity } from '../../../../user/domain/entities/user.entity'
+import { IEmployee } from '../../../../employee/domain/types/employee.interface'
+import { EmployeeEntity } from '../../../../employee/domain/entiities/employee.entity'
+import { IPerson } from '../../../../person/domain/types/person.interface'
+import { PersonEntity } from '../../../../person/domain/entities/person.entity'
+import { IUser } from '../../../../user/domain/types/user.interface'
+import { UserApiDTO } from '../../../../user/domain/entities/user-api.dto'
 
 interface LoginResponse {
   status: number
@@ -41,11 +47,7 @@ interface LoginResponse {
 
 interface SessionResponse {
   status: number
-  data: {
-    person: {
-      personFirstname: string
-    }
-  }
+  data: UserApiDTO
 }
 
 /**
@@ -122,33 +124,10 @@ export class LoginBiometricRepository implements Pick<AuthenticationPorts, 'logi
 
       HttpService.setBearerToken(responseData.token)
 
-      const user = {
-        id: new IntegerIdVO(parseInt(responseData.user.userId)),
-        email: new EmailVO(responseData.user.userEmail),
-        password: responseData.user.userPassword,
-        token: responseData.token,
-        pinCode: responseData.user.userPinCode,
-        active: new ActiveVO(responseData.user.userActive ? 1 : 0),
-        personId: responseData.user.personId ? new IntegerIdVO(parseInt(responseData.user.personId)) : null,
-        roleId: responseData.user.roleId ? new IntegerIdVO(parseInt(responseData.user.roleId)) : null,
-        pinCodeExpiresAt: responseData.user.pinCodeExpiresAt
-          ? new Date(responseData.user.pinCodeExpiresAt)
-          : null,
-        businessAccess: responseData.user.businessAccess ? 'true' : 'false',
-        createdAt: responseData.user.createdAt
-          ? new Date(responseData.user.createdAt)
-          : null,
-        updatedAt: responseData.user.updatedAt
-          ? new Date(responseData.user.updatedAt)
-          : null,
-        deletedAt: responseData.user.deletedAt
-          ? new Date(responseData.user.deletedAt)
-          : null
-      }
-
+      const sessionUser = await this.getSessionUser()
       const newAuthentication = new AuthenticationEntity({
         authState: {
-          user: new UserEntity(user),
+          user: sessionUser,
           token: responseData.token,
           isAuthenticated: true
         },
@@ -156,17 +135,12 @@ export class LoginBiometricRepository implements Pick<AuthenticationPorts, 'logi
         createdAt: new Date()
       })
 
-      if (
-        !newAuthentication ||
-        !newAuthentication.props.authState?.isAuthenticated
-      ) {
+      if (!newAuthentication?.props?.authState?.isAuthenticated) {
         throw new Error(i18next.t('errors.loginFailedNoAuthenticationStatus'))
       }
 
-      const authenticationLocalStorageService =
-        new AuthenticationLocalStorageService()
-
-      await authenticationLocalStorageService.localStoreAuthentication(newAuthentication)
+      const authenticationLocalStorageService = new AuthenticationLocalStorageService()
+      await authenticationLocalStorageService.localStoreAuthenticationCredentials(newAuthentication)
       await authenticationLocalStorageService.localStoreAuthenticationState(newAuthentication)
 
       return newAuthentication
@@ -193,22 +167,105 @@ export class LoginBiometricRepository implements Pick<AuthenticationPorts, 'logi
    */
 
   /**
-   * Obtiene el nombre del usuario de la sesión actual
-   * @returns {Promise<string>} Promesa que resuelve a un string con el nombre del usuario
+   * Obtiene el usuario de la sesión actual
+   * @returns {Promise<UserEntity>} Promesa que resuelve a un objeto User con los datos del usuario
+   * @throws { Error } si no se encuentra el usuario con los datos de la sesión
    * @private
    */
-  private async getSessionUserName(): Promise<string> {
+  private async getSessionUser(): Promise<UserEntity> {
     const responseUser: SessionResponse = await HttpService.get('/auth/session')
-    let userName: string = ''
 
-    if (
-      responseUser.status === 200 &&
-      responseUser.data.person.personFirstname
-    ) {
-      userName = responseUser.data.person.personFirstname
+    if (responseUser.status !== 200) {
+      throw new Error(i18next.t('errors.loginFailedNoAuthenticationStatus'))
     }
 
-    return userName
+    if (!responseUser.data.person) {
+      throw new Error(i18next.t('errors.loginFailedNoAuthenticationStatus'))
+    }
+
+    if (!responseUser.data.person.employee) {
+      throw new Error(i18next.t('errors.loginFailedNoAuthenticationStatus'))
+    }
+
+    const employeeProperties: IEmployee = {
+      id: responseUser.data.person.employee.employeeId ? new IntegerIdVO(parseInt(`${responseUser.data.person.employee.employeeId}`)) : null,
+      syncId: responseUser.data.person.employee.employeeSyncId,
+      code: responseUser.data.person.employee.employeeCode,
+      firstName: responseUser.data.person.employee.employeeFirstName,
+      lastName: responseUser.data.person.employee.employeeLastName,
+      payrollNum: responseUser.data.person.employee.employeePayrollNum,
+      hireDate: responseUser.data.person.employee.employeeHireDate,
+      companyId: responseUser.data.person.employee.companyId ? new IntegerIdVO(parseInt(`${responseUser.data.person.employee.companyId}`)) : null,
+      departmentId: responseUser.data.person.employee.departmentId ? new IntegerIdVO(parseInt(`${responseUser.data.person.employee.departmentId}`)) : null,
+      positionId: responseUser.data.person.employee.positionId ? new IntegerIdVO(parseInt(`${responseUser.data.person.employee.positionId}`)) : null,
+      departmentSyncId: responseUser.data.person.employee.departmentSyncId,
+      positionSyncId: responseUser.data.person.employee.positionSyncId,
+      photo: responseUser.data.person.employee.employeePhoto,
+      workSchedule: responseUser.data.person.employee.employeeWorkSchedule,
+      personId: responseUser.data.person.employee.personId ? new IntegerIdVO(parseInt(`${responseUser.data.person.employee.personId}`)) : null,
+      businessUnitId: responseUser.data.person.employee.businessUnitId ? new IntegerIdVO(parseInt(`${responseUser.data.person.employee.businessUnitId}`)) : null,
+      payrollBusinessUnitId: responseUser.data.person.employee.payrollBusinessUnitId ? new IntegerIdVO(parseInt(`${responseUser.data.person.employee.payrollBusinessUnitId}`)) : null,
+      assistDiscriminator: responseUser.data.person.employee.employeeAssistDiscriminator,
+      lastSynchronizationAt: responseUser.data.person.employee.employeeLastSynchronizationAt,
+      typeOfContract: responseUser.data.person.employee.employeeTypeOfContract,
+      terminatedDate: responseUser.data.person.employee.employeeTerminatedDate,
+      typeId: responseUser.data.person.employee.employeeTypeId ? new IntegerIdVO(parseInt(`${responseUser.data.person.employee.employeeTypeId}`)) : null,
+      businessEmail: responseUser.data.person.employee.employeeBusinessEmail ? new EmailVO(responseUser.data.person.employee.employeeBusinessEmail) : null,
+      ignoreConsecutiveAbsences: responseUser.data.person.employee.employeeIgnoreConsecutiveAbsences,
+      createdAt: responseUser.data.person.employee.employeeCreatedAt ? new Date(responseUser.data.person.employee.employeeCreatedAt) : null,
+      updatedAt: responseUser.data.person.employee.employeeUpdatedAt ? new Date(responseUser.data.person.employee.employeeUpdatedAt) : null,
+      deletedAt: responseUser.data.person.employee.employeeDeletedAt ? new Date(responseUser.data.person.employee.employeeDeletedAt) : null,
+      userResponsibleEmployeeChecked: responseUser.data.person.employee.userResponsibleEmployeeChecked ? true : false,
+      userResponsibleEmployeeReadonly: responseUser.data.person.employee.userResponsibleEmployeeReadonly ? true : false,
+      userResponsibleEmployeeDirectBoss: responseUser.data.person.employee.userResponsibleEmployeeDirectBoss ? true : false
+    }
+
+    const employee = new EmployeeEntity(employeeProperties)
+
+    const personProperties: IPerson = {
+      id: responseUser.data.person.personId ? new IntegerIdVO(responseUser.data.person.personId) : null,
+      firstname: responseUser.data.person.personFirstname,
+      lastname: responseUser.data.person.personLastname,
+      secondLastname: responseUser.data.person.personSecondLastname,
+      phone: responseUser.data.person.personPhone,
+      email: responseUser.data.person.personEmail ? new EmailVO(responseUser.data.person.personEmail) : null,
+      gender: responseUser.data.person.personGender,
+      birthday: responseUser.data.person.personBirthday,
+      curp: responseUser.data.person.personCurp,
+      rfc: responseUser.data.person.personRfc,
+      imssNss: responseUser.data.person.personImssNss,
+      phoneSecondary: responseUser.data.person.personPhoneSecondary,
+      maritalStatus: responseUser.data.person.personMaritalStatus,
+      placeOfBirthCountry: responseUser.data.person.personPlaceOfBirthCountry,
+      placeOfBirthState: responseUser.data.person.personPlaceOfBirthState,
+      placeOfBirthCity: responseUser.data.person.personPlaceOfBirthCity,
+      createdAt: responseUser.data.person.personCreatedAt ? new Date(responseUser.data.person.personCreatedAt) : null,
+      updatedAt: responseUser.data.person.personUpdatedAt ? new Date(responseUser.data.person.personUpdatedAt) : null,
+      deletedAt: responseUser.data.person.personDeletedAt ? new Date(responseUser.data.person.personDeletedAt) : null,
+      employee: employee
+    }
+
+    const person = new PersonEntity(personProperties)
+
+    const userProperties: IUser = {
+      id: new IntegerIdVO(parseInt(`${responseUser.data.userId}`)),
+      email: new EmailVO(responseUser.data.userEmail),
+      password: '',
+      token: '',
+      pinCode: '',
+      active: new ActiveVO(responseUser.data.userActive ? 1 : 0),
+      personId: responseUser.data.personId ? new IntegerIdVO(parseInt(`${responseUser.data.personId}`)) : null,
+      roleId: responseUser.data.roleId ? new IntegerIdVO(parseInt(`${responseUser.data.roleId}`)) : null,
+      pinCodeExpiresAt: responseUser.data.pinCodeExpiresAt ? new Date(responseUser.data.pinCodeExpiresAt) : null,
+      businessAccess: responseUser.data.businessAccess,
+      createdAt: responseUser.data.userCreatedAt ? new Date(responseUser.data.userCreatedAt) : null,
+      updatedAt: responseUser.data.userUpdatedAt ? new Date(responseUser.data.userUpdatedAt) : null,
+      deletedAt: responseUser.data.deletedAt ? new Date(responseUser.data.deletedAt) : null,
+      person: person
+    }
+
+    const sessionUser = new UserEntity(userProperties)
+    return sessionUser
   }
 
   /**

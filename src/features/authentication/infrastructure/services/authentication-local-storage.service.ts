@@ -25,7 +25,7 @@ export class AuthenticationLocalStorageService {
    * @throws {Error} Si hay un error al guardar la información de autenticación
    * @returns {Promise<void>}
    */
-  async localStoreAuthentication(authenticationEntity: AuthenticationEntity): Promise<void> {
+  async localStoreAuthenticationCredentials(authenticationEntity: AuthenticationEntity): Promise<void> {
     if (!authenticationEntity) {
       throw new Error(i18next.t('errors.authenticationEntityRequired'))
     }
@@ -34,10 +34,18 @@ export class AuthenticationLocalStorageService {
       throw new Error(i18next.t('errors.invalidAuthenticationState'))
     }
 
+    const secureAuthenticationCredentials: IAuthentication = {
+      loginCredentials: {
+        email: authenticationEntity.props.loginCredentials?.email || '',
+        password: authenticationEntity.props.loginCredentials?.password || ''
+      },
+      createdAt: authenticationEntity.props.createdAt || new Date()
+    }
+
     try {
       await SecureStore.setItemAsync(
         AUTHENTICATION_KEY,
-        JSON.stringify(authenticationEntity.props.loginCredentials)
+        JSON.stringify(secureAuthenticationCredentials)
       )
     } catch (error) {
       console.error(error)

@@ -22,9 +22,7 @@ const AuthenticationScreenController = () => {
   const [biometricAvailable, setBiometricAvailable] = useState(false)
   const [hasStoredCredentials, setHasStoredCredentials] = useState(false)
   const [securityAlert, setSecurityAlert] = useState<string | null>(null)
-  const [biometricType, setBiometricType] = useState<'fingerprint' | 'face'>(
-    'fingerprint'
-  )
+  const [biometricType, setBiometricType] = useState<'fingerprint' | 'face'>('fingerprint')
 
   const { t } = useTranslation()
   const navigation =

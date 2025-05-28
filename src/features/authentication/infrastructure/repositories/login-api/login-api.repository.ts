@@ -106,7 +106,7 @@ export class LoginAPIRepository implements Pick<AuthenticationPorts, 'login'> {
       }
 
       const authenticationLocalStorageService = new AuthenticationLocalStorageService()
-      await authenticationLocalStorageService.localStoreAuthentication(newAuthentication)
+      await authenticationLocalStorageService.localStoreAuthenticationCredentials(newAuthentication)
       await authenticationLocalStorageService.localStoreAuthenticationState(newAuthentication)
 
       return newAuthentication
