@@ -22,19 +22,19 @@ import { PersonEntity } from '../../../person/domain/entities/person.entity'
  * @property {PersonEntity | undefined} person - La persona asociada al usuario.
  */
 export interface IUser {
-  id: IntegerIdVO | null
-  email: EmailVO
-  password: string
-  token: string | null
-  pinCode: string | null
-  active: ActiveVO
-  personId: IntegerIdVO | null
-  roleId: IntegerIdVO | null
-  pinCodeExpiresAt: Date | null
-  businessAccess: string | null
-  createdAt: Date | null
-  updatedAt: Date | null
-  deletedAt: Date | null
+  readonly id: IntegerIdVO | null
+  readonly email: EmailVO
+  readonly password: string
+  readonly token: string | null
+  readonly pinCode: string | null
+  readonly active: ActiveVO
+  readonly personId: IntegerIdVO | null
+  readonly roleId: IntegerIdVO | null
+  readonly pinCodeExpiresAt: Date | null
+  readonly businessAccess: string | null
+  readonly createdAt: Date | null
+  readonly updatedAt: Date | null
+  readonly deletedAt: Date | null
 
-  person?: PersonEntity
+  readonly person?: PersonEntity
 }

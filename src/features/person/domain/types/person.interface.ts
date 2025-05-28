@@ -27,25 +27,25 @@ import { EmployeeEntity } from '../../../employee/domain/entiities/employee.enti
  * @property {EmployeeEntity | undefined} employee - El empleado asociado a la persona.
  */
 export interface IPerson {
-  id: IntegerIdVO | null
-  firstname: string
-  lastname: string
-  secondLastname: string
-  phone: string | null
-  email: EmailVO | null
-  gender: string | null
-  birthday: Date | string | null
-  curp: string | null
-  rfc: string | null
-  imssNss: string | null
-  phoneSecondary: string | null
-  maritalStatus: string | null
-  placeOfBirthCountry: string | null
-  placeOfBirthState: string | null
-  placeOfBirthCity: string | null
-  createdAt: Date | string | null
-  updatedAt: Date | string | null
-  deletedAt: Date | string | null
+  readonly id: IntegerIdVO | null
+  readonly firstname: string
+  readonly lastname: string
+  readonly secondLastname: string
+  readonly phone: string | null
+  readonly email: EmailVO | null
+  readonly gender: string | null
+  readonly birthday: Date | string | null
+  readonly curp: string | null
+  readonly rfc: string | null
+  readonly imssNss: string | null
+  readonly phoneSecondary: string | null
+  readonly maritalStatus: string | null
+  readonly placeOfBirthCountry: string | null
+  readonly placeOfBirthState: string | null
+  readonly placeOfBirthCity: string | null
+  readonly createdAt: Date | string | null
+  readonly updatedAt: Date | string | null
+  readonly deletedAt: Date | string | null
 
-  employee?: EmployeeEntity
+  readonly employee?: EmployeeEntity
 }

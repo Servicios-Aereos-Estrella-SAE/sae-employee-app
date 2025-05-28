@@ -99,20 +99,26 @@ export class AuthenticationLocalStorageService {
       const authenticationObject = authenticationStored ? JSON.parse(authenticationStored) : null
 
       if (authenticationObject) {
-        const responseEmployee = authenticationObject.properties.authState?.user?.properties?.person?.properties?.employee as IEmployee
+        const responseEmployee = authenticationObject.properties.authState?.user?.properties?.person?.properties?.employee?.properties as IEmployee
         const employee = new EmployeeEntity(responseEmployee)
 
-        const responsePerson = authenticationObject.properties.authState?.user?.properties?.person?.properties as IPerson
-        responsePerson.employee = employee
+        const responsePerson: IPerson = {
+          ...JSON.parse(JSON.stringify(authenticationObject.properties.authState?.user?.properties?.person?.properties)),
+          employee: employee
+        }
+
         const person = new PersonEntity(responsePerson)
 
-        const responseUser = authenticationObject.properties.authState?.user?.properties as IUser
-        responseUser.person = person
+        const responseUser: IUser = {
+          ...JSON.parse(JSON.stringify(authenticationObject.properties.authState?.user?.properties)),
+          person
+        }
+
         const user = new UserEntity(responseUser)
 
         const authenticationEntity = new AuthenticationEntity({
           authState: {
-            ...authenticationObject.properties.authState,
+            ...JSON.parse(JSON.stringify(authenticationObject.properties.authState)),
             user: user
           },
           loginCredentials: authenticationObject.properties.loginCredentials,

@@ -54,17 +54,23 @@ const SidebarLayout: React.FC<ISidebarProps> = ({ isOpen, onClose }) => {
           >
             {/* Perfil */}
             <View style={styles.profileSection}>
-              <View style={styles.avatarWrapper}>
-                <Image
-                  source={{ uri: 'https://randomuser.me/api/portraits/men/1.jpg' }}
-                  style={styles.avatar}
-                />
-              </View>
+              {controller.authUserAvatarType === 'image' ? (
+                <View style={styles.avatarWrapper}>
+                  <Image
+                    source={{ uri: controller.authUserAvatarSource }}
+                    style={styles.avatar}
+                  />
+                </View>
+              ) : (
+                <View style={styles.avatarTextWrapper}>
+                  <Text style={styles.avatarText}>{controller.authUserAvatarSource}</Text>  
+                </View>
+              )}
               <Text style={styles.profileName}>
-                José Guadalupe Soto Becerra
+                {controller.authUserName()}
               </Text>
               <Text style={styles.profileEmail}>
-                jsoto@sile-mx.com
+                {controller.authUserEmail()}
               </Text>
             </View>
 

@@ -32,7 +32,23 @@ const createHeaderLayoutStyle = (theme: IAppTheme) =>
       width: 32,
       height: 32,
       borderRadius: 16,
-      backgroundColor: '#eee'
+      backgroundColor: 'rgb(210, 237, 248)'
+    },
+    avatarTextWrapper: {
+      width: 32,
+      height: 32,
+      borderRadius: 16,
+      borderWidth: 2,
+      borderColor: 'rgb(210, 237, 248)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: 'rgb(210, 237, 248)'
+    },
+    avatarText: {
+      fontSize: 10,
+      fontWeight: 'bold',
+      color: theme.colors.text
     },
     sidebarIconColor: {
       color: theme.colors.textSecondary

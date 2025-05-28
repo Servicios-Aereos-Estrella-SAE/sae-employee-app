@@ -1,7 +1,9 @@
-export class ActiveVO {
-  constructor(private readonly active: number) {}
+import { InvalidFieldFormatException } from '../exceptions/invalid-field-format.exception'
 
-  value(): boolean {
-    return this.active === 1
+export class ActiveVO {
+  constructor(readonly value: number) {
+    if (value !== 1 && value !== 0) {
+      throw new InvalidFieldFormatException('active')
+    }
   }
 }

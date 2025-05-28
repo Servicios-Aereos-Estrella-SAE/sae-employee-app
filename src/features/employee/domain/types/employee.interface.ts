@@ -36,34 +36,34 @@ import { IntegerIdVO } from '../../../../shared/domain/value-objects/integer-id.
  * @property {boolean | undefined} userResponsibleEmployeeDirectBoss - Indica si el usuario es responsable del empleado.
  */
 export interface IEmployee {
-  id: IntegerIdVO | null
-  syncId: string
-  code: string
-  firstName: string
-  lastName: string
-  payrollNum: string | null
-  hireDate: Date | null
-  companyId: IntegerIdVO | null
-  departmentId: IntegerIdVO | null
-  positionId: IntegerIdVO | null
-  departmentSyncId: string
-  positionSyncId: string
-  photo: string | null
-  workSchedule: string | null
-  personId: IntegerIdVO | null
-  businessUnitId: IntegerIdVO | null
-  payrollBusinessUnitId: IntegerIdVO | null
-  assistDiscriminator: number
-  lastSynchronizationAt: Date | null
-  typeOfContract: string | null
-  terminatedDate: Date | null
-  typeId: IntegerIdVO | null
-  businessEmail: EmailVO | null
-  ignoreConsecutiveAbsences: number
-  createdAt: Date | null
-  updatedAt: Date | null
-  deletedAt: Date | null
-  userResponsibleEmployeeChecked?: boolean
-  userResponsibleEmployeeReadonly?: boolean
-  userResponsibleEmployeeDirectBoss: boolean
+  readonly id: IntegerIdVO | null
+  readonly syncId: string
+  readonly code: string
+  readonly firstName: string
+  readonly lastName: string
+  readonly payrollNum: string | null
+  readonly hireDate: Date | null
+  readonly companyId: IntegerIdVO | null
+  readonly departmentId: IntegerIdVO | null
+  readonly positionId: IntegerIdVO | null
+  readonly departmentSyncId: string
+  readonly positionSyncId: string
+  readonly photo: string | null
+  readonly workSchedule: string | null
+  readonly personId: IntegerIdVO | null
+  readonly businessUnitId: IntegerIdVO | null
+  readonly payrollBusinessUnitId: IntegerIdVO | null
+  readonly assistDiscriminator: number
+  readonly lastSynchronizationAt: Date | null
+  readonly typeOfContract: string | null
+  readonly terminatedDate: Date | null
+  readonly typeId: IntegerIdVO | null
+  readonly businessEmail: EmailVO | null
+  readonly ignoreConsecutiveAbsences: number
+  readonly createdAt: Date | null
+  readonly updatedAt: Date | null
+  readonly deletedAt: Date | null
+  readonly userResponsibleEmployeeChecked?: boolean
+  readonly userResponsibleEmployeeReadonly?: boolean
+  readonly userResponsibleEmployeeDirectBoss: boolean
 }

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Animated, Dimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native'
@@ -6,6 +6,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from '../../../navigation/types/types'
 import { useAppTheme } from '../../theme/theme-context'
 import { ISidebarProps } from './types/sidebar-props.interface'
+import { AuthStateController } from '../../../src/features/authentication/infrastructure/controllers/auth-state.controller'
 
 /**
  * Controlador del sidebar
@@ -26,6 +27,8 @@ const SidebarController = (props: ISidebarProps) => {
   const insets = useSafeAreaInsets()
 
   const { themeType, toggleTheme } = useAppTheme()
+  const [authUserAvatarType, setAuthUserAvatarType] = useState<string>('text')
+  const [authUserAvatarSource, setAuthUserAvatarSource] = useState<string>('')
 
   useEffect(() => {
     Animated.timing(translateX, {
@@ -33,13 +36,12 @@ const SidebarController = (props: ISidebarProps) => {
       duration: 300,
       useNativeDriver: true
     }).start()
-     
+    
+    void authUserAvatar()
   }, [props.isOpen])
 
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>()
-  // const userController = new UserController()
-  // const authService = new AuthService(userController)
 
   /**
    * Cierra sesión y redirige a la pantalla de autenticación
@@ -63,6 +65,41 @@ const SidebarController = (props: ISidebarProps) => {
     navigation.replace('authenticationScreen')
   }
 
+  /**
+   * Obtiene el nombre de usuario de la sesión actual
+   * @returns {Promise<string>} Nombre de usuario
+   */
+  const authUserName = async (): Promise<string> => {
+    const authStateController = new AuthStateController()
+    const authState = await authStateController.getAuthState()
+    return authState?.props.authState?.user?.props.person?.getFullName() || ''
+  }
+
+  /**
+   * Obtiene el correo electrónico del usuario de la sesión actual
+   * @returns {Promise<string>} Correo electrónico
+   */
+  const authUserEmail = async (): Promise<string> => {
+    const authStateController = new AuthStateController()
+    const authState = await authStateController.getAuthState()
+    const email = authState?.props.authState?.user?.props?.email?.value
+    return `${(email || '')}`.toString().toLocaleLowerCase()
+  }
+
+  /**
+   * Establece el tipo y fuente del avatar del usuario de la sesión actual
+   * @returns {Promise<void>}
+   */
+  const authUserAvatar = async (): Promise<void> => {
+    const authStateController = new AuthStateController()
+    const authState = await authStateController.getAuthState()
+    const avatar = authState?.props.authState?.user?.props?.person?.props?.employee?.props?.photo || ''
+    const initial = authState?.props.authState?.user?.props?.person?.props?.firstname?.charAt(0).toUpperCase() || ''
+
+    setAuthUserAvatarType(avatar ? 'image' : 'text')
+    setAuthUserAvatarSource(avatar || initial)
+  }
+
   return {
     onClose: props.onClose,
     isOpen: props.isOpen,
@@ -71,7 +108,11 @@ const SidebarController = (props: ISidebarProps) => {
     handleLogout,
     handleFullLogout,
     themeType,
-    toggleTheme
+    toggleTheme,
+    authUserName,
+    authUserEmail,
+    authUserAvatarType,
+    authUserAvatarSource
   }
 }
 

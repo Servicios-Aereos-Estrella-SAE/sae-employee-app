@@ -21,11 +21,18 @@ const Header: React.FC<IHeaderProps> = ({ onMenuPress }) => {
           <SidebarIcon color={styles.sidebarIconColor.color} />
         </TouchableOpacity>
         <View style={styles.rightContainer}>
-          <Text style={[styles.greeting]}>{controller.getAuthenticatedUserName()}</Text>
-          <Image
-            source={{ uri: controller.getUserImage() }}
-            style={styles.avatar}
-          />
+          <Text style={[styles.greeting]}>{controller.authUserName()}</Text>
+
+          {controller.authUserAvatarType === 'image' ? (
+            <Image
+              source={{ uri: controller.authUserAvatarSource }}
+              style={styles.avatar}
+            />
+          ) : (
+            <View style={styles.avatarTextWrapper}>
+              <Text style={styles.avatarText}>{controller.authUserAvatarSource}</Text>  
+            </View>
+          )}
         </View>
       </View>
     </SafeAreaView>

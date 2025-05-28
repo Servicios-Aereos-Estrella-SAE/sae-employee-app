@@ -7,13 +7,13 @@ import { InvalidFieldFormatException } from '../exceptions/invalid-field-format.
 export class EmailVO {
   /**
    * Constructor del Value Object.
-   * @param {string} email - El correo electrónico.
+   * @param {string} value - El correo electrónico.
    * @throws {InvalidFieldFormatException} - Error de formato para el campo email.
    * - Valida que el correo electrónico sea válido.
    */
-  constructor(private readonly email: string) {
-    this.isValidEmail(email)
-    this.ensureNoSqlInjection(email)
+  constructor(readonly value: string) {
+    this.isValidEmail(value)
+    this.ensureNoSqlInjection(value)
   }
 
   /**
@@ -49,13 +49,5 @@ export class EmailVO {
         throw new InvalidFieldFormatException('email')
       }
     }
-  }
-
-  /**
-   * Obtiene el valor del correo electrónico.
-   * @returns {string} - El correo electrónico del objeto.
-   */
-  value(): string {
-    return this.email
   }
 }

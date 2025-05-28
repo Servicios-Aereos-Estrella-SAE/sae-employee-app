@@ -52,6 +52,24 @@ const createSidebarStyles = (theme: IAppTheme, translateX: Animated.Value) =>
       borderWidth: 2,
       borderColor: theme.colors.border
     },
+    avatarTextWrapper: {
+      width: 90,
+      height: 90,
+      borderRadius: 45,
+      borderWidth: 2,
+      borderColor: 'rgb(210, 237, 248)',
+      position: 'relative',
+      marginBottom: 12,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: 'rgb(210, 237, 248)'
+    },
+    avatarText: {
+      fontSize: 20,
+      fontWeight: 'bold',
+      color: theme.colors.text
+    },
     profileName: {
       fontSize: 20,
       fontWeight: 'bold',
