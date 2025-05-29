@@ -59,7 +59,6 @@ export const AuthenticationScreen: React.FC = () => {
           >
             <View style={style.formContainer}>
               <Text style={[style.title]}>
-                TEST
                 {controller.getWelcomeTitle()}
               </Text>
 
