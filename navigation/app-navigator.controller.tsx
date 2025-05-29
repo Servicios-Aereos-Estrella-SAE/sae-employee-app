@@ -1,27 +1,28 @@
 import { useState, useEffect } from 'react'
 import { RootStackParamList } from './types/types'
+import { AuthStateController } from '../src/features/authentication/infrastructure/controllers/auth-state.controller'
 
 const AppNavigatorController = () => {
   const [isLoading, setIsLoading] = useState(true)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isAuthenticated, setIsAuthenticated] = useState(false)
-
-  // const userController = new UserController()
-  // const authService = new AuthService(userController)
 
   useEffect(() => {
     checkAuthState().catch(console.error)
   }, [])
 
   const checkAuthState = async () => {
-    // try {
-    //   const { token, user } = await authService.getAuthState()
-    //   setIsAuthenticated(!!token && !!user)
-    // } catch (error) {
-    //   console.error('Error checking auth state:', error)
-    // } finally {
-    setIsLoading(false)
-    // }
+    try {
+      const authStateController = new AuthStateController()
+      const authState = await authStateController.getAuthState()
+
+      if (authState?.props.authState?.isAuthenticated) {
+        setIsAuthenticated(true)
+      }
+    } catch (error) {
+      console.error('Error checking auth state:', error)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   const getInitialRouteName = (): keyof RootStackParamList => {

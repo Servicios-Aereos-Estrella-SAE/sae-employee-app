@@ -1,49 +1,28 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { View } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import AuthenticatedLayoutStyle from './authenticated-layout.style'
 import Layout from '../layout/layout.layout'
-import { RootStackParamList } from '../../../navigation/types/types'
-import { AuthCredentialsController } from '../../../src/features/authentication/infrastructure/controllers/auth-credentials.controller'
-interface AuthenticatedLayoutProps {
-  children: React.ReactNode
-}
+import { IAuthenticatedLayoutProps } from './types/authenticated-props.interface'
+import { AuthenticatedLayoutController } from './authenticated-layout.controller'
 
-const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
-  children
-}) => {
+/**
+ * Layout autenticado
+ * @param {IAuthenticatedLayoutProps} props - Propiedades del layout
+ * @returns {React.FC} Layout autenticado
+ */
+const AuthenticatedLayout: React.FC<IAuthenticatedLayoutProps> = ({ children }) => {
   const styles = AuthenticatedLayoutStyle()
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>()
-  const [isValidating, setIsValidating] = useState(true)
+  const controller = AuthenticatedLayoutController({ children })
 
-  useEffect(() => {
-    const validateSession = async () => {
-      try {
-        const authCredentialsController = new AuthCredentialsController()
-        const authCredentials = await authCredentialsController.getAuthCredentials()
-        
-        if (!authCredentials) {
-          navigation.replace('authenticationScreen')
-        }
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      } catch (error) {
-        navigation.replace('authenticationScreen')
-      } finally {
-        setIsValidating(false)
-      }
-    }
-
-    validateSession().catch(console.error)
-  }, [navigation])
-
-  if (isValidating) {
+  if (controller.isValidating) {
     return <View style={styles.container} />
   }
 
   return (
     <Layout>
-      <View style={[styles.container]}>{children}</View>
+      <View style={[styles.container]}>
+        {controller.props.children}
+      </View>
     </Layout>
   )
 }
