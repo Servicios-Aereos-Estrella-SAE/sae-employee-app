@@ -7,6 +7,7 @@ import { RootStackParamList } from '../../../navigation/types/types'
 import { useAppTheme } from '../../theme/theme-context'
 import { ISidebarProps } from './types/sidebar-props.interface'
 import { AuthStateController } from '../../../src/features/authentication/infrastructure/controllers/auth-state.controller'
+import { ClearSessionController } from '../../../src/features/authentication/infrastructure/controllers/clear-seassion.controller'
 
 /**
  * Controlador del sidebar
@@ -20,6 +21,10 @@ import { AuthStateController } from '../../../src/features/authentication/infras
  * @property {Function} toggleTheme - Función para cambiar el tema
  * @property {Animated.Value} translateX - Valor de la animación de la barra lateral
  * @property {EdgeInsets} insets - Insets de la pantalla
+ * @property {string} authUserAvatarType - Tipo de avatar del usuario
+ * @property {string} authUserAvatarSource - Fuente del avatar del usuario
+ * @property {string} authUserName - Nombre del usuario
+ * @property {string} authUserEmail - Correo electrónico del usuario
  */
 const SidebarController = (props: ISidebarProps) => {
   const { width } = Dimensions.get('window')
@@ -50,7 +55,9 @@ const SidebarController = (props: ISidebarProps) => {
    * @returns {void}
    */
   const handleLogout = async () => {
-    // await authService.clearAuthState()
+    const clearSessionController = new ClearSessionController()
+    await clearSessionController.clearSession()
+
     navigation.replace('authenticationScreen')
   }
 

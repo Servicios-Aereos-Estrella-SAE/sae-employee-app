@@ -97,7 +97,7 @@ const AuthenticationScreenController = () => {
       const authStateController = new AuthStateController()
       const authState = await authStateController.getAuthState()
 
-      if (!authState || !authState.props.authState?.isAuthenticated) {
+      if (!authState || !authState.props.authState?.user?.props) {
         return
       }
 
@@ -105,7 +105,7 @@ const AuthenticationScreenController = () => {
         setUserName(authState.props.authState.user.props.person.props.firstname || '')
       }
 
-      setHasStoredCredentials(!!authState?.props.authState?.isAuthenticated)
+      setHasStoredCredentials(!!authState?.props.authState?.user?.props)
       setEmail(authState?.props.loginCredentials?.email || '')
       return
     } catch (error) {

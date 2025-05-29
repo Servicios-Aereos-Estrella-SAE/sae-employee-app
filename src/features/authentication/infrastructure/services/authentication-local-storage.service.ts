@@ -103,14 +103,14 @@ export class AuthenticationLocalStorageService {
         const employee = new EmployeeEntity(responseEmployee)
 
         const responsePerson: IPerson = {
-          ...JSON.parse(JSON.stringify(authenticationObject.properties.authState?.user?.properties?.person?.properties)),
+          ...authenticationObject.properties.authState?.user?.properties?.person?.properties,
           employee: employee
         }
 
         const person = new PersonEntity(responsePerson)
 
         const responseUser: IUser = {
-          ...JSON.parse(JSON.stringify(authenticationObject.properties.authState?.user?.properties)),
+          ...authenticationObject.properties.authState?.user?.properties,
           person
         }
 
@@ -118,7 +118,7 @@ export class AuthenticationLocalStorageService {
 
         const authenticationEntity = new AuthenticationEntity({
           authState: {
-            ...JSON.parse(JSON.stringify(authenticationObject.properties.authState)),
+            ...authenticationObject.properties.authState,
             user: user
           },
           loginCredentials: authenticationObject.properties.loginCredentials,
@@ -127,7 +127,7 @@ export class AuthenticationLocalStorageService {
 
         if (
           authenticationEntity &&
-          authenticationEntity.props.authState?.isAuthenticated
+          authenticationEntity.props.authState
         ) {
           return authenticationEntity
         }
@@ -177,6 +177,27 @@ export class AuthenticationLocalStorageService {
     }
 
     return null
+  }
+
+  /**
+   * Elimina el estado de autenticación del usuario desde el almacenamiento local en el dispositivo
+   * - Mantiene el usuario en memoria local, estableciendo el estado de autenticación en false
+   * @returns {Promise<void>} Promesa que resuelve cuando el estado de autenticación se ha eliminado
+   */
+  async localClearAuthenticationState(): Promise<void> {
+    try {
+      const authenticationStored = await AsyncStorage.getItem(AUTHENTICATION_USER_KEY)
+      const authenticationStoredObject = authenticationStored ? JSON.parse(authenticationStored) : null
+
+      if (authenticationStoredObject) {
+        authenticationStoredObject.properties.authState.isAuthenticated = false
+        await AsyncStorage.setItem(AUTHENTICATION_USER_KEY, JSON.stringify(authenticationStoredObject))
+      }
+    } catch (error) {
+      console.error(error)
+      await SecureStore.deleteItemAsync(AUTHENTICATION_KEY)
+      await AsyncStorage.removeItem(AUTHENTICATION_USER_KEY)
+    }
   }
 
   /**
