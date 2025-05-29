@@ -12,7 +12,7 @@ import { CheckInIcon } from '../../icons/check-in-icon/check-in.icon'
 import { CheckOutIcon } from '../../icons/check-out-icon/check-out.icon'
 import useAttendanceCheckStyle from './attendance-check.style'
 import { AttendanceCheckScreenController } from './attendance-check-screen.controller'
-import Clock from '../../components/clock/clock.component'
+import { Clock } from '../../components/clock/clock.component'
 
 /**
  * Pantalla para registro de asistencia

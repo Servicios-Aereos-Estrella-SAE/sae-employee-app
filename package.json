@@ -12,7 +12,11 @@
     "lint:watch": "nodemon --config nodemon.json",
     "format": "prettier --write \"**/*.{ts,tsx,json,md}\"",
     "prepare": "husky install",
-    "docs": "typedoc --options typedoc.json"
+    "docs": "typedoc --options typedoc.json",
+    "update:preview": "eas update --branch preview",
+    "update:production": "eas update --branch production",
+    "build:preview": "eas build --profile preview",
+    "build:production": "eas build --profile production"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^2.1.2",
@@ -24,6 +28,7 @@
     "expo-localization": "^16.1.5",
     "expo-secure-store": "^14.2.3",
     "expo-status-bar": "~2.2.3",
+    "expo-updates": "^0.28.13",
     "luxon": "^3.6.1",
     "react": "19.0.0",
     "react-i18next": "^15.5.1",

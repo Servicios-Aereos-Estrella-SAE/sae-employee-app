@@ -14,4 +14,4 @@ const Clock = React.memo(({ style, hourStyle, dateStyle }: IClockProps) => {
   )
 })
 
-export default Clock
+export { Clock }
