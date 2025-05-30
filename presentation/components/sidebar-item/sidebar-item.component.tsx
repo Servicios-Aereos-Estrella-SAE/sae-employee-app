@@ -1,14 +1,14 @@
 import React from 'react'
 import { TouchableOpacity, View, Text } from 'react-native'
 import useSidebarItemStyles from './sidebar-item.style'
+import { ISidebarItemProps } from './types/sidebar-item-props.interface'
 
-const SidebarItem: React.FC<{
-  icon: React.ReactNode
-  label: string
-  labelStyle?: any
-  textColor?: string
-  onPress?: () => void
-}> = ({ icon, label, labelStyle, textColor, onPress }) => {
+/**
+ * Item del sidebar
+ * @param {ISidebarItemProps} props - Propiedades del item del sidebar
+ * @returns {React.FC} Item del sidebar
+ */
+const SidebarItem: React.FC<ISidebarItemProps> = ({ icon, label, labelStyle, textColor, onPress }) => {
   const styles = useSidebarItemStyles()
 
   return (

@@ -3,6 +3,11 @@ import { Text, View } from 'react-native'
 import { IClockProps } from './types/clock-props.interface'
 import { ClockController } from './clock.controller'
 
+/**
+ * Reloj
+ * @param {IClockProps} props - Propiedades del reloj
+ * @returns {React.FC} Reloj
+ */
 const Clock = React.memo(({ style, hourStyle, dateStyle }: IClockProps) => {
   const controller = ClockController()
 

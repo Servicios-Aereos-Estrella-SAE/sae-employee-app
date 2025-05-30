@@ -2,6 +2,11 @@ import { Button as PaperButton } from 'react-native-paper'
 import useButtonStyles from './button.style'
 import { IButtonProps } from './types/button-props.interface'
 
+/**
+ * Botón
+ * @param {IButtonProps} props - Propiedades del botón
+ * @returns {React.FC} Botón
+ */
 export const Button: React.FC<IButtonProps> = ({
   title,
   onPress,

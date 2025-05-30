@@ -5,6 +5,11 @@ import useTextInputStyles from './text-input.style'
 import { ITextInputProps } from './types/text-input-props.interface'
 import TextInputController from './text-input.controller'
 
+/**
+ * Campo de texto
+ * @param {ITextInputProps} props - Propiedades del campo de texto
+ * @returns {React.FC} Campo de texto
+ */
 export const TextInput: React.FC<ITextInputProps> = ({
   label,
   value,

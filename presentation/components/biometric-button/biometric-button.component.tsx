@@ -4,8 +4,13 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { IBiometricButtonProps } from './types/biometric-button-props.interface'
 import useBiometricButtonStyles from './biometric-button.style'
 import { useTranslation } from 'react-i18next'
-import BiometricButtonController from './biometric-button.controller'
+import { BiometricButtonController } from './biometric-button.controller'
 
+/**
+ * Botón de biometría
+ * @param {IBiometricButtonProps} props - Propiedades del botón de biometría
+ * @returns {React.FC} Botón de biometría
+ */
 export const BiometricButton: React.FC<IBiometricButtonProps> = ({
   onPress,
   type,
