@@ -1,0 +1,101 @@
+<!DOCTYPE html><html class="default" lang="en" data-base="./"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>SAE Employee, App - v1.0.0</title><meta name="description" content="Documentation for SAE Employee, App"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script defer src="assets/main.js"></script><script async src="assets/icons.js" id="tsd-icons-script"></script><script async src="assets/search.js" id="tsd-search-script"></script><script async src="assets/navigation.js" id="tsd-nav-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar"><div class="tsd-toolbar-contents container"><a href="index.html" class="title">SAE Employee, App - v1.0.0</a><div id="tsd-toolbar-links"><a href="https://github.com/your-username/sae-employee-app">GitHub</a></div><button id="tsd-search-trigger" class="tsd-widget" aria-label="Search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-search"></use></svg></button><dialog id="tsd-search" aria-label="Search"><input role="combobox" id="tsd-search-input" aria-controls="tsd-search-results" aria-autocomplete="list" aria-expanded="true" autocapitalize="off" autocomplete="off" placeholder="Search the docs" maxLength="100"/><ul role="listbox" id="tsd-search-results"></ul><div id="tsd-search-status" aria-live="polite" aria-atomic="true"><div>Preparing search index...</div></div></dialog><a href="#" class="tsd-widget menu" id="tsd-toolbar-menu-trigger" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-menu"></use></svg></a></div></header><div class="container container-main"><div class="col-content"><div class="tsd-page-title"><h1>SAE Employee, App - v1.0.0</h1></div><div class="tsd-panel tsd-typography"><h1 id="loginapp" class="tsd-anchor-link">LoginApp<a href="#loginapp" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h1><p>A React Native application following Hexagonal Architecture principles.</p>
+<h2 id="project-structure" class="tsd-anchor-link">Project Structure<a href="#project-structure" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><pre><code><span class="hl-0">src</span><span class="hl-1">/</span><br/><span class="hl-1">├── </span><span class="hl-0">features</span><span class="hl-1">/          # </span><span class="hl-0">Módulos</span><span class="hl-1"> </span><span class="hl-2">verticales</span><span class="hl-1"> (</span><span class="hl-0">características</span><span class="hl-1">)</span><br/><span class="hl-1">│   └── [</span><span class="hl-0">feature</span><span class="hl-1">]/     # </span><span class="hl-3">Ej</span><span class="hl-1">: </span><span class="hl-0">auth</span><span class="hl-1">, </span><span class="hl-0">users</span><span class="hl-1">, </span><span class="hl-0">todos</span><span class="hl-1">, </span><span class="hl-0">etc</span><span class="hl-1">.</span><br/><span class="hl-1">│       ├── </span><span class="hl-0">domain</span><span class="hl-1">/        # </span><span class="hl-0">Entidades</span><span class="hl-1"> </span><span class="hl-0">de</span><span class="hl-1"> </span><span class="hl-0">dominio</span><span class="hl-1">, </span><span class="hl-0">objetos</span><span class="hl-1"> </span><span class="hl-0">de</span><span class="hl-1"> </span><span class="hl-0">valor</span><span class="hl-1">, </span><span class="hl-0">servicios</span><span class="hl-1"> </span><span class="hl-0">de</span><span class="hl-1"> </span><span class="hl-0">dominio</span><br/><span class="hl-1">│       ├── </span><span class="hl-0">application</span><span class="hl-1">/   # </span><span class="hl-0">Casos</span><span class="hl-1"> </span><span class="hl-0">de</span><span class="hl-1"> </span><span class="hl-0">uso</span><span class="hl-1">, </span><span class="hl-0">servicios</span><span class="hl-1"> </span><span class="hl-0">de</span><span class="hl-1"> </span><span class="hl-0">aplicación</span><br/><span class="hl-1">│       └── </span><span class="hl-0">infrastructure</span><span class="hl-1">/ # </span><span class="hl-0">Adaptadores</span><span class="hl-1">, </span><span class="hl-0">implementaciones</span><span class="hl-1"> </span><span class="hl-0">de</span><span class="hl-1"> </span><span class="hl-0">repositorios</span><br/><span class="hl-1">│</span><br/><span class="hl-1">└── </span><span class="hl-0">shared</span><span class="hl-1">/            # </span><span class="hl-0">Código</span><span class="hl-1"> </span><span class="hl-0">compartido</span><span class="hl-1"> </span><span class="hl-0">entre</span><span class="hl-1"> </span><span class="hl-0">características</span><br/><span class="hl-1">    ├── </span><span class="hl-0">domain</span><span class="hl-1">/        # </span><span class="hl-0">Lógica</span><span class="hl-1"> </span><span class="hl-0">de</span><span class="hl-1"> </span><span class="hl-0">dominio</span><span class="hl-1"> </span><span class="hl-0">compartida</span><br/><span class="hl-1">    ├── </span><span class="hl-0">application</span><span class="hl-1">/   # </span><span class="hl-0">Servicios</span><span class="hl-1"> </span><span class="hl-0">de</span><span class="hl-1"> </span><span class="hl-0">aplicación</span><span class="hl-1"> </span><span class="hl-0">compartidos</span><br/><span class="hl-1">    └── </span><span class="hl-0">infrastructure</span><span class="hl-1">/ # </span><span class="hl-0">Componentes</span><span class="hl-1"> </span><span class="hl-0">de</span><span class="hl-1"> </span><span class="hl-0">infraestructura</span><span class="hl-1"> </span><span class="hl-0">compartidos</span>
+</code><button>Copy</button></pre>
+
+<h2 id="getting-started" class="tsd-anchor-link">Getting Started<a href="#getting-started" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><h3 id="prerequisites" class="tsd-anchor-link">Prerequisites<a href="#prerequisites" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><ul>
+<li>Node.js (v14 or higher)</li>
+<li>npm or yarn</li>
+<li>Expo CLI</li>
+</ul>
+<h3 id="installation" class="tsd-anchor-link">Installation<a href="#installation" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><ol>
+<li>Clone the repository</li>
+<li>Install dependencies:<pre><code class="bash"><span class="hl-2">npm</span><span class="hl-1"> </span><span class="hl-4">install</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+</ol>
+<h3 id="development" class="tsd-anchor-link">Development<a href="#development" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><ul>
+<li>
+<p>Start the development server:</p>
+<pre><code class="bash"><span class="hl-2">npm</span><span class="hl-1"> </span><span class="hl-4">start</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p>Run on iOS:</p>
+<pre><code class="bash"><span class="hl-2">npm</span><span class="hl-1"> </span><span class="hl-4">run</span><span class="hl-1"> </span><span class="hl-4">ios</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p>Run on Android:</p>
+<pre><code class="bash"><span class="hl-2">npm</span><span class="hl-1"> </span><span class="hl-4">run</span><span class="hl-1"> </span><span class="hl-4">android</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+</ul>
+<h3 id="expo-testing" class="tsd-anchor-link">Expo Testing<a href="#expo-testing" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><ul>
+<li>
+<p>Build for development:</p>
+<pre><code class="bash"><span class="hl-2">expo</span><span class="hl-1"> </span><span class="hl-4">build:android</span><span class="hl-1"> </span><span class="hl-5">-t</span><span class="hl-1"> </span><span class="hl-4">apk</span><br/><span class="hl-2">expo</span><span class="hl-1"> </span><span class="hl-4">build:ios</span><span class="hl-1"> </span><span class="hl-5">-t</span><span class="hl-1"> </span><span class="hl-4">simulator</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p>Create a development build:</p>
+<pre><code class="bash"><span class="hl-2">expo</span><span class="hl-1"> </span><span class="hl-4">prebuild</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p>Publish to Expo:</p>
+<pre><code class="bash"><span class="hl-2">expo</span><span class="hl-1"> </span><span class="hl-4">publish</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+</ul>
+<h3 id="code-quality" class="tsd-anchor-link">Code Quality<a href="#code-quality" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><ul>
+<li>
+<p>Lint code:</p>
+<pre><code class="bash"><span class="hl-2">npm</span><span class="hl-1"> </span><span class="hl-4">run</span><span class="hl-1"> </span><span class="hl-4">lint</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p>Fix linting issues:</p>
+<pre><code class="bash"><span class="hl-2">npm</span><span class="hl-1"> </span><span class="hl-4">run</span><span class="hl-1"> </span><span class="hl-4">lint:fix</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p>Format code:</p>
+<pre><code class="bash"><span class="hl-2">npm</span><span class="hl-1"> </span><span class="hl-4">run</span><span class="hl-1"> </span><span class="hl-4">format</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+</ul>
+<h2 id="commit-guidelines" class="tsd-anchor-link">Commit Guidelines<a href="#commit-guidelines" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>This project follows <a href="https://www.conventionalcommits.org/">Conventional Commits</a> specification. Each commit message should be structured as follows:</p>
+<pre><code><span class="hl-1">&lt;</span><span class="hl-6">type</span><span class="hl-1">&gt;[</span><span class="hl-0">optional</span><span class="hl-1"> </span><span class="hl-0">scope</span><span class="hl-1">]: &lt;</span><span class="hl-6">description</span><span class="hl-1">&gt;</span><br/><br/><span class="hl-1">[</span><span class="hl-0">optional</span><span class="hl-1"> </span><span class="hl-0">body</span><span class="hl-1">]</span><br/><br/><span class="hl-1">[</span><span class="hl-0">optional</span><span class="hl-1"> </span><span class="hl-2">footer</span><span class="hl-1">(</span><span class="hl-0">s</span><span class="hl-1">)]</span>
+</code><button>Copy</button></pre>
+
+<h3 id="types" class="tsd-anchor-link">Types<a href="#types" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><ul>
+<li><strong>feat</strong>: A new feature</li>
+<li><strong>fix</strong>: A bug fix</li>
+<li><strong>docs</strong>: Documentation changes</li>
+<li><strong>style</strong>: Changes that do not affect the meaning of the code</li>
+<li><strong>refactor</strong>: A code change that neither fixes a bug nor adds a feature</li>
+<li><strong>perf</strong>: A code change that improves performance</li>
+<li><strong>test</strong>: Adding missing tests or correcting existing tests</li>
+<li><strong>build</strong>: Changes that affect the build system or external dependencies</li>
+<li><strong>ci</strong>: Changes to CI configuration files and scripts</li>
+<li><strong>chore</strong>: Other changes that don't modify src or test files</li>
+</ul>
+<h2 id="internationalization-i18n" class="tsd-anchor-link">Internationalization (i18n)<a href="#internationalization-i18n" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>The project supports multiple languages (English and Spanish) using i18next. Translation files are located in the <code>i18n/locales</code> directory.</p>
+<h2 id="architecture" class="tsd-anchor-link">Architecture<a href="#architecture" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>This project follows Hexagonal Architecture (Ports and Adapters) principles:</p>
+<ol>
+<li><strong>Domain-Driven Design</strong>: The domain layer contains core business logic and is framework-independent</li>
+<li><strong>Dependency Inversion</strong>: Dependencies flow inward, with the domain at the center</li>
+<li><strong>Separation of Concerns</strong>: Each layer has a specific responsibility</li>
+<li><strong>Feature-based Organization</strong>: Code is organized by features rather than technical layers</li>
+</ol>
+</div></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-accordion"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg><h3>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></div><div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg><h3>On This Page</h3></summary><div class="tsd-accordion-details"><a href="#loginapp"><span>Login<wbr/>App</span></a><ul><li><a href="#project-structure"><span>Project <wbr/>Structure</span></a></li><li><a href="#getting-started"><span>Getting <wbr/>Started</span></a></li><li><ul><li><a href="#prerequisites"><span>Prerequisites</span></a></li><li><a href="#installation"><span>Installation</span></a></li><li><a href="#development"><span>Development</span></a></li><li><a href="#expo-testing"><span>Expo <wbr/>Testing</span></a></li><li><a href="#code-quality"><span>Code <wbr/>Quality</span></a></li></ul></li><li><a href="#commit-guidelines"><span>Commit <wbr/>Guidelines</span></a></li><li><ul><li><a href="#types"><span>Types</span></a></li></ul></li><li><a href="#internationalization-i18n"><span>Internationalization (i18n)</span></a></li><li><a href="#architecture"><span>Architecture</span></a></li></ul></div></details></div><div class="site-menu"><nav id="tsd-sidebar-links" class="tsd-navigation"><a href="https://github.com/your-username/sae-employee-app" class="tsd-nav-link">GitHub</a></nav><nav class="tsd-navigation"><a href="modules.html">SAE Employee, App - v1.0.0</a><ul class="tsd-small-nested-navigation" id="tsd-nav-container"><li>Loading...</li></ul></nav></div></div></div><footer></footer><div class="overlay"></div></body></html>
