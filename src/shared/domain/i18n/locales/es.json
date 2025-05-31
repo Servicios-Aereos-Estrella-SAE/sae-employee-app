@@ -19,6 +19,20 @@
       "forgotPassword": "¿Olvidaste tu contraseña?",
       "loginButton": "Entrar",
       "or": "O"
+    },
+    "biometrics": {
+      "title": "Configuración de Biometría",
+      "subtitle": "Configura la biometría para tu dispositivo y así facilita el acceso a tu cuenta",
+      "faceID": "Face ID",
+      "fingerprint": "Huella Digital",
+      "notConfigured": "No configurado",
+      "faceIDAvailable": "Face ID disponible",
+      "fingerprintAvailable": "Huella Digital disponible",
+      "primaryBiometricMethod": "Método biométrico principal",
+      "enableButton": "Habilitar",
+      "skipButton": "Omitir por ahora",
+      "deviceSupportsButNotConfigured": "El dispositivo soporta biometría \n pero no está configurado o habilitado.\n\n Dirígete a la configuración de tu dispositivo \n para habilitarla",
+      "deviceNotSupported": "El dispositivo no soporta biometría"
     }
   },
   "components": {

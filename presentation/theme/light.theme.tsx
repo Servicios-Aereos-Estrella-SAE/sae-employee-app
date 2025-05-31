@@ -22,6 +22,7 @@ export const LIGHT_THEME: IAppTheme = {
     indicatorActive: '#f6fdfb',
     button: '#34d4ad',
     buttonText: '#ffffff',
-    cardBgColor: '#fff'
+    cardBgColor: '#fff',
+    iconColor: '#89a4bf'
   }
 }

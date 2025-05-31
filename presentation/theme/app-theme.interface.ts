@@ -18,6 +18,7 @@ interface IAppTheme {
     button: string
     buttonText: string
     cardBgColor: string
+    iconColor: string
   }
 }
 

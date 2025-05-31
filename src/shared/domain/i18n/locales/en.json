@@ -19,6 +19,20 @@
       "forgotPassword": "Forgot your password?",
       "loginButton": "Sign In",
       "or": "OR"
+    },
+    "biometrics": {
+      "title": "Biometrics Configuration",
+      "subtitle": "Configure biometrics for your device and so you can access your account easily",
+      "faceID": "Face ID",
+      "fingerprint": "Fingerprint",
+      "notConfigured": "Not Configured",
+      "faceIDAvailable": "Face ID available",
+      "fingerprintAvailable": "Fingerprint available",
+      "primaryBiometricMethod": "Primary biometric method",
+      "enableButton": "Enable",
+      "skipButton": "Skip for now",
+      "deviceSupportsButNotConfigured": "The device supports biometrics \n but is not configured or enabled.\n\n Go to your device settings \n to enable it",
+      "deviceNotSupported": "The device does not support biometrics"
     }
   },
   "components": {

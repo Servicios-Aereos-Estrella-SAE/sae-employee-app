@@ -22,6 +22,7 @@ export const DARK_THEME: IAppTheme = {
     indicatorActive: '#3d4769',
     button: '#34d4ad',
     buttonText: '#ffffff',
-    cardBgColor: '#2b3652'
+    cardBgColor: '#2b3652',
+    iconColor: '#89a4bf'
   }
 }

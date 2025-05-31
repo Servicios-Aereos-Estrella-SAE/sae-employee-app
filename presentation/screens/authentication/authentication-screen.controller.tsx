@@ -23,6 +23,7 @@ const AuthenticationScreenController = () => {
   const [hasStoredCredentials, setHasStoredCredentials] = useState(false)
   const [securityAlert, setSecurityAlert] = useState<string | null>(null)
   const [biometricType, setBiometricType] = useState<'fingerprint' | 'face'>('fingerprint')
+  const [biometricEnabled, setBiometricEnabled] = useState(false)
 
   const { t } = useTranslation()
   const navigation =
@@ -74,7 +75,19 @@ const AuthenticationScreenController = () => {
       })
 
       await setAuthStateData()
-      navigation.replace('attendanceCheck')
+      
+      // Check if it's the first login or if biometrics prompt hasn't been shown yet
+      const authStateController = new AuthStateController()
+      const authState = await authStateController.getAuthState()
+
+      const biometricService = new BiometricsService()
+      const isBiometricAvailable = await biometricService.isBiometricAvailable()
+      
+      if (type === 'email' && isBiometricAvailable && !authState?.props.biometricsPreferences?.hasPromptBeenShown) {
+        navigation.replace('biometricsConfigScreen')
+      } else {
+        navigation.replace('attendanceCheck')
+      }
     } catch (error) {
       Alert.alert(
         t('common.error'),
@@ -107,6 +120,9 @@ const AuthenticationScreenController = () => {
 
       setHasStoredCredentials(!!authState?.props.authState?.user?.props)
       setEmail(authState?.props.loginCredentials?.email || '')
+      
+      // Set biometric enabled state from preferences
+      setBiometricEnabled(!!authState?.props.biometricsPreferences?.isEnabled)
       return
     } catch (error) {
       throw new Error(t('errors.authenticationGetStorageError'))
@@ -151,11 +167,12 @@ const AuthenticationScreenController = () => {
    * Determina si se deben mostrar los biométricos
    * - valida la disponibilidad de la biometria en el dispositivo
    * - valida la existencia de credenciales almacenadas localmente
+   * - valida que los biométricos estén habilitados en las preferencias del usuario
    * @returns {boolean} True si se deben mostrar los biométricos, false en caso contrario
    */
   const shouldShowBiometrics = () => {
     try {
-      return Boolean(biometricAvailable) && Boolean(hasStoredCredentials)
+      return Boolean(biometricAvailable) && Boolean(hasStoredCredentials) && Boolean(biometricEnabled)
     } catch (error) {
       console.error('Error al evaluar biométricos:', error)
       return false
