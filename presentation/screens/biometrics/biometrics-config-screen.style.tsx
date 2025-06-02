@@ -1,0 +1,89 @@
+import { Dimensions, StyleSheet } from 'react-native'
+
+const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
+
+// Funciones helper para calcular dimensiones responsivas
+const hp = (percentage: number) => (screenHeight * percentage) / 100
+const wp = (percentage: number) => (screenWidth * percentage) / 100
+const fp = (percentage: number) => ((screenHeight + screenWidth) * percentage) / 200
+
+const createBiometricsConfigScreenStyle = () =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: '#FFFFFF',
+      paddingTop: hp(3.75)
+    },
+    content: {
+      flex: 1,
+      padding: wp(5),
+      justifyContent: 'space-between'
+    },
+    header: {
+      marginTop: hp(5),
+      marginBottom: hp(3.75)
+    },
+    title: {
+      fontSize: fp(3.5),
+      fontWeight: 'bold',
+      color: '#000000',
+      marginBottom: hp(1.25)
+    },
+    subtitle: {
+      fontSize: fp(2),
+      color: '#666666',
+      lineHeight: hp(2.75)
+    },
+    biometricOptions: {
+      flex: 1,
+      justifyContent: 'center'
+    },
+    biometricOption: {
+      alignItems: 'center',
+      marginBottom: hp(3.75)
+    },
+    iconContainer: {
+      width: wp(25),
+      height: wp(25),
+      borderRadius: wp(12.5),
+      backgroundColor: '#f6fdfb',
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginBottom: hp(1.875)
+    },
+    optionTitle: {
+      fontSize: fp(2.25),
+      fontWeight: 'bold',
+      color: '#000000',
+      marginBottom: hp(0.625)
+    },
+    optionDescription: {
+      fontSize: fp(1.75),
+      color: '#666666',
+      textAlign: 'center',
+      paddingHorizontal: wp(5)
+    },
+    actionsContainer: {
+      marginTop: hp(5)
+    },
+    secondaryButtonWrapper: {
+      marginTop: hp(1.25),
+      marginBottom: hp(6.25)
+    },
+    fingerprintIcon: {
+      height: hp(5.5)
+    },
+    cogIcon: {
+      height: hp(5.5)
+    },
+    warningIcon: {
+      height: hp(5.5)
+    }
+  })
+
+
+const useBiometricsConfigScreenStyle = () => {
+  return createBiometricsConfigScreenStyle()
+}
+
+export { useBiometricsConfigScreenStyle }

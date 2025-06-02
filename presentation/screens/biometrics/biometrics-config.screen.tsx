@@ -2,24 +2,15 @@ import React from 'react'
 import {
   SafeAreaView,
   View,
-  Text,
-  StyleSheet,
-  Dimensions
+  Text
 } from 'react-native'
-import { Ionicons } from '@expo/vector-icons'
 import { useTranslation } from 'react-i18next'
 import { BiometricsConfigScreenController } from './biometrics-config-screen.controller'
 import { Button } from '../../components/button/button.component'
 import { FingerprintIcon } from '../../icons/fingerprint-icon/fingerprint.icon'
 import { CogIcon } from '../../icons/cog-icon/cog.icon'
-
-// Obtener dimensiones de la pantalla
-const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
-
-// Funciones helper para calcular dimensiones responsivas
-const hp = (percentage: number) => (screenHeight * percentage) / 100
-const wp = (percentage: number) => (screenWidth * percentage) / 100
-const fp = (percentage: number) => ((screenHeight + screenWidth) * percentage) / 200
+import { useBiometricsConfigScreenStyle } from './biometrics-config-screen.style'
+import { WarningIcon } from '../../icons/warning-icon/warning.icon'
 
 /**
  * Pantalla de configuración de biometría
@@ -28,6 +19,7 @@ const fp = (percentage: number) => ((screenHeight + screenWidth) * percentage) /
  */
 const BiometricsConfigScreen = (): React.ReactElement => {
   const { t } = useTranslation()
+  const styles = useBiometricsConfigScreenStyle()
   const {
     loading,
     biometricType,
@@ -87,7 +79,7 @@ const BiometricsConfigScreen = (): React.ReactElement => {
           {biometricAvailable && (
             <View style={styles.biometricOption}>
               <View style={styles.iconContainer}>
-                <FingerprintIcon size={hp(5.5)} color="#89a4bf" />
+                <FingerprintIcon size={styles.fingerprintIcon.height} color="#89a4bf" />
               </View>
               <Text style={styles.optionTitle}>{biometricTextInfo.title}</Text>
               <Text style={styles.optionDescription}>
@@ -100,7 +92,7 @@ const BiometricsConfigScreen = (): React.ReactElement => {
           {!biometricAvailable && (deviceSupportsFace || deviceSupportsFingerprint) && (
             <View style={styles.biometricOption}>
               <View style={styles.iconContainer}>
-                <CogIcon size={hp(5.5)} color="#89a4bf" />
+                <CogIcon size={styles.cogIcon.height} color="#89a4bf" />
               </View>
               <Text style={styles.optionTitle}>{t('screens.biometrics.notConfigured')}</Text>
               <Text style={styles.optionDescription}>
@@ -113,7 +105,7 @@ const BiometricsConfigScreen = (): React.ReactElement => {
           {!deviceSupportsFace && !deviceSupportsFingerprint && (
             <View style={styles.biometricOption}>
               <View style={styles.iconContainer}>
-                <Ionicons name="warning" size={hp(7.5)} color="#FF9500" />
+                <WarningIcon size={styles.warningIcon.height} color="#FF993A" />
               </View>
               <Text style={styles.optionTitle}>{t('screens.biometrics.notSupported')}</Text>
               <Text style={styles.optionDescription}>
@@ -124,18 +116,14 @@ const BiometricsConfigScreen = (): React.ReactElement => {
         </View>
 
         <View style={styles.actionsContainer}>
-          {biometricAvailable ? (
+          {biometricAvailable && (deviceSupportsFace || deviceSupportsFingerprint) ? (
             <Button
               title={`${t('screens.biometrics.enableButton')} ${biometricTextInfo.title}`}
               onPress={enableBiometrics}
               loading={loading}
             />
           ) : (
-            <Button
-              title={t('screens.biometrics.enableButton')}
-              onPress={() => {}}
-              disabled={true}
-            />
+            <View></View>
           )}
 
           <View style={styles.secondaryButtonWrapper}>
@@ -151,69 +139,5 @@ const BiometricsConfigScreen = (): React.ReactElement => {
     </SafeAreaView>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#FFFFFF',
-    paddingTop: hp(3.75)
-  },
-  content: {
-    flex: 1,
-    padding: wp(5),
-    justifyContent: 'space-between'
-  },
-  header: {
-    marginTop: hp(5),
-    marginBottom: hp(3.75)
-  },
-  title: {
-    fontSize: fp(3.5),
-    fontWeight: 'bold',
-    color: '#000000',
-    marginBottom: hp(1.25)
-  },
-  subtitle: {
-    fontSize: fp(2),
-    color: '#666666',
-    lineHeight: hp(2.75)
-  },
-  biometricOptions: {
-    flex: 1,
-    justifyContent: 'center'
-  },
-  biometricOption: {
-    alignItems: 'center',
-    marginBottom: hp(3.75)
-  },
-  iconContainer: {
-    width: wp(25),
-    height: wp(25),
-    borderRadius: wp(12.5),
-    backgroundColor: '#f6fdfb',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: hp(1.875)
-  },
-  optionTitle: {
-    fontSize: fp(2.25),
-    fontWeight: 'bold',
-    color: '#000000',
-    marginBottom: hp(0.625)
-  },
-  optionDescription: {
-    fontSize: fp(1.75),
-    color: '#666666',
-    textAlign: 'center',
-    paddingHorizontal: wp(5)
-  },
-  actionsContainer: {
-    marginTop: hp(5)
-  },
-  secondaryButtonWrapper: {
-    marginTop: hp(1.25),
-    marginBottom: hp(6.25)
-  }
-})
 
 export { BiometricsConfigScreen }

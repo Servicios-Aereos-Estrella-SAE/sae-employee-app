@@ -32,7 +32,8 @@
       "enableButton": "Habilitar",
       "skipButton": "Omitir por ahora",
       "deviceSupportsButNotConfigured": "El dispositivo soporta biometría \n pero no está configurado o habilitado.\n\n Dirígete a la configuración de tu dispositivo \n para habilitarla",
-      "deviceNotSupported": "El dispositivo no soporta biometría"
+      "deviceNotSupported": "El dispositivo no soporta acceso mediante biometricos",
+      "notSupported": "No soportado"
     }
   },
   "components": {
