@@ -80,21 +80,21 @@ const SidebarLayout: React.FC<ISidebarProps> = ({ isOpen, onClose }) => {
                 label="Checador de Asistencia"
                 textColor={styles.sidebarIconText.color}
               />
-              <SidebarItem
+              {/* <SidebarItem
                 icon={<SidebarIcon color={styles.sidebarIcon.color} />}
                 label="Calendario"
                 textColor={styles.sidebarIconText.color}
-              />
-              <SidebarItem
+              /> */}
+              {/* <SidebarItem
                 icon={<SidebarIcon color={styles.sidebarIcon.color} />}
                 label="Permisos"
                 textColor={styles.sidebarIconText.color}
-              />
-              <SidebarItem
+              /> */}
+              {/* <SidebarItem
                 icon={<SidebarIcon color={styles.sidebarIcon.color} />}
                 label="Vacaciones"
                 textColor={styles.sidebarIconText.color}
-              />
+              /> */}
             </View>
 
             <View style={styles.separator} />
