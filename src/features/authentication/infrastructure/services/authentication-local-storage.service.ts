@@ -121,6 +121,7 @@ export class AuthenticationLocalStorageService {
             ...authenticationObject.properties.authState,
             user: user
           },
+          biometricsPreferences: authenticationObject.properties.biometricsPreferences,
           loginCredentials: authenticationObject.properties.loginCredentials,
           createdAt: authenticationObject.properties.createdAts
         })

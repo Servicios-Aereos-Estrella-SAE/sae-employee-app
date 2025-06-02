@@ -54,6 +54,8 @@
     "authenticationGetStorageError": "Error getting authentication information",
     "biometricAuthenticationError": "Error authenticating with biometrics",
     "biometricNotAvailable": "Biometric authentication is not available on this device",
-    "invalidLoginType": "Invalid login type"
+    "invalidLoginType": "Invalid login type",
+    "biometricsNotAvailable": "Biometric authentication is not available on this device",
+    "biometricAuthenticationFailed": "Biometric authentication failed. \nTry again"
   }
 }

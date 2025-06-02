@@ -54,6 +54,8 @@
     "authenticationGetStorageError": "Error al obtener la información de autenticación",
     "biometricAuthenticationError": "Error al autenticar con biometría",
     "biometricNotAvailable": "No se puede usar la biometría en este dispositivo",
-    "invalidLoginType": "Tipo de inicio de sesión inválido"
+    "invalidLoginType": "Tipo de inicio de sesión inválido",
+    "biometricsNotAvailable": "No se puede usar la biometría en este dispositivo",
+    "biometricAuthenticationFailed": "No se pudo autenticar con biometría. \n Intenta nuevamente"
   }
 }

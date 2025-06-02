@@ -41,8 +41,6 @@ const BiometricsConfigScreenController = () => {
   const checkBiometricAvailability = async (): Promise<void> => {
     try {
       const biometricService = new BiometricsService()
-      
-      // Verificar capacidades de hardware y biométricos registrados
       const deviceBiometrics = await biometricService.getAvailableBiometricTypes()
       
       // Establecer indicadores de soporte de hardware
@@ -86,7 +84,7 @@ const BiometricsConfigScreenController = () => {
         setBiometricType('fingerprint')
       }
     } catch (error) {
-      console.error('Error al verificar disponibilidad de biometría:', error)
+      console.error(t('errors.biometricsNotAvailable'), error)
       setBiometricAvailable(false)
     }
   }
@@ -112,7 +110,7 @@ const BiometricsConfigScreenController = () => {
       
       // Autenticar con biometría para confirmar la configuración
       // Pasar el tipo de biometría detectado para usar el mensaje apropiado
-      const authenticated = await biometricService.authenticate(biometricType)
+      const authenticated = await biometricService.authenticate()
       
       if (authenticated) {
         // Actualizar preferencias de usuario
@@ -165,34 +163,29 @@ const BiometricsConfigScreenController = () => {
    * @returns {Promise<void>}
    */
   const updateBiometricsPreferences = async (isEnabled: boolean): Promise<void> => {
-    try {
-      const authStateController = new AuthStateController()
-      const authState = await authStateController.getAuthState()
-      
-      if (!authState) {
-        throw new Error(t('errors.authStateNotFound'))
-      }
-      
-      // Crear preferencias de biometría
-      const biometricsPreferences: IBiometricsPreferences = {
-        isConfigured: true,
-        isEnabled,
-        hasPromptBeenShown: true
-      }
-      
-      // Crear entidad de autenticación actualizada
-      const updatedAuth = new AuthenticationEntity({
-        ...authState.props,
-        biometricsPreferences
-      })
-      
-      // Almacenar preferencias actualizadas
-      const storageService = new AuthenticationLocalStorageService()
-      await storageService.localStoreAuthenticationState(updatedAuth)
-    } catch (error) {
-      console.error('Error al actualizar preferencias de biometría:', error)
-      throw error
+    const authStateController = new AuthStateController()
+    const authState = await authStateController.getAuthState()
+    
+    if (!authState) {
+      throw new Error(t('errors.authStateNotFound'))
     }
+    
+    // Crear preferencias de biometría
+    const biometricsPreferences: IBiometricsPreferences = {
+      isConfigured: true,
+      isEnabled,
+      hasPromptBeenShown: true
+    }
+    
+    // Crear entidad de autenticación actualizada
+    const updatedAuth = new AuthenticationEntity({
+      ...authState.props,
+      biometricsPreferences
+    })
+    
+    // Almacenar preferencias actualizadas
+    const storageService = new AuthenticationLocalStorageService()
+    await storageService.localStoreAuthenticationState(updatedAuth)
   }
 
   return {

@@ -91,12 +91,17 @@ export class LoginAPIRepository implements Pick<AuthenticationPorts, 'login'> {
       HttpService.setBearerToken(responseData.token)
 
       const sessionUser = await this.getSessionUser()
+
+      const authenticationLocalStorageService = new AuthenticationLocalStorageService()
+      const localAuthState = await authenticationLocalStorageService.localGetAuthenticationState()
+
       const newAuthentication = new AuthenticationEntity({
         authState: {
           user: sessionUser,
           token: responseData.token,
           isAuthenticated: true
         },
+        biometricsPreferences: localAuthState?.props.biometricsPreferences,
         loginCredentials: authentication.props.loginCredentials,
         createdAt: new Date()
       })
@@ -105,7 +110,6 @@ export class LoginAPIRepository implements Pick<AuthenticationPorts, 'login'> {
         throw new Error(i18next.t('errors.loginFailedNoAuthenticationStatus'))
       }
 
-      const authenticationLocalStorageService = new AuthenticationLocalStorageService()
       await authenticationLocalStorageService.localStoreAuthenticationCredentials(newAuthentication)
       await authenticationLocalStorageService.localStoreAuthenticationState(newAuthentication)
 

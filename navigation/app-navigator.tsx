@@ -7,7 +7,7 @@ import useAppNavigatorStyle from './app-navigator.style'
 
 import { AuthenticationScreen } from '../presentation/screens/authentication/authentication.screen'
 import { AttendanceCheckScreen } from '../presentation/screens/attendance-check/attendance-check.screen'
-import { BiometricsConfigScreen } from '../presentation/screens/biometrics/biometrics-config-screen'
+import { BiometricsConfigScreen } from '../presentation/screens/biometrics/biometrics-config.screen'
 // import { ProfileScreen } from '../screens/profile/ProfileScreen'
 
 const Stack = createNativeStackNavigator<RootStackParamList>()

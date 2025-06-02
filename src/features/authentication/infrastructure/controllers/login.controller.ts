@@ -22,9 +22,7 @@ export class LoginController {
    * @throws { Error } si hay problemas de conexión con la API
    */
   async login(loginAuthenticationDTO: ILoginAuthenticationDTO): Promise<AuthenticationEntity> {
-    const loginRepository = new LoginRepositoryFactory().repository(
-      loginAuthenticationDTO.type
-    )
+    const loginRepository = new LoginRepositoryFactory().repository(loginAuthenticationDTO.type)
 
     this.loginAuthentication = new LoginAuthenticationUsecase(loginRepository)
 
@@ -44,7 +42,7 @@ export class LoginController {
     }
 
     // Set default biometrics preferences for first login
-    await this.setDefaultBiometricsPreferences(authenticationResult)
+    // await this.setDefaultBiometricsPreferences(authenticationResult)
 
     return authenticationResult
   }

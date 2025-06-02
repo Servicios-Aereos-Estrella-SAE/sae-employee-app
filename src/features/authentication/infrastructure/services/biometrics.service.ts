@@ -156,18 +156,10 @@ export class BiometricsService {
    * @param {('face'|'fingerprint')} [biometricType] - El tipo de biometría a utilizar (para propósitos de mensaje)
    * @returns {Promise<boolean>} Promesa que resuelve a true si la autenticación fue exitosa
    */
-  async authenticate(biometricType?: 'face' | 'fingerprint'): Promise<boolean> {
+  async authenticate(): Promise<boolean> {
     try {
       // Establecer mensaje apropiado basado en el tipo principal de biometría
-      let promptMessage = i18next.t('common.authentication.biometricPromptMessage')
-      
-      // Si sabemos qué tipo de biometría estamos utilizando, personalizamos el mensaje
-      if (biometricType === 'face') {
-        promptMessage = i18next.t('common.authentication.faceIDPromptMessage')
-      } else if (biometricType === 'fingerprint') {
-        promptMessage = i18next.t('common.authentication.fingerprintPromptMessage')
-      }
-      
+      const promptMessage = i18next.t('common.authentication.biometricPromptMessage')
       const result = await LocalAuthentication.authenticateAsync({
         promptMessage,
         fallbackLabel: i18next.t('common.authentication.biometricFallbackLabel'),

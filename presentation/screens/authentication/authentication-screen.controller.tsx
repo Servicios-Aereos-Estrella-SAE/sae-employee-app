@@ -24,6 +24,7 @@ const AuthenticationScreenController = () => {
   const [securityAlert, setSecurityAlert] = useState<string | null>(null)
   const [biometricType, setBiometricType] = useState<'fingerprint' | 'face'>('fingerprint')
   const [biometricEnabled, setBiometricEnabled] = useState(false)
+  const [hasBiometricsPromptBeenShown, setHasBiometricsPromptBeenShown] = useState(false)
 
   const { t } = useTranslation()
   const navigation =
@@ -75,15 +76,11 @@ const AuthenticationScreenController = () => {
       })
 
       await setAuthStateData()
-      
-      // Check if it's the first login or if biometrics prompt hasn't been shown yet
-      const authStateController = new AuthStateController()
-      const authState = await authStateController.getAuthState()
 
       const biometricService = new BiometricsService()
       const isBiometricAvailable = await biometricService.isBiometricAvailable()
       
-      if (type === 'email' && isBiometricAvailable && !authState?.props.biometricsPreferences?.hasPromptBeenShown) {
+      if (type === 'email' && isBiometricAvailable && !hasBiometricsPromptBeenShown) {
         navigation.replace('biometricsConfigScreen')
       } else {
         navigation.replace('attendanceCheck')
@@ -109,6 +106,9 @@ const AuthenticationScreenController = () => {
     try {
       const authStateController = new AuthStateController()
       const authState = await authStateController.getAuthState()
+      const hasPromptBeenShown = hasBiometricsPromptBeenShown || authState?.props.biometricsPreferences?.hasPromptBeenShown
+
+      setHasBiometricsPromptBeenShown(hasPromptBeenShown || false)
 
       if (!authState || !authState.props.authState?.user?.props) {
         return

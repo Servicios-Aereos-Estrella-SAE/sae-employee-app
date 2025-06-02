@@ -125,12 +125,15 @@ export class LoginBiometricRepository implements Pick<AuthenticationPorts, 'logi
       HttpService.setBearerToken(responseData.token)
 
       const sessionUser = await this.getSessionUser()
+      const authenticationLocalStorageService = new AuthenticationLocalStorageService()
+      const localAuthState = await authenticationLocalStorageService.localGetAuthenticationState()
       const newAuthentication = new AuthenticationEntity({
         authState: {
           user: sessionUser,
           token: responseData.token,
           isAuthenticated: true
         },
+        biometricsPreferences: localAuthState?.props.biometricsPreferences,
         loginCredentials: credentials,
         createdAt: new Date()
       })
@@ -139,7 +142,6 @@ export class LoginBiometricRepository implements Pick<AuthenticationPorts, 'logi
         throw new Error(i18next.t('errors.loginFailedNoAuthenticationStatus'))
       }
 
-      const authenticationLocalStorageService = new AuthenticationLocalStorageService()
       await authenticationLocalStorageService.localStoreAuthenticationCredentials(newAuthentication)
       await authenticationLocalStorageService.localStoreAuthenticationState(newAuthentication)
 

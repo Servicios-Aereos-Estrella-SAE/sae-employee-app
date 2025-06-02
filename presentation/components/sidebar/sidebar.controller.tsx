@@ -57,7 +57,6 @@ const SidebarController = (props: ISidebarProps) => {
   const handleLogout = async () => {
     const clearSessionController = new ClearSessionController()
     await clearSessionController.clearSession()
-
     navigation.replace('authenticationScreen')
   }
 
