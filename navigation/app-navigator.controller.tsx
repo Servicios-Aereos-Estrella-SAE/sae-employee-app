@@ -26,7 +26,6 @@ const AppNavigatorController = () => {
   }
 
   const getInitialRouteName = (): keyof RootStackParamList => {
-    // return 'biometricsConfigScreen'
     return isAuthenticated ? 'attendanceCheck' : 'authenticationScreen'
   }
 

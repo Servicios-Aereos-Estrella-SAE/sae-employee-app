@@ -31,9 +31,11 @@
       "primaryBiometricMethod": "Primary biometric method",
       "enableButton": "Enable",
       "skipButton": "Skip for now",
+      "unsetBiometricsButton": "Disable biometric access",
       "deviceSupportsButNotConfigured": "The device supports biometrics \n but is not configured or enabled.\n\n Go to your device settings \n to enable it",
       "deviceNotSupported": "The device does not support biometrics",
-      "notSupported": "Not supported"
+      "notSupported": "Not supported",
+      "biometricsEnabled": "Biometric access is currently enabled"
     }
   },
   "components": {

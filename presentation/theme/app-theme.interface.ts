@@ -3,6 +3,8 @@ interface IAppTheme {
   colors: {
     primary: string
     accent: string
+    warning: string
+    success: string
     background: string
     backgroundSecondary: string
     surface: string

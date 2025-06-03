@@ -31,9 +31,11 @@
       "primaryBiometricMethod": "Método biométrico principal",
       "enableButton": "Habilitar",
       "skipButton": "Omitir por ahora",
+      "unsetBiometricsButton": "Deshabilitar acceso con biometría",
       "deviceSupportsButNotConfigured": "El dispositivo soporta biometría \n pero no está configurado o habilitado.\n\n Dirígete a la configuración de tu dispositivo \n para habilitarla",
       "deviceNotSupported": "El dispositivo no soporta acceso mediante biometricos",
-      "notSupported": "No soportado"
+      "notSupported": "No soportado",
+      "biometricsEnabled": "La configuración de acceso mediante biometría se encuentra actualmente habilitada"
     }
   },
   "components": {

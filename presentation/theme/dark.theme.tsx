@@ -8,6 +8,8 @@ export const DARK_THEME: IAppTheme = {
     ...MD3DarkTheme.colors,
     primary: '#93a5de',
     accent: '#34d4ad',
+    warning: '#FF993A',
+    success: '#34d4ad',
     background: '#252f4a',
     backgroundSecondary: '#1e1e1e',
     surface: '#3d476a',

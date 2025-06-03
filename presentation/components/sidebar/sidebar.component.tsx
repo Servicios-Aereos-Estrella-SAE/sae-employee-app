@@ -112,6 +112,7 @@ const SidebarLayout: React.FC<ISidebarProps> = ({ isOpen, onClose }) => {
                 icon={<SidebarIcon color={styles.sidebarIcon.color} />}
                 label="Configuración"
                 textColor={styles.sidebarIconText.color}
+                onPress={() => { controller.navigateTo('biometricsConfigScreen') }}
               />
             </View>
 

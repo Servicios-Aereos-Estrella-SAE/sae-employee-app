@@ -8,6 +8,8 @@ export const LIGHT_THEME: IAppTheme = {
     ...DefaultTheme.colors,
     primary: '#303e67',
     accent: '#34d4ad',
+    warning: '#FF993A',
+    success: '#34d4ad',
     background: '#ffffff',
     backgroundSecondary: '#f1f5f9',
     surface: '#ffffff',

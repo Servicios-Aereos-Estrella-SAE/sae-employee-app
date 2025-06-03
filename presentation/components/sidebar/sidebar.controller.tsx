@@ -106,6 +106,15 @@ const SidebarController = (props: ISidebarProps) => {
     setAuthUserAvatarSource(avatar || initial)
   }
 
+  /**
+   * Navega a la pantalla especificada
+   * @param {keyof RootStackParamList} screen - Nombre de la pantalla a la que se navegará
+   * @returns {void}
+   */
+  const navigateTo = (screen: keyof RootStackParamList) => {
+    navigation.navigate(screen)
+  }
+
   return {
     onClose: props.onClose,
     isOpen: props.isOpen,
@@ -118,7 +127,8 @@ const SidebarController = (props: ISidebarProps) => {
     authUserName,
     authUserEmail,
     authUserAvatarType,
-    authUserAvatarSource
+    authUserAvatarSource,
+    navigateTo
   }
 }
 

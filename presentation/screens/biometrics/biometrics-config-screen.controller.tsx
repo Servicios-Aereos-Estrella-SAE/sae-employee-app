@@ -18,6 +18,9 @@ const BiometricsConfigScreenController = () => {
   const [loading, setLoading] = useState(false)
   const [biometricAvailable, setBiometricAvailable] = useState(false)
   const [biometricType, setBiometricType] = useState<'fingerprint' | 'face'>('fingerprint')
+
+  const [deviceBiometricSupport, setDeviceBiometricSupport] = useState(false)
+  const [biometricsEnabled, setBiometricsEnabled] = useState(false)
   
   // Indicadores de soporte de hardware
   const [deviceSupportsFace, setDeviceSupportsFace] = useState(false)
@@ -46,6 +49,7 @@ const BiometricsConfigScreenController = () => {
       // Establecer indicadores de soporte de hardware
       setDeviceSupportsFace(deviceBiometrics.supportsFaceID)
       setDeviceSupportsFingerprint(deviceBiometrics.supportsFingerprint)
+      setDeviceBiometricSupport(deviceBiometrics.supportsFaceID || deviceBiometrics.supportsFingerprint)
       
       // Verificar si hay biométricos registrados
       const isBiometricAvailable = await biometricService.isBiometricAvailable()
@@ -83,6 +87,9 @@ const BiometricsConfigScreenController = () => {
         setHasEnrolledFingerprint(true)
         setBiometricType('fingerprint')
       }
+
+      // Verificar si la biometría está habilitada en el estado de autenticación
+      await checkBiometricsEnabled()
     } catch (error) {
       console.error(t('errors.biometricsNotAvailable'), error)
       setBiometricAvailable(false)
@@ -117,7 +124,7 @@ const BiometricsConfigScreenController = () => {
         await updateBiometricsPreferences(true)
         
         // Navegar a la pantalla de control de asistencia
-        navigation.replace('attendanceCheck')
+        // navigation.replace('attendanceCheck')
       } else {
         Alert.alert(
           t('common.error'),
@@ -186,12 +193,73 @@ const BiometricsConfigScreenController = () => {
     // Almacenar preferencias actualizadas
     const storageService = new AuthenticationLocalStorageService()
     await storageService.localStoreAuthenticationState(updatedAuth)
+    await setBiometricsEnabled(isEnabled)
   }
+
+  /**
+   * Obtiene el texto apropiado para el tipo de biometría
+   * @returns {Object} Objeto con el texto y el icono de la biometría
+   */
+  const getBiometricText = () => {
+    if (hasEnrolledFaceID && !hasEnrolledFingerprint) {
+      return {
+        title: t('screens.biometrics.faceID'),
+        description: t('screens.biometrics.faceIDAvailable'),
+        icon: 'scan-outline'
+      }
+    } else if (hasEnrolledFingerprint && !hasEnrolledFaceID) {
+      return {
+        title: t('screens.biometrics.fingerprint'),
+        description: t('screens.biometrics.fingerprintAvailable'),
+        icon: 'finger-print'
+      }
+    } else if (biometricType === 'face') {
+      return {
+        title: t('screens.biometrics.faceID'),
+        description: t('screens.biometrics.primaryBiometricMethod'),
+        icon: 'scan-outline'
+      }
+    } else {
+      return {
+        title: t('screens.biometrics.fingerprint'),
+        description: t('screens.biometrics.primaryBiometricMethod'),
+        icon: 'finger-print'
+      }
+    }
+  }
+
+  /**
+   * Verifica si la biometría está habilitada en el estado de autenticación
+   * @returns {Promise<void>}
+   */
+  const checkBiometricsEnabled = async (): Promise<void> => {
+    const authStateController = new AuthStateController()
+    const authState = await authStateController.getAuthState()
+    const isEnabled = authState?.props.biometricsPreferences?.isEnabled
+    await setBiometricsEnabled(isEnabled ?? false)
+  }
+
+  /**
+   * Deshabilita la biometría en el estado de autenticación
+   * @returns {Promise<void>}
+   */
+  const unsetBiometrics = async (): Promise<void> => {
+    setLoading(true)
+    const authStateController = new AuthStateController()
+    const authState = await authStateController.getAuthState()
+    const isEnabled = authState?.props.biometricsPreferences?.isEnabled
+    await updateBiometricsPreferences(!isEnabled)
+    setLoading(false)
+  }
+
+  const biometricTextInfo = getBiometricText()
 
   return {
     loading,
     biometricType,
     biometricAvailable,
+    biometricsEnabled,
+    deviceBiometricSupport,
     // Soporte de hardware
     deviceSupportsFace,
     deviceSupportsFingerprint,
@@ -200,7 +268,9 @@ const BiometricsConfigScreenController = () => {
     hasEnrolledFingerprint,
     // Acciones
     enableBiometrics,
-    skipBiometricsSetup
+    skipBiometricsSetup,
+    biometricTextInfo,
+    unsetBiometrics
   }
 }
 
