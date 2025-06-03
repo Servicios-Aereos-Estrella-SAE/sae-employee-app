@@ -10,6 +10,15 @@
       "biometricFallbackLabel": "Usar contraseña y correo electrónico"
     }
   },
+  "sidebar": {
+    "menuLinks": {
+      "checkAttendance": "Checador de Asistencia",
+      "profile": "Mi Perfil",
+      "settings": "Configuración",
+      "changeAccount": "Cambiar cuenta",
+      "logout": "Cerrar sesión"
+    }
+  },
   "screens": {
     "authentication": {
       "title": "Iniciar Sesión",

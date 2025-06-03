@@ -10,6 +10,15 @@
       "biometricFallbackLabel": "Use Password and Email"
     }
   },
+  "sidebar": {
+    "menuLinks": {
+      "checkAttendance": "Check Attendance",
+      "profile": "Profile",
+      "settings": "Settings",
+      "changeAccount": "Change Account",
+      "logout": "Logout"
+    }
+  },
   "screens": {
     "authentication": {
       "title": "Sign In",

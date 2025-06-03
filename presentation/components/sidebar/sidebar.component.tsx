@@ -17,6 +17,7 @@ import { ThemeIcon } from '../../icons/theme-icon/theme.icon'
 import { ChangeAccountIcon } from '../../icons/change-account-icon/change-account.icon'
 import { LogoutIcon } from '../../icons/logout-icon/logout.icon'
 import SidebarItem from '../sidebar-item/sidebar-item.component'
+import { t } from 'i18next'
 
 /**
  * Componente Sidebar para la aplicación
@@ -77,7 +78,7 @@ const SidebarLayout: React.FC<ISidebarProps> = ({ isOpen, onClose }) => {
             <View style={styles.menuGroup}>
               <SidebarItem
                 icon={<SidebarIcon color={styles.sidebarIcon.color} />}
-                label="Checador de Asistencia"
+                label={t('sidebar.menuLinks.checkAttendance')}
                 textColor={styles.sidebarIconText.color}
               />
               {/* <SidebarItem
@@ -102,7 +103,7 @@ const SidebarLayout: React.FC<ISidebarProps> = ({ isOpen, onClose }) => {
             <View style={styles.menuGroup}>
               <SidebarItem
                 icon={<SidebarIcon color={styles.sidebarIcon.color} />}
-                label="Mi Perfil"
+                label={t('sidebar.menuLinks.profile')}
                 textColor={styles.sidebarIconText.color}
               />
             </View>
@@ -110,7 +111,7 @@ const SidebarLayout: React.FC<ISidebarProps> = ({ isOpen, onClose }) => {
             <View style={styles.menuGroup}>
               <SidebarItem
                 icon={<SidebarIcon color={styles.sidebarIcon.color} />}
-                label="Configuración"
+                label={t('sidebar.menuLinks.settings')}
                 textColor={styles.sidebarIconText.color}
                 onPress={() => { controller.navigateTo('biometricsConfigScreen') }}
               />
@@ -137,14 +138,14 @@ const SidebarLayout: React.FC<ISidebarProps> = ({ isOpen, onClose }) => {
             <View style={styles.menuGroup}>
               <SidebarItem
                 icon={<ChangeAccountIcon color={styles.sidebarIcon.color} />}
-                label="Cambiar de Cuenta"
+                label={t('sidebar.menuLinks.changeAccount')}
                 textColor={styles.sidebarIconText.color}
                 onPress={controller.handleFullLogout}
               />
               <SidebarItem
-                icon={<LogoutIcon />}
-                label="Cerrar Sesión"
-                labelStyle={{ color: styles.sidebarIconText.color }}
+                icon={<LogoutIcon color={styles.logoutIcon.color} />}
+                label={t('sidebar.menuLinks.logout')}
+                labelStyle={{ color: styles.logoutIcon.color }}
                 onPress={controller.handleLogout}
               />
             </View>

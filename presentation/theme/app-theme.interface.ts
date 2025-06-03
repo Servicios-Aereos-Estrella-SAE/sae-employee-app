@@ -5,6 +5,7 @@ interface IAppTheme {
     accent: string
     warning: string
     success: string
+    danger: string
     background: string
     backgroundSecondary: string
     surface: string

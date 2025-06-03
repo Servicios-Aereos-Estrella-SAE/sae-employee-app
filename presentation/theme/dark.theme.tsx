@@ -10,6 +10,7 @@ export const DARK_THEME: IAppTheme = {
     accent: '#34d4ad',
     warning: '#FF993A',
     success: '#34d4ad',
+    danger: '#cd360c',
     background: '#252f4a',
     backgroundSecondary: '#1e1e1e',
     surface: '#3d476a',
