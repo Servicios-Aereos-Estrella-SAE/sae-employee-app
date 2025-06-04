@@ -17,6 +17,7 @@ import useSettingsStyle from './settings.style'
 import { ThemeIcon } from '../../icons/theme-icon/theme.icon'
 import { FingerprintIcon } from '../../icons/fingerprint-icon/fingerprint.icon'
 import { TranslateIcon } from '../../icons/translate-icon/translate.icon'
+import { EThemeType } from '../../theme/types/theme-type.enum'
 
 /**
  * @description SettingsScreen es la pantalla que permite al usuario gestionar la configuración de la aplicación
@@ -30,7 +31,7 @@ export const SettingsScreen: React.FC = () => {
   return (
     <AuthenticatedLayout>
       <View style={style.container}>
-        <StatusBar style="auto" />
+        <StatusBar style={controller.themeType === EThemeType.DARK ? 'light' : 'dark'} />
         
         <SafeAreaView style={style.safeAreaContent}>
           <ScrollView

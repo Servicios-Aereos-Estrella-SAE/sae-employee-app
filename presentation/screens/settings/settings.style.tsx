@@ -25,7 +25,9 @@ const createSettingsStyle = (theme: IAppTheme, themeType: EThemeType) =>
     },
     scrollContent: {
       flexGrow: 1,
-      paddingBottom: 10
+      paddingBottom: 10,
+      paddingLeft: 2,
+      paddingRight: 2
     },
     header: {
       marginBottom: 30,
@@ -55,14 +57,14 @@ const createSettingsStyle = (theme: IAppTheme, themeType: EThemeType) =>
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      shadowColor: '#000',
+      shadowColor: 'rgba(0, 0, 0, 0.5)',
       shadowOffset: {
         width: 0,
         height: 2
       },
       shadowOpacity: 0.1,
-      shadowRadius: 4,
-      elevation: 3
+      shadowRadius: 8,
+      elevation: 5
     },
     optionLeft: {
       flexDirection: 'row',
