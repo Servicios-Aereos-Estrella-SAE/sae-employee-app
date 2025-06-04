@@ -8,6 +8,7 @@ import useAppNavigatorStyle from './app-navigator.style'
 import { AuthenticationScreen } from '../presentation/screens/authentication/authentication.screen'
 import { AttendanceCheckScreen } from '../presentation/screens/attendance-check/attendance-check.screen'
 import { BiometricsConfigScreen } from '../presentation/screens/biometrics/biometrics-config.screen'
+import { SettingsScreen } from '../presentation/screens/settings/settings.screen'
 // import { ProfileScreen } from '../screens/profile/ProfileScreen'
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
@@ -41,6 +42,10 @@ export const AppNavigator: React.FC = () => {
         <Stack.Screen
           name="attendanceCheck"
           component={AttendanceCheckScreen}
+        />
+        <Stack.Screen
+          name="settingsScreen"
+          component={SettingsScreen}
         />
         {/* <Stack.Screen name="Profile" component={ProfileScreen} /> */}
       </Stack.Navigator>

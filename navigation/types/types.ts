@@ -3,4 +3,5 @@ export type RootStackParamList = {
   profile: undefined
   attendanceCheck: undefined
   biometricsConfigScreen: undefined
+  settingsScreen: undefined
 }

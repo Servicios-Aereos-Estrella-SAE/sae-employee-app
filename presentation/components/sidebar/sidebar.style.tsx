@@ -1,10 +1,11 @@
 import { StyleSheet, Dimensions, Animated } from 'react-native'
 import { IAppTheme } from '../../theme/app-theme.interface'
 import { useAppTheme } from '../../theme/theme-context'
+import { EThemeType } from '../../theme/types/theme-type.enum'
 const { width } = Dimensions.get('window')
 
 
-const createSidebarStyles = (theme: IAppTheme, translateX: Animated.Value) =>
+const createSidebarStyles = (theme: IAppTheme, translateX: Animated.Value, themeType: EThemeType) =>
   StyleSheet.create({
     overlay: {
       ...StyleSheet.absoluteFillObject,
@@ -23,7 +24,7 @@ const createSidebarStyles = (theme: IAppTheme, translateX: Animated.Value) =>
       shadowOpacity: 0.12,
       overflow: 'hidden',
       transform: [{ translateX }],
-      backgroundColor: theme.colors.background,
+      backgroundColor: themeType === EThemeType.LIGHT ? '#FFFFFF' : theme.colors.background,
       shadowColor: theme.dark ? '#000' : '#000'
     },
     closeButton: {
@@ -39,7 +40,7 @@ const createSidebarStyles = (theme: IAppTheme, translateX: Animated.Value) =>
       alignItems: 'center',
       paddingTop: 36,
       paddingBottom: 24,
-      backgroundColor: theme.colors.background
+      backgroundColor: themeType === EThemeType.LIGHT ? '#FFFFFF' : theme.colors.background
     },
     avatarWrapper: {
       position: 'relative',
@@ -82,7 +83,7 @@ const createSidebarStyles = (theme: IAppTheme, translateX: Animated.Value) =>
     },
     menuGroup: {
       marginBottom: 0,
-      backgroundColor: theme.colors.background
+      backgroundColor: themeType === EThemeType.LIGHT ? '#FFFFFF' : theme.colors.background
     },
     separator: {
       height: 1,
@@ -100,17 +101,17 @@ const createSidebarStyles = (theme: IAppTheme, translateX: Animated.Value) =>
       color: theme.colors.text
     },
     themeBackgroundColor: {
-      color: theme.colors.background
+      color: themeType === EThemeType.LIGHT ? '#FFFFFF' : theme.colors.background
     },
     safeAreaView: {
       flex: 1,
-      backgroundColor: theme.colors.background
+      backgroundColor: themeType === EThemeType.LIGHT ? '#FFFFFF' : theme.colors.background
     }
   })
 
 const useSidebarStyles = (translateX: Animated.Value) => {
-  const { theme } = useAppTheme()
-  return createSidebarStyles(theme, translateX)
+  const { theme, themeType } = useAppTheme()
+  return createSidebarStyles(theme, translateX, themeType)
 }
 
 export default useSidebarStyles

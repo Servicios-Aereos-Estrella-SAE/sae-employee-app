@@ -18,7 +18,6 @@ import { ClearSessionController } from '../../../src/features/authentication/inf
  * @property {Function} handleLogout - Función para cerrar sesión
  * @property {Function} handleFullLogout - Función para cerrar sesión y redirigir a la pantalla de autenticación
  * @property {string} themeType - Tipo de tema (dark o light)
- * @property {Function} toggleTheme - Función para cambiar el tema
  * @property {Animated.Value} translateX - Valor de la animación de la barra lateral
  * @property {EdgeInsets} insets - Insets de la pantalla
  * @property {string} authUserAvatarType - Tipo de avatar del usuario
@@ -31,7 +30,7 @@ const SidebarController = (props: ISidebarProps) => {
   const translateX = React.useRef(new Animated.Value(-width)).current
   const insets = useSafeAreaInsets()
 
-  const { themeType, toggleTheme } = useAppTheme()
+  const { themeType } = useAppTheme()
   const [authUserAvatarType, setAuthUserAvatarType] = useState<string>('text')
   const [authUserAvatarSource, setAuthUserAvatarSource] = useState<string>('')
 
@@ -124,7 +123,6 @@ const SidebarController = (props: ISidebarProps) => {
     handleLogout,
     handleFullLogout,
     themeType,
-    toggleTheme,
     authUserName,
     authUserEmail,
     authUserAvatarType,

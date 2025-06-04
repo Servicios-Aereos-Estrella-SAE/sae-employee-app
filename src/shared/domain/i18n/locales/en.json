@@ -45,6 +45,30 @@
       "deviceNotSupported": "The device does not support biometrics",
       "notSupported": "Not supported",
       "biometricsEnabled": "Biometric access is currently enabled"
+    },
+    "settings": {
+      "title": "Settings",
+      "subtitle": "Customize your app experience",
+      "biometricsOption": {
+        "title": "Biometrics Configuration",
+        "description": "Manage biometric authentication"
+      },
+      "themeOption": {
+        "title": "App Theme",
+        "description": "Switch between light and dark mode",
+        "lightTheme": "Light Theme",
+        "darkTheme": "Dark Theme"
+      },
+      "languageOption": {
+        "title": "Language",
+        "description": "Select app language",
+        "spanish": "Español",
+        "english": "English",
+        "modal": {
+          "title": "Select Language",
+          "subtitle": "Choose your preferred language for the app"
+        }
+      }
     }
   },
   "components": {

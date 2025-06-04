@@ -12,7 +12,6 @@ import useSidebarStyles from './sidebar.style'
 import { ISidebarProps } from './types/sidebar-props.interface'
 import SidebarController from './sidebar.controller'
 import { CloseSidebarIcon } from '../../icons/close-sidebar-icon/close-sidebar.icon'
-import { ThemeIcon } from '../../icons/theme-icon/theme.icon'
 import { ChangeAccountIcon } from '../../icons/change-account-icon/change-account.icon'
 import { LogoutIcon } from '../../icons/logout-icon/logout.icon'
 import SidebarItem from '../sidebar-item/sidebar-item.component'
@@ -116,23 +115,7 @@ const SidebarLayout: React.FC<ISidebarProps> = ({ isOpen, onClose }) => {
                 icon={<CogIcon color={styles.sidebarIcon.color} />}
                 label={t('sidebar.menuLinks.settings')}
                 textColor={styles.sidebarIconText.color}
-                onPress={() => { controller.navigateTo('biometricsConfigScreen') }}
-              />
-            </View>
-
-            <View style={styles.separator} />
-
-            <View style={styles.menuGroup}>
-              <SidebarItem
-                icon={
-                  <ThemeIcon
-                    color={styles.sidebarIcon.color}
-                    isDark={controller.themeType === 'dark'}
-                  />
-                }
-                label={controller.themeType === 'dark' ? 'Modo Oscuro' : 'Modo Claro'}
-                textColor={styles.sidebarIconText.color}
-                onPress={controller.toggleTheme}
+                onPress={() => { controller.navigateTo('settingsScreen') }}
               />
             </View>
 
