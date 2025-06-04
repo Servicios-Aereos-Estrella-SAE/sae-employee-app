@@ -18,6 +18,7 @@ import { ChangeAccountIcon } from '../../icons/change-account-icon/change-accoun
 import { LogoutIcon } from '../../icons/logout-icon/logout.icon'
 import SidebarItem from '../sidebar-item/sidebar-item.component'
 import { t } from 'i18next'
+import { CogIcon } from '../../icons/cog-icon/cog.icon'
 
 /**
  * Componente Sidebar para la aplicación
@@ -80,6 +81,7 @@ const SidebarLayout: React.FC<ISidebarProps> = ({ isOpen, onClose }) => {
                 icon={<SidebarIcon color={styles.sidebarIcon.color} />}
                 label={t('sidebar.menuLinks.checkAttendance')}
                 textColor={styles.sidebarIconText.color}
+                onPress={() => { controller.navigateTo('attendanceCheck') }}
               />
               {/* <SidebarItem
                 icon={<SidebarIcon color={styles.sidebarIcon.color} />}
@@ -110,7 +112,7 @@ const SidebarLayout: React.FC<ISidebarProps> = ({ isOpen, onClose }) => {
 
             <View style={styles.menuGroup}>
               <SidebarItem
-                icon={<SidebarIcon color={styles.sidebarIcon.color} />}
+                icon={<CogIcon color={styles.sidebarIcon.color} />}
                 label={t('sidebar.menuLinks.settings')}
                 textColor={styles.sidebarIconText.color}
                 onPress={() => { controller.navigateTo('biometricsConfigScreen') }}

@@ -112,6 +112,7 @@ const SidebarController = (props: ISidebarProps) => {
    * @returns {void}
    */
   const navigateTo = (screen: keyof RootStackParamList) => {
+    props.onClose()
     navigation.navigate(screen)
   }
 
