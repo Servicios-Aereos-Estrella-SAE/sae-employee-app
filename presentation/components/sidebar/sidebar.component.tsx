@@ -12,13 +12,14 @@ import useSidebarStyles from './sidebar.style'
 import { ISidebarProps } from './types/sidebar-props.interface'
 import SidebarController from './sidebar.controller'
 import { CloseSidebarIcon } from '../../icons/close-sidebar-icon/close-sidebar.icon'
-import { SidebarIcon } from '../../icons/sidebar-icon/sidebar.icon'
 import { ThemeIcon } from '../../icons/theme-icon/theme.icon'
 import { ChangeAccountIcon } from '../../icons/change-account-icon/change-account.icon'
 import { LogoutIcon } from '../../icons/logout-icon/logout.icon'
 import SidebarItem from '../sidebar-item/sidebar-item.component'
 import { t } from 'i18next'
 import { CogIcon } from '../../icons/cog-icon/cog.icon'
+import { ClockIcon } from '../../icons/clock-icon/clock.icon'
+import { ProfileIcon } from '../../icons/profile-icon/profile.icon'
 
 /**
  * Componente Sidebar para la aplicación
@@ -78,7 +79,7 @@ const SidebarLayout: React.FC<ISidebarProps> = ({ isOpen, onClose }) => {
 
             <View style={styles.menuGroup}>
               <SidebarItem
-                icon={<SidebarIcon color={styles.sidebarIcon.color} />}
+                icon={<ClockIcon color={styles.sidebarIcon.color} />}
                 label={t('sidebar.menuLinks.checkAttendance')}
                 textColor={styles.sidebarIconText.color}
                 onPress={() => { controller.navigateTo('attendanceCheck') }}
@@ -104,7 +105,7 @@ const SidebarLayout: React.FC<ISidebarProps> = ({ isOpen, onClose }) => {
 
             <View style={styles.menuGroup}>
               <SidebarItem
-                icon={<SidebarIcon color={styles.sidebarIcon.color} />}
+                icon={<ProfileIcon color={styles.sidebarIcon.color} />}
                 label={t('sidebar.menuLinks.profile')}
                 textColor={styles.sidebarIconText.color}
               />

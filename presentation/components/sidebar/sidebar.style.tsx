@@ -91,7 +91,7 @@ const createSidebarStyles = (theme: IAppTheme, translateX: Animated.Value) =>
       backgroundColor: theme.colors.border
     },
     sidebarIcon: {
-      color: theme.colors.textSecondary
+      color: theme.colors.iconColor
     },
     logoutIcon: {
       color: theme.colors.danger

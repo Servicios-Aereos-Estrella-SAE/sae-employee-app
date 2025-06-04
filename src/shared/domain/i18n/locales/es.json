@@ -12,7 +12,7 @@
   },
   "sidebar": {
     "menuLinks": {
-      "checkAttendance": "Checador de Asistencia",
+      "checkAttendance": "Asistencia",
       "profile": "Mi Perfil",
       "settings": "Configuración",
       "changeAccount": "Cambiar cuenta",
