@@ -6,7 +6,8 @@ const createAttendanceCheckStyle = (theme: IAppTheme) =>
   StyleSheet.create({
     backgroundWrapper: {
       flex: 1,
-      backgroundColor: theme.colors.background
+      backgroundColor: theme.colors.background,
+      paddingTop: 100
     },
     backgroundImage: {
       flex: 1,
@@ -141,16 +142,19 @@ const createAttendanceCheckStyle = (theme: IAppTheme) =>
     bottomCard: {
       borderRadius: 32,
       marginTop: 32,
-      width: '92%',
+      width: '100%',
       alignSelf: 'center',
       paddingVertical: 32,
       paddingHorizontal: 16,
-      shadowColor: '#093057',
-      shadowOffset: { width: 0, height: 8 },
+      backgroundColor: theme.colors.cardBgColor,
+      shadowColor: 'rgba(0, 0, 0, 0.5)',
+      shadowOffset: {
+        width: 0,
+        height: 2
+      },
       shadowOpacity: 0.1,
-      shadowRadius: 16,
-      elevation: 8,
-      backgroundColor: theme.colors.cardBgColor
+      shadowRadius: 8,
+      elevation: 5
     },
     checkInButtonWrapperLocked: {
       opacity: 1,

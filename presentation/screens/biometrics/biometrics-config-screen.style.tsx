@@ -13,7 +13,8 @@ const createBiometricsConfigScreenStyle = (theme: IAppTheme) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: theme.colors.background
+      backgroundColor: theme.colors.background,
+      paddingTop: hp(17.5)
     },
     content: {
       flex: 1,
@@ -27,12 +28,14 @@ const createBiometricsConfigScreenStyle = (theme: IAppTheme) =>
       fontSize: fp(3.5),
       fontWeight: 'bold',
       color: theme.colors.text,
-      marginBottom: hp(1.25)
+      marginBottom: hp(1.25),
+      textAlign: 'center'
     },
     subtitle: {
       fontSize: fp(2),
       color: theme.colors.text,
-      lineHeight: hp(2.75)
+      lineHeight: hp(2.75),
+      textAlign: 'center'
     },
     biometricOptions: {
       flex: 1,

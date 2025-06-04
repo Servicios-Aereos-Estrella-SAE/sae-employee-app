@@ -11,7 +11,7 @@ export const LIGHT_THEME: IAppTheme = {
     warning: '#FF993A',
     success: '#34d4ad',
     danger: '#cd360c',
-    background: '#ffffff',
+    background: '#f5f5fa',
     backgroundSecondary: '#f1f5f9',
     surface: '#ffffff',
     text: '#303e67',

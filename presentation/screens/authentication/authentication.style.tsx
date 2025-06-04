@@ -1,21 +1,22 @@
 import { StyleSheet, Dimensions } from 'react-native'
 import { useAppTheme } from '../../theme/theme-context'
 import { IAppTheme } from '../../theme/app-theme.interface'
+import { EThemeType } from '../../theme/types/theme-type.enum'
 
 const { height, width } = Dimensions.get('window')
 
-const createAuthenticationStyle = (theme: IAppTheme) =>
+const createAuthenticationStyle = (theme: IAppTheme, themeType: EThemeType) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: theme.colors.background
+      backgroundColor: themeType === EThemeType.LIGHT ? '#FFFFFF' : theme.colors.background
     },
     flexContainer: {
       flex: 1
     },
     safeAreaContent: {
       flex: 1,
-      backgroundColor: theme.colors.background
+      backgroundColor: themeType === EThemeType.LIGHT ? '#FFFFFF' : theme.colors.background
     },
     scrollContent: {
       flexGrow: 1,
@@ -128,8 +129,8 @@ const createAuthenticationStyle = (theme: IAppTheme) =>
   })
 
 const useAuthenticationStyle = () => {
-  const { theme } = useAppTheme()
-  return createAuthenticationStyle(theme)
+  const { theme, themeType } = useAppTheme()
+  return createAuthenticationStyle(theme, themeType)
 }
 
 export default useAuthenticationStyle

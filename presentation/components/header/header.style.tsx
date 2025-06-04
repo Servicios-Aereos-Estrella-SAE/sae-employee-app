@@ -1,43 +1,75 @@
 import { StyleSheet } from 'react-native'
-import { IAppTheme } from '../../theme/app-theme.interface'
 import { useAppTheme } from '../../theme/theme-context'
+import { IAppTheme } from '../../theme/app-theme.interface'
+import { EThemeType } from '../../theme/types/theme-type.enum'
 
-const createHeaderLayoutStyle = (theme: IAppTheme) =>
+const createHeaderLayoutStyle = (theme: IAppTheme, themeType: EThemeType) =>
   StyleSheet.create({
     safeArea: {
-      backgroundColor: theme.colors.background
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      zIndex: 1,
+      backgroundColor: 'transparent'
     },
     header: {
       height: 100,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      paddingHorizontal: 16,
-      backgroundColor: theme.colors.background
+      paddingHorizontal: 15,
+      backgroundColor: 'transparent'
     },
     menuButton: {
-      padding: 8
+      width: 50,
+      height: 50,
+      borderRadius: 25,
+      backgroundColor: themeType === EThemeType.LIGHT ? '#FFFFFF' : '#2b3652',
+      alignItems: 'center',
+      justifyContent: 'center',
+      shadowColor: '#000',
+      shadowOffset: {
+        width: 0,
+        height: 2
+      },
+      shadowOpacity: 0.1,
+      shadowRadius: 8,
+      elevation: 5
     },
     rightContainer: {
       flexDirection: 'row',
-      alignItems: 'center'
+      alignItems: 'center',
+      backgroundColor: themeType === EThemeType.LIGHT ? '#FFFFFF' : '#2b3652',
+      borderRadius: 25,
+      paddingRight: 8,
+      paddingLeft: 16,
+      paddingVertical: 8,
+      shadowColor: '#000',
+      shadowOffset: {
+        width: 0,
+        height: 2
+      },
+      shadowOpacity: 0.1,
+      shadowRadius: 8,
+      elevation: 5
     },
     greeting: {
       fontSize: 14,
       fontWeight: '500',
-      marginRight: 8,
+      marginRight: 12,
       color: theme.colors.text
     },
     avatar: {
-      width: 32,
-      height: 32,
-      borderRadius: 16,
+      width: 36,
+      height: 36,
+      borderRadius: 18,
       backgroundColor: 'rgb(210, 237, 248)'
     },
     avatarTextWrapper: {
-      width: 32,
-      height: 32,
-      borderRadius: 16,
+      width: 36,
+      height: 36,
+      borderRadius: 18,
       borderWidth: 2,
       borderColor: 'rgb(210, 237, 248)',
       display: 'flex',
@@ -46,18 +78,19 @@ const createHeaderLayoutStyle = (theme: IAppTheme) =>
       backgroundColor: 'rgb(210, 237, 248)'
     },
     avatarText: {
-      fontSize: 10,
+      fontSize: 12,
       fontWeight: 'bold',
-      color: theme.colors.text
+      color: '#333'
     },
     sidebarIconColor: {
-      color: theme.colors.textSecondary
+      color: theme.colors.iconColor
     }
   })
 
 const useHeaderLayoutStyle = () => {
   const { theme } = useAppTheme()
-  return createHeaderLayoutStyle(theme)
+  const { themeType } = useAppTheme()
+  return createHeaderLayoutStyle(theme, themeType)
 }
 
 export default useHeaderLayoutStyle

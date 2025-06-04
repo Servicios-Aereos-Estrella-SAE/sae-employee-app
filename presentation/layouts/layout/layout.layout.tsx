@@ -17,7 +17,9 @@ const Layout: React.FC<ILayoutProps> = (props) => {
   return (
     <View style={[styles.container]}>
       <Header onMenuPress={controller.handleMenuPress} />
-      <View style={styles.content}>{controller.props.children}</View>
+      <View style={styles.content}>
+        {controller.props.children}
+      </View>
       <Sidebar
         isOpen={controller.isSidebarOpen}
         onClose={controller.handleCloseSidebar}
