@@ -6,8 +6,8 @@ interface IClockIconProps {
 }
 
 const ClockIcon: React.FC<IClockIconProps> = ({ size = 24, color = '#89a4bf' }) => (
-  <Svg fill="none" height={size} viewBox="0 0 24 24" width={size}>
-    <Path d="M15.25 13.5H11.25C10.836 13.5 10.5 13.164 10.5 12.75V6.75C10.5 6.336 10.836 6 11.25 6C11.664 6 12 6.336 12 6.75V12H15.25C15.664 12 16 12.336 16 12.75C16 13.164 15.664 13.5 15.25 13.5ZM12 2C6.478 2 2 6.478 2 12C2 17.522 6.478 22 12 22C17.522 22 22 17.522 22 12C22 6.478 17.522 2 12 2Z" fill={color}/>
+  <Svg fill="none" viewBox="0 0 20 20" width={size} height={size}>
+    <Path d="M10 2a8 8 0 1 1 0 16 8 8 0 0 1 0-16Zm0 1a7 7 0 1 0 0 14 7 7 0 0 0 0-14Zm-.5 2a.5.5 0 0 1 .492.41L10 5.5V10h2.5a.5.5 0 0 1 .09.992L12.5 11h-3a.5.5 0 0 1-.492-.41L9 10.5v-5a.5.5 0 0 1 .5-.5Z" fill={color}></Path>
   </Svg>
 )
 

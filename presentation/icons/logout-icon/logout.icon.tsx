@@ -6,14 +6,8 @@ interface ILogoutIconProps {
 }
 
 export const LogoutIcon: React.FC<ILogoutIconProps> = ({ size = 24, color = '#cd360c' }) => (
-  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-    <Path
-      d="M20.9 11.6c-.1-.1-.1-.2-.2-.3l-3-3c-.4-.4-1-.4-1.4 0s-.4 1 0 1.4l1.3 1.3H13c-.6 0-1 .4-1 1s.4 1 1 1h4.6l-1.3 1.3c-.4.4-.4 1 0 1.4.2.2.5.3.7.3s.5-.1.7-.3l3-3c.1-.1.2-.2.2-.3.1-.3.1-.5 0-.8z"
-      fill={color}
-    />
-    <Path
-      d="M15.5 18.1c-1.1.6-2.3.9-3.5.9-3.9 0-7-3.1-7-7s3.1-7 7-7c1.2 0 2.4.3 3.5.9.5.3 1.1.1 1.4-.4.3-.5.1-1.1-.4-1.4C15.1 3.4 13.6 3 12 3c-5 0-9 4-9 9s4 9 9 9c1.6 0 3.1-.4 4.5-1.2.5-.3.6-.9.4-1.4-.3-.4-.9-.6-1.4-.3z"
-      fill={color}
-    />
+  <Svg fill="none" width={size} height={size} viewBox="0 0 20 20">
+    <Path d="M10.5 2.5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0v-6Z" fill={color}></Path>
+    <Path d="M13.743 4a.5.5 0 1 0-.499.867 6.5 6.5 0 1 1-6.494.004.5.5 0 1 0-.5-.866A7.5 7.5 0 1 0 13.743 4Z" fill={color}></Path>
   </Svg>
 )
