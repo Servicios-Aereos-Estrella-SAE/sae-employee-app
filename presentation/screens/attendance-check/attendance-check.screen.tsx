@@ -3,7 +3,8 @@ import {
   View,
   Text,
   TouchableOpacity,
-  SafeAreaView
+  SafeAreaView,
+  ActivityIndicator
 } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
 import AuthenticatedLayout from '../../layouts/authenticated-layout/authenticated.layout'
@@ -28,24 +29,35 @@ export const AttendanceCheckScreen: React.FC = () => {
           <StatusBar style={controller.themeType === 'dark' ? 'light' : 'dark'} />
           <View style={styles.checkInContainer}>
             <View
-              style={[ styles.checkInButtonWrapper, controller.isButtonLocked && styles.checkInButtonWrapperLocked ]}
+              style={[ styles.checkInButtonWrapper, (controller.isButtonLocked || controller.isLoadingLocation) && styles.checkInButtonWrapperLocked ]}
             >
               <TouchableOpacity
-                style={[ styles.checkInButton, controller.isButtonLocked && styles.checkInButtonLocked ]}
+                style={[ styles.checkInButton, (controller.isButtonLocked || controller.isLoadingLocation) && styles.checkInButtonLocked ]}
                 onPress={controller.handleCheckIn}
-                disabled={controller.isButtonLocked}
+                disabled={controller.isButtonLocked || controller.isLoadingLocation}
               >
-                <CheckInIcon
-                  size={48}
-                  color={ controller.isButtonLocked ? styles.checkButtonIconLocked.color : styles.checkButtonIcon.color }
-                />
+                {controller.isLoadingLocation ? (
+                  <ActivityIndicator 
+                    size={48} 
+                    color={styles.checkButtonIcon.color} 
+                  />
+                ) : (
+                  <CheckInIcon
+                    size={48}
+                    color={ (controller.isButtonLocked || controller.isLoadingLocation) ? styles.checkButtonIconLocked.color : styles.checkButtonIcon.color }
+                  />
+                )}
                 <Text
                   style={[
                     styles.checkInText,
-                    controller.isButtonLocked && styles.checkInTextLocked
+                    (controller.isButtonLocked || controller.isLoadingLocation) && styles.checkInTextLocked
                   ]}
                 >
-                  {controller.isButtonLocked ? '---' : 'Iniciar Turno'}
+                  {controller.isLoadingLocation 
+                    ? 'Obteniendo ubicación...' 
+                    : controller.isButtonLocked 
+                      ? '---' 
+                      : 'Iniciar Turno'}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -108,6 +120,25 @@ export const AttendanceCheckScreen: React.FC = () => {
                   --:--:--
                 </Text>
               </View>
+            </View>
+
+            {/* Información de ubicación */}
+            <View style={styles.locationContainer}>
+              <Text style={styles.locationTitle}>Ubicación</Text>
+              {controller.currentLocation ? (
+                <View>
+                  <Text style={styles.locationCoordinates}>
+                    {controller.formatCoordinates(controller.currentLocation)}
+                  </Text>
+                  <Text style={styles.locationAccuracy}>
+                    Precisión: {controller.formatAccuracy(controller.currentLocation)}
+                  </Text>
+                </View>
+              ) : (
+                <Text style={styles.locationPlaceholder}>
+                  {controller.isLoadingLocation ? 'Obteniendo ubicación...' : 'Ubicación no disponible'}
+                </Text>
+              )}
             </View>
           </View>
         </SafeAreaView>

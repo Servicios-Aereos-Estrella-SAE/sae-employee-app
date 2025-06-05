@@ -191,6 +191,38 @@ const createAttendanceCheckStyle = (theme: IAppTheme) =>
     },
     checkButtonIconLocked: {
       color: theme.colors.textSecondary
+    },
+    locationContainer: {
+      marginTop: 24,
+      paddingTop: 20,
+      borderTopWidth: 1,
+      borderTopColor: theme.colors.indicatorActive,
+      width: '100%'
+    },
+    locationTitle: {
+      fontSize: 16,
+      fontWeight: 'bold',
+      marginBottom: 8,
+      color: theme.colors.text,
+      textAlign: 'center'
+    },
+    locationCoordinates: {
+      fontSize: 14,
+      fontFamily: 'monospace',
+      color: theme.colors.text,
+      textAlign: 'center',
+      marginBottom: 4
+    },
+    locationAccuracy: {
+      fontSize: 12,
+      color: theme.colors.textSecondary,
+      textAlign: 'center'
+    },
+    locationPlaceholder: {
+      fontSize: 14,
+      color: theme.colors.textSecondary,
+      textAlign: 'center',
+      fontStyle: 'italic'
     }
   })
 
