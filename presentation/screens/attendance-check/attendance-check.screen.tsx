@@ -54,7 +54,7 @@ export const AttendanceCheckScreen: React.FC = () => {
                   ]}
                 >
                   {controller.isLoadingLocation 
-                    ? 'Obteniendo ubicación...' 
+                    ? '...' 
                     : controller.isButtonLocked 
                       ? '---' 
                       : 'Iniciar Turno'}

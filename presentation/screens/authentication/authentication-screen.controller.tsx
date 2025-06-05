@@ -73,7 +73,7 @@ const AuthenticationScreenController = () => {
       const locationService = new LocationService()
       
       try {
-        const coordinates = await locationService.getValidatedLocation(20) // Precisión de 20 metros - recomendado para asistencia laboral
+        const coordinates = await locationService.getValidatedLocation(30) // Precisión de 30 metros - recomendado para asistencia laboral
         setCurrentLocation(coordinates)
       } catch (locationError) {
         Alert.alert(
@@ -214,7 +214,7 @@ const AuthenticationScreenController = () => {
   const getCurrentLocationCoordinates = async (): Promise<ILocationCoordinates | null> => {
     try {
       const locationService = new LocationService()
-      const coordinates = await locationService.getValidatedLocation(20) // Precisión de 20 metros - recomendado para asistencia laboral
+      const coordinates = await locationService.getValidatedLocation(30) // Precisión de 30 metros - recomendado para asistencia laboral
       setCurrentLocation(coordinates)
       return coordinates
     } catch (error) {

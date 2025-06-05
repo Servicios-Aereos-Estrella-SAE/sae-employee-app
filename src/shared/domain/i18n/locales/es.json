@@ -5,9 +5,12 @@
     "success": "Éxito",
     "cancel": "Cancelar",
     "ok": "Aceptar",
+    "settings": "Configuración",
     "authentication": {
       "biometricPromptMessage": "Autenticación biométrica",
-      "biometricFallbackLabel": "Usar contraseña y correo electrónico"
+      "biometricFallbackLabel": "Usar contraseña y correo electrónico",
+      "passwordPromptTitle": "Autenticación requerida",
+      "passwordPromptMessage": "Ingresa tu contraseña para confirmar la acción"
     }
   },
   "sidebar": {
@@ -97,6 +100,10 @@
     "locationPermissionDenied": "Se requieren permisos de ubicación para usar la aplicación. Por favor, otorga los permisos de ubicación.",
     "locationNotAvailable": "No se pudo obtener la ubicación del dispositivo. Verifica que la ubicación esté habilitada.",
     "locationNotAccurate": "La precisión de la ubicación ({{accuracy}}m) no cumple con los requisitos mínimos ({{required}}m). Por favor, mejora la señal GPS.",
-    "locationRequired": "Se requiere una ubicación precisa para poder iniciar sesión."
+    "locationRequired": "Se requiere una ubicación precisa para poder iniciar sesión.",
+    "passwordRequired": "La contraseña es requerida",
+    "invalidPassword": "La contraseña ingresada es incorrecta",
+    "noStoredCredentials": "No se encontraron credenciales almacenadas",
+    "goToSettingsMessage": "Para resolver este problema, ve a la configuración de tu dispositivo y habilita los permisos de ubicación con alta precisión."
   }
 }

@@ -5,9 +5,12 @@
     "success": "Success",
     "cancel": "Cancel",
     "ok": "OK",
+    "settings": "Settings",
     "authentication": {
       "biometricPromptMessage": "SAE Biometric Authentication",
-      "biometricFallbackLabel": "Use Password and Email"
+      "biometricFallbackLabel": "Use Password and Email",
+      "passwordPromptTitle": "Authentication Required",
+      "passwordPromptMessage": "Enter your password to confirm this action"
     }
   },
   "sidebar": {
@@ -97,6 +100,10 @@
     "locationPermissionDenied": "Location permissions are required to use the app. Please grant location permissions.",
     "locationNotAvailable": "Could not get device location. Verify that location is enabled.",
     "locationNotAccurate": "Location accuracy ({{accuracy}}m) does not meet minimum requirements ({{required}}m). Please improve GPS signal.",
-    "locationRequired": "Precise location is required to sign in."
+    "locationRequired": "A precise location is required to login.",
+    "passwordRequired": "Password is required",
+    "invalidPassword": "The entered password is incorrect",
+    "noStoredCredentials": "No stored credentials found",
+    "goToSettingsMessage": "To resolve this issue, go to your device settings and enable location permissions with high precision."
   }
 }
