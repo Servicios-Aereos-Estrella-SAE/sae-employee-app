@@ -9,6 +9,7 @@ import { LoginController } from '../../../src/features/authentication/infrastruc
 import { ELoginTypes } from '../../../src/features/authentication/application/types/login-types.enum'
 import { BiometricsService } from '../../../src/features/authentication/infrastructure/services/biometrics.service'
 import { AuthStateController } from '../../../src/features/authentication/infrastructure/controllers/auth-state.controller'
+import { LocationService, ILocationCoordinates } from '../../../src/features/authentication/infrastructure/services/location.service'
 
 /**
  * Controlador de la pantalla de autenticación
@@ -25,6 +26,7 @@ const AuthenticationScreenController = () => {
   const [biometricType, setBiometricType] = useState<'fingerprint' | 'face'>('fingerprint')
   const [biometricEnabled, setBiometricEnabled] = useState(false)
   const [hasBiometricsPromptBeenShown, setHasBiometricsPromptBeenShown] = useState(false)
+  const [currentLocation, setCurrentLocation] = useState<ILocationCoordinates | null>(null)
 
   const { t } = useTranslation()
   const navigation =
@@ -67,6 +69,22 @@ const AuthenticationScreenController = () => {
     setLoginButtonLoading(true)
 
     try {
+      // Validar ubicación precisa antes del login
+      const locationService = new LocationService()
+      
+      try {
+        const coordinates = await locationService.getValidatedLocation(20) // Precisión de 20 metros - recomendado para asistencia laboral
+        setCurrentLocation(coordinates)
+      } catch (locationError) {
+        Alert.alert(
+          t('common.error'),
+          locationError instanceof Error 
+            ? locationError.message 
+            : t('errors.locationRequired')
+        )
+        return
+      }
+
       const authLoginController = new LoginController()
 
       await authLoginController.login({
@@ -189,18 +207,36 @@ const AuthenticationScreenController = () => {
     setBiometricAvailable(isBiometricAvailable)
   }
 
+  /**
+   * Obtiene las coordenadas actuales del dispositivo
+   * @returns {Promise<ILocationCoordinates | null>} Coordenadas actuales o null si hay error
+   */
+  const getCurrentLocationCoordinates = async (): Promise<ILocationCoordinates | null> => {
+    try {
+      const locationService = new LocationService()
+      const coordinates = await locationService.getValidatedLocation(20) // Precisión de 20 metros - recomendado para asistencia laboral
+      setCurrentLocation(coordinates)
+      return coordinates
+    } catch (error) {
+      console.error('Error al obtener coordenadas:', error)
+      return null
+    }
+  }
+
   return {
     email,
     password,
     loginButtonLoading,
     biometricType,
     securityAlert,
+    currentLocation,
     setSecurityAlert,
     loginHandler,
     setEmail: handleEmailChange,
     setPassword: handlePasswordChange,
     getWelcomeTitle,
-    shouldShowBiometrics
+    shouldShowBiometrics,
+    getCurrentLocationCoordinates
   }
 }
 

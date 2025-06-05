@@ -92,6 +92,11 @@
     "biometricNotAvailable": "Biometric authentication is not available on this device",
     "invalidLoginType": "Invalid login type",
     "biometricsNotAvailable": "Biometric authentication is not available on this device",
-    "biometricAuthenticationFailed": "Biometric authentication failed. \nTry again"
+    "biometricAuthenticationFailed": "Biometric authentication failed. \nTry again",
+    "locationServicesDisabled": "Location services are disabled. Please enable them in your device settings.",
+    "locationPermissionDenied": "Location permissions are required to use the app. Please grant location permissions.",
+    "locationNotAvailable": "Could not get device location. Verify that location is enabled.",
+    "locationNotAccurate": "Location accuracy ({{accuracy}}m) does not meet minimum requirements ({{required}}m). Please improve GPS signal.",
+    "locationRequired": "Precise location is required to sign in."
   }
 }

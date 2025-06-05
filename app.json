@@ -16,7 +16,11 @@
       "supportsTablet": false,
       "bundleIdentifier": "com.sae.saeempleados",
       "infoPlist": {
-        "NSFaceIDUsageDescription": "Face ID is used to authenticate the user"
+        "NSFaceIDUsageDescription": "Face ID is used to authenticate the user",
+        "NSLocationWhenInUseUsageDescription": "Location is required to verify employee attendance at work premises.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "Location is required to verify employee attendance at work premises.",
+        "NSLocationUsageDescription": "Location is required to verify employee attendance at work premises.",
+        "UIBackgroundModes": ["location"]
       }
     },
     "android": {
@@ -26,7 +30,11 @@
       },
       "edgeToEdgeEnabled": true,
       "package": "com.sae.saeempleados",
-      "versionCode": 1
+      "versionCode": 1,
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"

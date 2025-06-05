@@ -92,6 +92,11 @@
     "biometricNotAvailable": "No se puede usar la biometría en este dispositivo",
     "invalidLoginType": "Tipo de inicio de sesión inválido",
     "biometricsNotAvailable": "No se puede usar la biometría en este dispositivo",
-    "biometricAuthenticationFailed": "No se pudo autenticar con biometría. \n Intenta nuevamente"
+    "biometricAuthenticationFailed": "No se pudo autenticar con biometría. \n Intenta nuevamente",
+    "locationServicesDisabled": "Los servicios de ubicación están deshabilitados. Por favor, actívalos en la configuración de tu dispositivo.",
+    "locationPermissionDenied": "Se requieren permisos de ubicación para usar la aplicación. Por favor, otorga los permisos de ubicación.",
+    "locationNotAvailable": "No se pudo obtener la ubicación del dispositivo. Verifica que la ubicación esté habilitada.",
+    "locationNotAccurate": "La precisión de la ubicación ({{accuracy}}m) no cumple con los requisitos mínimos ({{required}}m). Por favor, mejora la señal GPS.",
+    "locationRequired": "Se requiere una ubicación precisa para poder iniciar sesión."
   }
 }
