@@ -1,7 +1,7 @@
-// import { environment } from '../../../../config/environment'
+import { environment } from '../../../../config/environment'
 import axios, { AxiosInstance, AxiosResponse, AxiosRequestConfig } from 'axios'
 
-const SAE_EMPLOYEEAPP_API_URL = 'http://localhost:3000'
+const SAE_EMPLOYEEAPP_API_URL = environment.SAE_EMPLOYEEAPP_API_URL
 
 /**
  * Servicio HTTP para realizar solicitudes a la API

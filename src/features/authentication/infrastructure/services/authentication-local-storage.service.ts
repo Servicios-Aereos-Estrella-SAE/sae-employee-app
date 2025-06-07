@@ -2,7 +2,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
 import * as SecureStore from 'expo-secure-store'
-// import { SAE_EMPLOYEEAPP_AUTHENTICATION_KEY, SAE_EMPLOYEEAPP_AUTHENTICATION_USER_KEY } from '@env'
 import { AuthenticationEntity } from '../../domain/entities/authentication-entity'
 import i18next from 'i18next'
 import { IAuthentication } from '../../domain/types/authentication.interface'
@@ -13,9 +12,10 @@ import { IPerson } from '../../../person/domain/types/person.interface'
 import { EmployeeEntity } from '../../../employee/domain/entiities/employee.entity'
 import { PersonEntity } from '../../../person/domain/entities/person.entity'
 import { UserEntity } from '../../../user/domain/entities/user.entity'
+import { environment } from '../../../../../config/environment'
 
-const SAE_EMPLOYEEAPP_AUTHENTICATION_KEY = 'SAE_EMPLOYEEAPP_AUTHENTICATION_KEY'
-const SAE_EMPLOYEEAPP_AUTHENTICATION_USER_KEY = 'SAE_EMPLOYEEAPP_AUTHENTICATION_USER_KEY'
+const SAE_EMPLOYEEAPP_AUTHENTICATION_KEY = environment.SAE_EMPLOYEEAPP_AUTHENTICATION_KEY
+const SAE_EMPLOYEEAPP_AUTHENTICATION_USER_KEY = environment.SAE_EMPLOYEEAPP_AUTHENTICATION_USER_KEY
 
 /**
  * Clase para gestionar el almacenamiento seguro de información del usuario
