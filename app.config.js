@@ -63,13 +63,13 @@ export default ({ config }) => {
       owner: "wilvardosae",
       runtimeVersion: {
         policy: "appVersion"
+      },
+      updates: {
+        url: "https://u.expo.dev/d685a705-a875-401d-af68-b0344be036fc",
+        enabled: true,
+        fallbackToCacheTimeout: 0,
+        checkAutomatically: "ON_LOAD"
       }
-      // updates: {
-      //   url: "https://u.expo.dev/d685a705-a875-401d-af68-b0344be036fc",
-      //   enabled: true,
-      //   fallbackToCacheTimeout: 0,
-      //   checkAutomatically: "ON_LOAD"
-      // }
     }
   };
 };
