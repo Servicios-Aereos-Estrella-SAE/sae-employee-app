@@ -13,9 +13,11 @@
     "navigation/**/*",
     "presentation/**/*",
     "src/presentation/**/*",
-    "src/**/*", 
-    "App.tsx", 
-    "index.ts"
+    "src/**/*",
+    "App.tsx",
+    "index.ts",
+    "config/**/*",
+    "types/**/*"
   ],
   "exclude": ["node_modules", "babel.config.js", "commitlint.config.js", "eslint.config.js"]
 }
