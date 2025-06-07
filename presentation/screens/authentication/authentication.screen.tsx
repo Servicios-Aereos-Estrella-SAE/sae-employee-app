@@ -113,6 +113,8 @@ export const AuthenticationScreen: React.FC = () => {
           </ScrollView>
         </KeyboardAvoidingView>
 
+        <Text style={{ textAlign: 'center', color: 'rgb(192, 9, 9)', marginBottom: 40 }}>API: {controller.settedAPIUrl}</Text>
+
         <Snackbar
           visible={!!controller.securityAlert}
           onDismiss={() => controller.setSecurityAlert(null)}
