@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import { THEME_STORAGE_KEY } from '@env'
+// import { SAE_EMPLOYEEAPP_THEME_STORAGE_KEY } from '@env'
 import { useColorScheme, AppState, AppStateStatus } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { EThemeType } from './types/theme-type.enum'
 import { LIGHT_THEME } from './light.theme'
 import { DARK_THEME } from './dark.theme'
 import { IThemeContextType } from './types/theme-context-type.interface'
+
+const SAE_EMPLOYEEAPP_THEME_STORAGE_KEY = 'SAE_EMPLOYEEAPP_THEME_STORAGE_KEY'
 
 // Create theme context with default value
 
@@ -28,7 +30,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   // Load saved theme preference
   const loadSavedTheme = async (): Promise<void> => {
     try {
-      const savedTheme = await AsyncStorage.getItem(THEME_STORAGE_KEY)
+      const savedTheme = await AsyncStorage.getItem(SAE_EMPLOYEEAPP_THEME_STORAGE_KEY)
       if (savedTheme !== null) {
         setThemeType(savedTheme as EThemeType)
       } else {
@@ -47,7 +49,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   // Save theme preference
   const saveThemePreference = async (theme: EThemeType): Promise<void> => {
     try {
-      await AsyncStorage.setItem(THEME_STORAGE_KEY, theme)
+      await AsyncStorage.setItem(SAE_EMPLOYEEAPP_THEME_STORAGE_KEY, theme)
     } catch (error) {
       console.error('Error saving theme preference:', error)
     }

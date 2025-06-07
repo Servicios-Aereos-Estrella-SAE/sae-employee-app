@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "main": "index.ts",
   "type": "module",
+  "engines": {
+    "node": ">=20.13.1",
+    "npm": ">=10.5.2"
+  },
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -24,6 +28,7 @@
     "@react-navigation/native-stack": "^7.3.13",
     "axios": "^1.9.0",
     "expo": "~53.0.9",
+    "expo-constants": "^17.1.6",
     "expo-local-authentication": "^16.0.4",
     "expo-localization": "^16.1.5",
     "expo-location": "^18.1.5",
