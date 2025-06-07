@@ -12,6 +12,8 @@ import { AuthStateController } from '../../../src/features/authentication/infras
 import { LocationService, ILocationCoordinates } from '../../../src/features/authentication/infrastructure/services/location.service'
 import { environment } from '../../../config/environment'
 
+// import Constants from 'expo-constants'
+
 /**
  * Controlador de la pantalla de autenticación
  * @returns {Object} Objeto con los datos y funciones accesibles desde la pantalla de autenticación
@@ -56,7 +58,7 @@ const AuthenticationScreenController = () => {
    * @returns {Promise<void>}
    */
   const initUserData = async () => {
-    setSettedAPIUrl(environment.SAE_EMPLOYEEAPP_API_URL)
+    setSettedAPIUrl(environment.SAE_EMPLOYEEAPP_API_URL || 'NOT ASSIGNED')
     await Promise.all([initBiometricAvailability(), setAuthStateData()])
   }
 
