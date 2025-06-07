@@ -12,6 +12,14 @@
       "distribution": "internal",
       "android": {
         "buildType": "apk"
+      },
+      "env": {
+        "NODE_ENV": "preview",
+        "env": "preview",
+        "SAE_EMPLOYEEAPP_API_URL": "$SAE_EMPLOYEEAPP_API_URL",
+        "SAE_EMPLOYEEAPP_THEME_STORAGE_KEY": "$SAE_EMPLOYEEAPP_THEME_STORAGE_KEY",
+        "SAE_EMPLOYEEAPP_AUTHENTICATION_KEY": "$SAE_EMPLOYEEAPP_AUTHENTICATION_KEY",
+        "SAE_EMPLOYEEAPP_AUTHENTICATION_USER_KEY": "$SAE_EMPLOYEEAPP_AUTHENTICATION_USER_KEY"
       }
     },
     "production": {}

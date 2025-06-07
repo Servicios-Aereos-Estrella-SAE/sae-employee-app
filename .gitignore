@@ -40,3 +40,7 @@ yarn-error.*
 # docs/
 
 .env
+.env.preview
+.env.production
+
+*.apk

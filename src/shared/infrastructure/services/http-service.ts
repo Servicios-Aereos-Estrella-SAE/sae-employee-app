@@ -1,7 +1,7 @@
-import { environment } from '../../../../config/environment'
+// import { environment } from '../../../../config/environment'
 import axios, { AxiosInstance, AxiosResponse, AxiosRequestConfig } from 'axios'
 
-const SAE_EMPLOYEEAPP_API_URL = environment.apiUrl
+const SAE_EMPLOYEEAPP_API_URL = 'http://localhost:3000'
 
 /**
  * Servicio HTTP para realizar solicitudes a la API
@@ -11,11 +11,13 @@ const SAE_EMPLOYEEAPP_API_URL = environment.apiUrl
 class HttpServiceClass {
   private readonly apiClient: AxiosInstance
   private static instance: HttpServiceClass
+  public readonly apiUrl: string
 
   /**
    * Constructor de la clase HttpServiceClass
    */
   private constructor() {
+    this.apiUrl = SAE_EMPLOYEEAPP_API_URL
     this.apiClient = axios.create({
       baseURL: `${SAE_EMPLOYEEAPP_API_URL}`,
       headers: {

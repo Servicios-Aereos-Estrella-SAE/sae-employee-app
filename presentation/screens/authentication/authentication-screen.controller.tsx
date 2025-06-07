@@ -10,6 +10,7 @@ import { ELoginTypes } from '../../../src/features/authentication/application/ty
 import { BiometricsService } from '../../../src/features/authentication/infrastructure/services/biometrics.service'
 import { AuthStateController } from '../../../src/features/authentication/infrastructure/controllers/auth-state.controller'
 import { LocationService, ILocationCoordinates } from '../../../src/features/authentication/infrastructure/services/location.service'
+import { environment } from '../../../config/environment'
 
 /**
  * Controlador de la pantalla de autenticación
@@ -27,6 +28,7 @@ const AuthenticationScreenController = () => {
   const [biometricEnabled, setBiometricEnabled] = useState(false)
   const [hasBiometricsPromptBeenShown, setHasBiometricsPromptBeenShown] = useState(false)
   const [currentLocation, setCurrentLocation] = useState<ILocationCoordinates | null>(null)
+  const [settedAPIUrl, setSettedAPIUrl] = useState<string>('')
 
   const { t } = useTranslation()
   const navigation =
@@ -54,6 +56,7 @@ const AuthenticationScreenController = () => {
    * @returns {Promise<void>}
    */
   const initUserData = async () => {
+    setSettedAPIUrl(environment.apiUrl)
     await Promise.all([initBiometricAvailability(), setAuthStateData()])
   }
 
@@ -236,7 +239,8 @@ const AuthenticationScreenController = () => {
     setPassword: handlePasswordChange,
     getWelcomeTitle,
     shouldShowBiometrics,
-    getCurrentLocationCoordinates
+    getCurrentLocationCoordinates,
+    settedAPIUrl
   }
 }
 

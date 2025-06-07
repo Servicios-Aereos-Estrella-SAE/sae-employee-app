@@ -1,4 +1,5 @@
 import Constants from 'expo-constants'
+
 import {
   SAE_EMPLOYEEAPP_API_URL,
   SAE_EMPLOYEEAPP_AUTHENTICATION_KEY,
@@ -13,11 +14,11 @@ interface IEnvironment {
   themeStorageKey: string
 }
 
-const localEnvironment: IEnvironment = {
-  apiUrl: (SAE_EMPLOYEEAPP_API_URL || '') as string,
-  authenticationKey: (SAE_EMPLOYEEAPP_AUTHENTICATION_KEY || '') as string,
-  authenticationUserKey: (SAE_EMPLOYEEAPP_AUTHENTICATION_USER_KEY || '') as string,
-  themeStorageKey: (SAE_EMPLOYEEAPP_THEME_STORAGE_KEY || '') as string
+const developmentEnvironment: IEnvironment = {
+  apiUrl: (SAE_EMPLOYEEAPP_API_URL || 'http://localhost:3333') as string,
+  authenticationKey: (SAE_EMPLOYEEAPP_AUTHENTICATION_KEY || 'NO AUTHENTICATION KEY') as string,
+  authenticationUserKey: (SAE_EMPLOYEEAPP_AUTHENTICATION_USER_KEY || 'NO AUTHENTICATION USER KEY') as string,
+  themeStorageKey: (SAE_EMPLOYEEAPP_THEME_STORAGE_KEY || 'NO THEME STORAGE KEY') as string
 }
 
 const previewEnvironment: IEnvironment = {
@@ -27,6 +28,6 @@ const previewEnvironment: IEnvironment = {
   themeStorageKey: (Constants.expoConfig?.extra?.SAE_EMPLOYEEAPP_THEME_STORAGE_KEY || '') as string
 }
 
-const environment = Constants.expoConfig?.extra?.env === 'preview' ? previewEnvironment : localEnvironment
+const environment = Constants.expoConfig?.extra?.env === 'preview' ? previewEnvironment : developmentEnvironment
 
 export { environment }

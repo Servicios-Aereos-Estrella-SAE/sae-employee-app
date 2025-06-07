@@ -109,6 +109,8 @@ export const AuthenticationScreen: React.FC = () => {
                   />
                 </View>
               )}
+
+              <Text>API: {controller.settedAPIUrl}</Text>
             </View>
           </ScrollView>
         </KeyboardAvoidingView>

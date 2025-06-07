@@ -41,13 +41,28 @@
     },
     "extra": {
       "eas": {
-        "projectId": "d685a705-a875-401d-af68-b0344be036fc"
+        "projectId": "d685a705-a875-401d-af68-b0344be036fc",
+        "preview": {
+          "channel": "preview",
+          "distribution": "internal",
+          "android": {
+            "buildType": "apk"
+          },
+          "env": {
+            "NODE_ENV": "preview",
+            "env": "preview",
+            "SAE_EMPLOYEEAPP_API_URL": "$SAE_EMPLOYEEAPP_API_URL",
+            "SAE_EMPLOYEEAPP_THEME_STORAGE_KEY": "$SAE_EMPLOYEEAPP_THEME_STORAGE_KEY",
+            "SAE_EMPLOYEEAPP_AUTHENTICATION_KEY": "$SAE_EMPLOYEEAPP_AUTHENTICATION_KEY",
+            "SAE_EMPLOYEEAPP_AUTHENTICATION_USER_KEY": "$SAE_EMPLOYEEAPP_AUTHENTICATION_USER_KEY"
+          }
+        }
       }
     },
-    "owner": "wilvardosae",
-    "runtimeVersion": {
-      "policy": "appVersion"
-    }
+    "owner": "wilvardosae"
+    // "runtimeVersion": {
+    //   "policy": "appVersion"
+    // }
     // "updates": {
     //   "url": "https://u.expo.dev/d685a705-a875-401d-af68-b0344be036fc",
     //   "enabled": true,

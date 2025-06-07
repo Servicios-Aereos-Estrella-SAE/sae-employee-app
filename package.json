@@ -8,7 +8,7 @@
     "npm": ">=10.5.2"
   },
   "scripts": {
-    "start": "expo start",
+    "start": "expo start --clear",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "lint": "tsc --noEmit && eslint . --ext .ts,.tsx",
@@ -20,6 +20,7 @@
     "update:preview": "eas update --branch preview",
     "update:production": "eas update --branch production",
     "build:preview": "eas build --profile preview",
+    "build:preview:local": "eas build --profile preview --local",
     "build:production": "eas build --profile production"
   },
   "dependencies": {
