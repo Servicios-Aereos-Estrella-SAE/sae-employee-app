@@ -72,6 +72,11 @@
           "subtitle": "Elige tu idioma preferido para la aplicación"
         }
       }
+    },
+    "attendanceCheck": {
+      "password": "Ingresa tu contraseña",
+      "confirmButton": "Confirmar",
+      "cancelButton": "Cancelar"
     }
   },
   "components": {

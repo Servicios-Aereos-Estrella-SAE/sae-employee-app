@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Alert, Linking, Platform } from 'react-native'
 import { DateTime } from 'luxon'
 import { useTranslation } from 'react-i18next'
@@ -7,6 +7,7 @@ import { LocationService, ILocationCoordinates } from '../../../src/features/aut
 import { BiometricsService } from '../../../src/features/authentication/infrastructure/services/biometrics.service'
 import { PasswordPromptService } from '../../../src/features/authentication/infrastructure/services/password-prompt.service'
 import { AuthStateController } from '../../../src/features/authentication/infrastructure/controllers/auth-state.controller'
+import BottomSheet from '@gorhom/bottom-sheet'
 
 /**
  * Controlador para la pantalla de registro de asistencia
@@ -19,6 +20,47 @@ const AttendanceCheckScreenController = () => {
   const [isLoadingLocation, setIsLoadingLocation] = useState(false)
   const { themeType } = useAppTheme()
   const { t } = useTranslation()
+  const [showPasswordDrawer, setShowPasswordDrawer] = useState(false)
+  const [onPasswordSuccess, setOnPasswordSuccess] = useState<(() => void) | null>(null)
+  const [passwordError, setPasswordError] = useState<string | null>(null)
+  const bottomSheetRef = useRef<BottomSheet>(null)
+  const [password, setPassword] = useState('')
+  const snapPoints = ['30%']
+
+  // Abrir/cerrar drawer según controller
+  useEffect(() => {
+    if (showPasswordDrawer) {
+      bottomSheetRef.current?.expand()
+    } else {
+      bottomSheetRef.current?.close()
+      setPassword('')
+    }
+  }, [showPasswordDrawer])
+
+  // Validar contraseña
+  const handlePasswordSubmit = async () => {
+    const error = await validatePassword(password)
+    if (!error) {
+      onPasswordSuccess?.()
+    } else {
+      setPasswordError(error)
+    }
+  }
+
+  /**
+   * Expone validatePassword para la pantalla
+   * @param {string} password - Contraseña a validar
+   * @returns {Promise<string | null>} Mensaje de error o null si la contraseña es válida
+   */
+  const validatePassword = async (password: string): Promise<string | null> => {
+    try {
+      const passwordService = new PasswordPromptService()
+      await passwordService.validatePassword(password)
+      return null
+    } catch (error) {
+      return error instanceof Error ? error.message : t('errors.invalidPassword')
+    }
+  }
 
   /**
    * Maneja el evento de registro de asistencia
@@ -112,19 +154,16 @@ const AttendanceCheckScreenController = () => {
       
       // Si la biometría no está disponible, no está habilitada, o falló, solicitar contraseña
       if (!isAuthenticated) {
-        const passwordService = new PasswordPromptService()
-        const passwordResult = await passwordService.authenticateWithPassword()
-        
-        if (!passwordResult.success) {
-          if (passwordResult.error !== 'User cancelled') {
-            Alert.alert(
-              t('common.error'),
-              passwordResult.error || t('errors.invalidPassword')
-            )
-          }
-          return
-        }
-        
+        // En vez de pedir contraseña aquí, muestra el drawer y espera
+        setShowPasswordDrawer(true)
+        // Devuelve una promesa que se resuelve cuando la pantalla valide la contraseña
+        await new Promise<void>((resolve) => {
+          setOnPasswordSuccess(() => () => {
+            setShowPasswordDrawer(false)
+            setPasswordError(null)
+            resolve()
+          })
+        })
         isAuthenticated = true
       }
       
@@ -192,6 +231,24 @@ const AttendanceCheckScreenController = () => {
     }
   }
 
+  const onClosePasswordDrawer = () => {
+    setShowPasswordDrawer(false)
+    setPassword('')
+    setPasswordError(null)
+    setIsLoadingLocation(false)
+  }
+
+  const setPasswordHandler = (password: string) => {
+    setPassword(password)
+  }
+
+  const onConfirmPasswordDrawer = () => {
+    setShowPasswordDrawer(false)
+    setPassword('')
+    setPasswordError(null)
+    setIsLoadingLocation(false)
+  }
+
   return {
     themeType,
     isButtonLocked,
@@ -200,7 +257,21 @@ const AttendanceCheckScreenController = () => {
     checkInTime,
     currentLocation,
     formatCoordinates,
-    formatAccuracy
+    formatAccuracy,
+    bottomSheetRef,
+    snapPoints,
+    showPasswordDrawer,
+    setShowPasswordDrawer,
+    validatePassword,
+    passwordError,
+    setPasswordError,
+    onPasswordSuccess,
+    setOnPasswordSuccess,
+    handlePasswordSubmit,
+    onClosePasswordDrawer,
+    password,
+    setPasswordHandler,
+    onConfirmPasswordDrawer
   }
 }
 

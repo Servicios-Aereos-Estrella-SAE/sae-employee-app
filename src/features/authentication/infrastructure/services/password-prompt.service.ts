@@ -1,4 +1,4 @@
-import { Alert } from 'react-native'
+// import { Alert } from 'react-native'
 import i18next from 'i18next'
 import { LoginController } from '../controllers/login.controller'
 import { ELoginTypes } from '../../application/types/login-types.enum'
@@ -27,48 +27,48 @@ export interface IPasswordAuthResult {
  * @class PasswordPromptService
  */
 export class PasswordPromptService {
-  /**
-   * Muestra un prompt para solicitar la contraseña del usuario y valida las credenciales
-   * @returns {Promise<IPasswordAuthResult>} Promesa que resuelve con el resultado de la autenticación
-   */
-  async authenticateWithPassword(): Promise<IPasswordAuthResult> {
-    return new Promise((resolve) => {
-      Alert.prompt(
-        i18next.t('common.authentication.passwordPromptTitle'),
-        i18next.t('common.authentication.passwordPromptMessage'),
-        [
-          {
-            text: i18next.t('common.cancel'),
-            onPress: (): void => resolve({ success: false, error: 'User cancelled' }),
-            style: 'cancel'
-          },
-          {
-            text: i18next.t('common.ok'),
-            onPress: async (password): Promise<void> => {
-              if (!password) {
-                resolve({ 
-                  success: false, 
-                  error: i18next.t('errors.passwordRequired') 
-                })
-                return
-              }
+  // /**
+  //  * Muestra un prompt para solicitar la contraseña del usuario y valida las credenciales
+  //  * @returns {Promise<IPasswordAuthResult>} Promesa que resuelve con el resultado de la autenticación
+  //  */
+  // async authenticateWithPassword(): Promise<IPasswordAuthResult> {
+  //   return new Promise((resolve) => {
+  //     Alert.prompt(
+  //       i18next.t('common.authentication.passwordPromptTitle'),
+  //       i18next.t('common.authentication.passwordPromptMessage'),
+  //       [
+  //         {
+  //           text: i18next.t('common.cancel'),
+  //           onPress: (): void => resolve({ success: false, error: 'User cancelled' }),
+  //           style: 'cancel'
+  //         },
+  //         {
+  //           text: i18next.t('common.ok'),
+  //           onPress: async (password): Promise<void> => {
+  //             if (!password) {
+  //               resolve({ 
+  //                 success: false, 
+  //                 error: i18next.t('errors.passwordRequired') 
+  //               })
+  //               return
+  //             }
 
-              try {
-                await this.validatePassword(password)
-                resolve({ success: true })
-              } catch (error) {
-                resolve({ 
-                  success: false, 
-                  error: error instanceof Error ? error.message : i18next.t('errors.invalidPassword')
-                })
-              }
-            }
-          }
-        ],
-        'secure-text'
-      )
-    })
-  }
+  //             try {
+  //               await this.validatePassword(password)
+  //               resolve({ success: true })
+  //             } catch (error) {
+  //               resolve({ 
+  //                 success: false, 
+  //                 error: error instanceof Error ? error.message : i18next.t('errors.invalidPassword')
+  //               })
+  //             }
+  //           }
+  //         }
+  //       ],
+  //       'secure-text'
+  //     )
+  //   })
+  // }
 
   /**
    * Valida la contraseña ingresada contra las credenciales almacenadas
@@ -77,7 +77,7 @@ export class PasswordPromptService {
    * @throws {Error} Si la contraseña es inválida o hay problemas de autenticación
    * @private
    */
-  private async validatePassword(password: string): Promise<void> {
+  public async validatePassword(password: string): Promise<void> {
     try {
       // Obtener las credenciales almacenadas del usuario actual
       const authStateController = new AuthStateController()

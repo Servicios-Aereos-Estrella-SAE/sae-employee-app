@@ -2,12 +2,15 @@ import { StyleSheet } from 'react-native'
 import { useAppTheme } from '../../theme/theme-context'
 import { IAppTheme } from '../../theme/app-theme.interface'
 
-const createAttendanceCheckStyle = (theme: IAppTheme) =>
+const createAttendanceCheckStyle = (theme: IAppTheme, bottomSheetOpen: boolean) =>
   StyleSheet.create({
     backgroundWrapper: {
       flex: 1,
       backgroundColor: theme.colors.background,
-      paddingTop: 100
+      opacity: bottomSheetOpen ? 0.1 : 1,
+      paddingTop: 100,
+      paddingLeft: 15,
+      paddingRight: 15
     },
     backgroundImage: {
       flex: 1,
@@ -226,9 +229,9 @@ const createAttendanceCheckStyle = (theme: IAppTheme) =>
     }
   })
 
-const useAttendanceCheckStyle = () => {
+const useAttendanceCheckStyle = (bottomSheetOpen: boolean) => {
   const { theme } = useAppTheme()
-  return createAttendanceCheckStyle(theme)
+  return createAttendanceCheckStyle(theme, bottomSheetOpen)
 }
 
 export default useAttendanceCheckStyle

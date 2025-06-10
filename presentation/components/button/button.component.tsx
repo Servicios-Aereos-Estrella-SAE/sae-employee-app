@@ -15,7 +15,8 @@ export const Button: React.FC<IButtonProps> = ({
   loading = false,
   mode = 'contained',
   disabled = false,
-  icon
+  icon,
+  style = []
 }) => {
   const styles = useButtonStyles(mode)
 
@@ -25,7 +26,8 @@ export const Button: React.FC<IButtonProps> = ({
       disabled={disabled || loading}
       style={[
         styles.button,
-        (disabled || loading) && styles.disabledButton
+        (disabled || loading) && styles.disabledButton,
+        style
       ]}
       activeOpacity={0.7}
       accessible={true}

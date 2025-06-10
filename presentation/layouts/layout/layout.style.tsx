@@ -10,8 +10,6 @@ const createLayoutStyle = (theme: IAppTheme) =>
     },
     content: {
       flex: 1,
-      paddingLeft: 15,
-      paddingRight: 15,
       backgroundColor: theme.colors.background
     }
   })

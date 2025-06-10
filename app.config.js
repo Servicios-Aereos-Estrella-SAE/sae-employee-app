@@ -52,15 +52,19 @@ export default ({ config }) => {
             distribution: "internal",
             android: {
               buildType: "apk"
-            },
-            env: {
-              SAE_EMPLOYEEAPP_API_URL: process.env.SAE_EMPLOYEEAPP_API_URL,
-              SAE_EMPLOYEEAPP_AUTHENTICATION_KEY: process.env.SAE_EMPLOYEEAPP_AUTHENTICATION_KEY,
-              SAE_EMPLOYEEAPP_AUTHENTICATION_USER_KEY: process.env.SAE_EMPLOYEEAPP_AUTHENTICATION_USER_KEY,
-              SAE_EMPLOYEEAPP_THEME_STORAGE_KEY: process.env.SAE_EMPLOYEEAPP_THEME_STORAGE_KEY
             }
+          },
+          env: {
+            SAE_EMPLOYEEAPP_API_URL: process.env.SAE_EMPLOYEEAPP_API_URL,
+            SAE_EMPLOYEEAPP_AUTHENTICATION_KEY: process.env.SAE_EMPLOYEEAPP_AUTHENTICATION_KEY,
+            SAE_EMPLOYEEAPP_AUTHENTICATION_USER_KEY: process.env.SAE_EMPLOYEEAPP_AUTHENTICATION_USER_KEY,
+            SAE_EMPLOYEEAPP_THEME_STORAGE_KEY: process.env.SAE_EMPLOYEEAPP_THEME_STORAGE_KEY
           }
-        }
+        },
+        SAE_EMPLOYEEAPP_API_URL: process.env.SAE_EMPLOYEEAPP_API_URL,
+        SAE_EMPLOYEEAPP_AUTHENTICATION_KEY: process.env.SAE_EMPLOYEEAPP_AUTHENTICATION_KEY,
+        SAE_EMPLOYEEAPP_AUTHENTICATION_USER_KEY: process.env.SAE_EMPLOYEEAPP_AUTHENTICATION_USER_KEY,
+        SAE_EMPLOYEEAPP_THEME_STORAGE_KEY: process.env.SAE_EMPLOYEEAPP_THEME_STORAGE_KEY
       },
       owner: "wilvardosae",
       runtimeVersion: {

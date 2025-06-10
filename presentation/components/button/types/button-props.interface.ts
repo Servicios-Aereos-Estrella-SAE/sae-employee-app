@@ -1,3 +1,5 @@
+import { StyleProp, ViewStyle } from 'react-native'
+
 /**
  * Propiedades del botón
  * @interface IButtonProps
@@ -14,5 +16,6 @@ export interface IButtonProps {
   loading?: boolean
   mode?: 'text' | 'outlined' | 'contained'
   disabled?: boolean
-  icon?: string
+  icon?: string,
+  style?: StyleProp<ViewStyle>
 }
