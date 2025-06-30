@@ -1,9 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { TextInput as PaperTextInput } from 'react-native-paper'
 import { View, Text } from 'react-native'
 import useTextInputStyles from './text-input.style'
 import { ITextInputProps } from './types/text-input-props.interface'
-import TextInputController from './text-input.controller'
 
 /**
  * Campo de texto
@@ -20,8 +19,12 @@ export const TextInput: React.FC<ITextInputProps> = ({
   leftIcon,
   rightIcon
 }) => {
-  const controller = TextInputController()
+  const [passwordVisible, setPasswordVisible] = useState(false)
   const styles = useTextInputStyles()
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible)
+  }
 
   return (
     <View style={styles.container}>
@@ -32,7 +35,7 @@ export const TextInput: React.FC<ITextInputProps> = ({
       <PaperTextInput
         value={value}
         onChangeText={onChangeText}
-        secureTextEntry={secureTextEntry && !controller.passwordVisible}
+        secureTextEntry={secureTextEntry && !passwordVisible}
         error={!!error}
         keyboardType={keyboardType}
         style={[styles.input]}
@@ -61,10 +64,10 @@ export const TextInput: React.FC<ITextInputProps> = ({
         right={
           rightIcon && secureTextEntry ? (
             <PaperTextInput.Icon
-              icon={controller.passwordVisible ? 'eye-off' : 'eye'}
+              icon={passwordVisible ? 'eye-off' : 'eye'}
               color={styles.textSecondaryColor.color}
               size={18}
-              onPress={controller.togglePasswordVisibility}
+              onPress={togglePasswordVisibility}
             />
           ) : rightIcon ? (
             <PaperTextInput.Icon

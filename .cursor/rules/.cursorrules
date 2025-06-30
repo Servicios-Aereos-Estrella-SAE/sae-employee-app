@@ -1,0 +1,304 @@
+# React Performance Optimization Rules
+
+## General Performance Rules
+
+### 1. Component Memoization
+- Always wrap functional components with `React.memo()` when they receive props that don't change frequently
+- Use `React.memo()` for components that re-render due to parent state changes unrelated to their props
+- Pattern: `export const ComponentName = React.memo(() => { ... })`
+
+### 2. Expensive Calculations
+- Use `useMemo()` for expensive calculations that depend on specific dependencies
+- Use `useMemo()` for creating objects or arrays that are passed as props
+- Pattern: `const expensiveValue = useMemo(() => heavyCalculation(dep1, dep2), [dep1, dep2])`
+
+### 3. Function Stability
+- Use `useCallback()` for functions passed as props to child components
+- Use `useCallback()` for functions used as dependencies in other hooks
+- Use `useCallback()` for event handlers in optimized components
+- Pattern: `const stableFunction = useCallback((param) => { ... }, [dependencies])`
+
+### 4. Style Arrays Optimization
+- Always memoize style arrays that are computed based on conditions
+- Pattern: `const styles = useMemo(() => [baseStyle, condition && conditionalStyle], [baseStyle, conditionalStyle, condition])`
+
+### 5. Controller Pattern Optimization
+- Move business logic calculations to controllers using `useMemo()`
+- Move state-dependent optimizations to controllers
+- Keep UI-dependent optimizations (styles) in components
+- Return memoized controller objects to prevent unnecessary re-renders
+
+## Documentation Rules (Spanish)
+
+### 1. All comments and documentation must be written in Spanish
+- Use JSDoc comments in Spanish for all functions, components, and controllers
+- Write inline comments in Spanish when explaining complex logic
+- Variable and function names should be descriptive in English, but documentation in Spanish
+
+### 2. Git Commits in Spanish
+- All commit messages must be written in Spanish
+- Use conventional commit format in Spanish
+- Follow this pattern: `tipo(alcance): descripción en español`
+
+```bash
+# ✅ Buenos ejemplos de commits:
+feat(asistencia): agregar validación de ubicación precisa
+fix(autenticación): corregir pérdida de foco en input de contraseña
+perf(pantalla): optimizar re-renders con React.memo y useMemo
+refactor(controlador): mover cálculos de lógica de negocio al controlador
+docs(reglas): actualizar reglas de optimización de rendimiento
+style(estilos): mejorar diseño del botón de check-in
+test(pruebas): agregar pruebas para componente de asistencia
+
+# ❌ Evitar commits en inglés:
+# feat(attendance): add location validation
+# fix(auth): fix input focus loss
+```
+
+#### Tipos de commit en español:
+- `feat`: nueva funcionalidad
+- `fix`: corrección de bug
+- `perf`: mejora de rendimiento
+- `refactor`: refactorización de código
+- `style`: cambios de estilo (CSS, UI)
+- `docs`: documentación
+- `test`: pruebas
+- `chore`: tareas de mantenimiento
+- `ci`: integración continua
+- `build`: construcción del proyecto
+
+### 3. JSDoc Documentation Pattern in Spanish
+```typescript
+/**
+ * Componente optimizado para mostrar información de asistencia
+ * Utiliza React.memo para prevenir re-renders innecesarios
+ * @returns {React.FC} Componente de pantalla de asistencia
+ */
+export const AttendanceCheckScreen: React.FC = React.memo(() => {
+
+/**
+ * Hook personalizado para manejar la lógica de asistencia
+ * Optimiza los cálculos usando useMemo y useCallback
+ * @returns {Object} Objeto con datos y funciones de asistencia
+ */
+const useAttendanceLogic = () => {
+
+/**
+ * Formatea las coordenadas para mostrarlas en pantalla
+ * @param {ILocationCoordinates} coordinates - Coordenadas a formatear
+ * @returns {string} Coordenadas formateadas
+ */
+const formatCoordinates = useCallback((coordinates: ILocationCoordinates): string => {
+```
+
+### 4. Performance Optimization Comments in Spanish
+```typescript
+// Memorizar valores calculados para evitar re-renders innecesarios
+const isButtonDisabled = useMemo(() => 
+  isButtonLocked || isLoadingLocation,
+  [isButtonLocked, isLoadingLocation]
+)
+
+// Optimización: mover cálculos de lógica de negocio al controlador
+const buttonText = useMemo(() => {
+  if (isLoadingLocation) return '...'
+  if (isButtonLocked) return '---'
+  return 'Iniciar Turno'
+}, [isLoadingLocation, isButtonLocked])
+
+// Memorizar estilos que dependen de condiciones para mejorar rendimiento
+const buttonStyles = useMemo(() => [
+  styles.baseButton,
+  controller.isDisabled && styles.disabledButton
+], [styles.baseButton, styles.disabledButton, controller.isDisabled])
+```
+
+### 5. Error Messages and Logs in Spanish
+```typescript
+console.error('Error en autenticación:', error)
+Alert.alert(
+  'Error',
+  'No se pudo completar la operación'
+)
+
+// Comentarios explicativos en español
+// Verificar si el error es de precisión o autorización
+const isPrecisionError = errorMessage.includes('precisión')
+```
+
+## Specific Patterns to Apply
+
+### Controller Optimizations (Move to Controller)
+```typescript
+// ✅ Bueno: En el Controlador
+const isButtonDisabled = useMemo(() => 
+  isButtonLocked || isLoadingLocation,
+  [isButtonLocked, isLoadingLocation]
+)
+
+const buttonText = useMemo(() => {
+  if (isLoadingLocation) return '...'
+  if (isButtonLocked) return '---'
+  return 'Texto por Defecto'
+}, [isLoadingLocation, isButtonLocked])
+
+const formattedData = useMemo(() => {
+  if (rawData) {
+    return {
+      formatted: formatFunction(rawData),
+      processed: processFunction(rawData)
+    }
+  }
+  return null
+}, [rawData, formatFunction, processFunction])
+```
+
+### Component Optimizations (Keep in Component)
+```typescript
+// ✅ Bueno: En el Componente (dependiente de estilos)
+const buttonStyles = useMemo(() => [
+  styles.baseButton,
+  controller.isDisabled && styles.disabledButton
+], [styles.baseButton, styles.disabledButton, controller.isDisabled])
+
+const iconColor = useMemo(() => 
+  controller.isActive ? styles.activeColor.color : styles.inactiveColor.color,
+  [controller.isActive, styles.activeColor.color, styles.inactiveColor.color]
+)
+```
+
+## Anti-Patterns to Avoid
+
+### ❌ Malo: Recrear objetos/arrays en cada render
+```typescript
+// No hacer esto
+return (
+  <Component 
+    style={[styles.base, isActive && styles.active]} // Se recrea en cada render
+    data={{ value: someValue, formatted: format(someValue) }} // Se recrea en cada render
+  />
+)
+```
+
+### ❌ Malo: Funciones inline en componentes optimizados
+```typescript
+// No hacer esto
+<TouchableOpacity onPress={() => handlePress(item.id)} /> // Se recrea en cada render
+```
+
+### ❌ Malo: Dependencias faltantes en memorización
+```typescript
+// No hacer esto
+const memoizedValue = useMemo(() => 
+  expensiveCalculation(dep1, dep2, dep3), 
+  [dep1] // Faltan dep2, dep3
+)
+```
+
+## Detection Rules
+
+### Detectar Optimizaciones Faltantes
+1. Buscar arrays de estilos inline: `style={[style1, condition && style2]}`
+2. Buscar creación de objetos inline: `data={{ key: value }}`
+3. Buscar creación de funciones inline: `onPress={() => func()}`
+4. Buscar cálculos costosos sin `useMemo()`
+5. Buscar componentes sin `React.memo()` que reciben props
+
+### Detectar Problemas de Separación Controlador/Componente
+1. Cálculos de lógica de negocio en archivos de componente
+2. Cálculos dependientes de estilos en archivos de controlador
+3. Objetos de retorno de controlador sin memorizar
+4. Optimizaciones dependientes de estado en componentes en lugar de controladores
+
+## Suggested Improvements
+
+### Cuando veas este patrón:
+```typescript
+// En el Componente
+const isDisabled = controller.isLoading || controller.hasError
+const text = controller.isLoading ? 'Cargando...' : 'Enviar'
+```
+
+### Sugiere esto:
+```typescript
+// Mover al Controlador
+const isDisabled = useMemo(() => 
+  isLoading || hasError, 
+  [isLoading, hasError]
+)
+
+const buttonText = useMemo(() => 
+  isLoading ? 'Cargando...' : 'Enviar',
+  [isLoading]
+)
+
+// En el Componente - solo lógica dependiente de estilos
+const buttonStyles = useMemo(() => [
+  styles.button,
+  controller.isDisabled && styles.disabled
+], [styles.button, styles.disabled, controller.isDisabled])
+```
+
+## Controller Return Optimization Pattern
+
+Siempre memorizar objetos de retorno del controlador:
+```typescript
+/**
+ * Memorizar el objeto de retorno completo para evitar recreaciones innecesarias
+ */
+const controllerValue = useMemo(() => ({
+  // Valores de estado
+  isLoading,
+  data,
+  error,
+  
+  // Funciones
+  handleSubmit,
+  handleCancel,
+  
+  // Cálculos optimizados
+  isButtonDisabled,
+  buttonText,
+  formattedData
+}), [
+  isLoading,
+  data,
+  error,
+  handleSubmit,
+  handleCancel,
+  isButtonDisabled,
+  buttonText,
+  formattedData
+])
+
+return controllerValue
+```
+
+## Auto-Fix Suggestions
+
+1. **Envolver componentes con React.memo**: Cuando el componente tiene props pero no tiene React.memo
+2. **Agregar useMemo para arrays de estilos**: Cuando se detectan arrays de estilos inline
+3. **Agregar useCallback para funciones**: Cuando las funciones se pasan como props sin useCallback
+4. **Mover cálculos al controlador**: Cuando se detecta lógica de negocio en el componente
+5. **Agregar dependencias faltantes**: Cuando los hooks de memorización tienen arrays de dependencias incompletos
+
+## File Organization Rules
+
+### Los Archivos de Controlador Deben Contener:
+- Gestión de estado
+- Lógica de negocio
+- Llamadas a API
+- Cálculos memorizados (useMemo/useCallback)
+- Objetos de retorno optimizados
+
+### Los Archivos de Componente Deben Contener:
+- Lógica de renderizado de UI
+- Cálculos dependientes de estilos
+- Memorización de componentes (React.memo)
+- Manejo de eventos de UI
+
+## Performance Metrics to Monitor
+- Número de re-renders por componente
+- Ratios de hit/miss de memorización
+- Impacto en el tamaño del bundle de las optimizaciones
+- Mejoras de rendimiento en runtime 

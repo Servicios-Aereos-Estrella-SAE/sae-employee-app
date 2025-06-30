@@ -90,30 +90,101 @@ src/
   npm run format
   ```
 
-## Commit Guidelines
+## Commit Guidelines (Spanish)
 
-This project follows [Conventional Commits](https://www.conventionalcommits.org/) specification. Each commit message should be structured as follows:
+Este proyecto utiliza [Conventional Commits](https://www.conventionalcommits.org/) **escritos en español**. Cada mensaje de commit debe seguir esta estructura:
 
 ```
-<type>[optional scope]: <description>
+<tipo>(alcance): <descripción breve en español>
 
-[optional body]
+[cuerpo opcional en español]
 
-[optional footer(s)]
+[pie opcional en español]
 ```
 
-### Types
+### Configuración Inicial
 
-- **feat**: A new feature
-- **fix**: A bug fix
-- **docs**: Documentation changes
-- **style**: Changes that do not affect the meaning of the code
-- **refactor**: A code change that neither fixes a bug nor adds a feature
-- **perf**: A code change that improves performance
-- **test**: Adding missing tests or correcting existing tests
-- **build**: Changes that affect the build system or external dependencies
-- **ci**: Changes to CI configuration files and scripts
-- **chore**: Other changes that don't modify src or test files
+Para configurar tu entorno para commits en español:
+
+```bash
+npm run setup:git
+```
+
+### Ayuda con Commits
+
+Para ver ejemplos de commits:
+
+```bash
+npm run commit:help
+```
+
+### Tipos de Commit
+
+- **feat**: nueva funcionalidad
+- **fix**: corrección de bug
+- **perf**: mejora de rendimiento
+- **refactor**: refactorización de código
+- **style**: cambios de estilo (CSS, UI)
+- **docs**: documentación
+- **test**: pruebas
+- **chore**: tareas de mantenimiento
+- **ci**: integración continua
+- **build**: construcción del proyecto
+
+### Alcances Sugeridos
+
+- asistencia, autenticación, pantalla, controlador, componente
+- estilos, optimización, rendimiento, navegación, configuración
+- biometría, ubicación, api, datos, validación
+
+### Ejemplos de Commits
+
+```bash
+feat(asistencia): agregar validación de ubicación precisa
+fix(autenticación): corregir pérdida de foco en input de contraseña
+perf(pantalla): optimizar re-renders con React.memo y useMemo
+refactor(controlador): mover cálculos de lógica de negocio al controlador
+docs(reglas): actualizar reglas de optimización de rendimiento
+style(estilos): mejorar diseño del botón de check-in
+test(pruebas): agregar pruebas para componente de asistencia
+```
+
+### Reglas de Formato
+
+- Usar imperativo presente en español (agregar, corregir, optimizar)
+- Descripción breve: sin límite de caracteres
+- Descripción detallada: sin límite de caracteres por línea
+- Todos los commits deben estar en español
+- Incluir el alcance entre paréntesis cuando sea relevante
+
+## React Performance Optimization
+
+Este proyecto implementa reglas estrictas de optimización de rendimiento para React Native:
+
+### Reglas Principales
+
+1. **Component Memoization**: Todos los componentes funcionales usan `React.memo()`
+2. **Expensive Calculations**: Cálculos costosos envueltos con `useMemo()`
+3. **Function Stability**: Funciones memorizadas con `useCallback()`
+4. **Style Arrays**: Arrays de estilos optimizados con `useMemo()`
+5. **Controller Pattern**: Separación clara entre lógica de negocio (controlador) y UI (componente)
+
+### Documentación en Español
+
+- Todos los comentarios JSDoc en español
+- Comentarios de optimización explicativos en español
+- Mensajes de error y logs en español
+- Nombres de variables descriptivos en inglés, documentación en español
+
+### Detección Automática
+
+El proyecto incluye:
+- Configuración VSCode para detectar patrones de rendimiento
+- Reglas ESLint personalizadas
+- Auto-fix automático para optimizaciones comunes
+- Separación automática controlador/componente
+
+Ver `.cursorrules` para detalles completos de las reglas de optimización.
 
 ## Internationalization (i18n)
 

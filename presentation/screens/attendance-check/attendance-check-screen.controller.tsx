@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useCallback, useMemo } from 'react'
 import { Alert, Linking, Platform } from 'react-native'
 import { DateTime } from 'luxon'
 import { useTranslation } from 'react-i18next'
@@ -8,6 +8,7 @@ import { BiometricsService } from '../../../src/features/authentication/infrastr
 import { PasswordPromptService } from '../../../src/features/authentication/infrastructure/services/password-prompt.service'
 import { AuthStateController } from '../../../src/features/authentication/infrastructure/controllers/auth-state.controller'
 import BottomSheet from '@gorhom/bottom-sheet'
+import { BottomSheetBackdrop } from '@gorhom/bottom-sheet'
 
 /**
  * Controlador para la pantalla de registro de asistencia
@@ -25,12 +26,14 @@ const AttendanceCheckScreenController = () => {
   const [passwordError, setPasswordError] = useState<string | null>(null)
   const bottomSheetRef = useRef<BottomSheet>(null)
   const [password, setPassword] = useState('')
-  const snapPoints = ['30%']
+  
+  // Memorizar snapPoints para evitar recreaciones
+  const snapPoints = useMemo(() => ['60%'], [])
 
   // Abrir/cerrar drawer según controller
   useEffect(() => {
     if (showPasswordDrawer) {
-      bottomSheetRef.current?.expand()
+      bottomSheetRef.current?.snapToIndex(0)
     } else {
       bottomSheetRef.current?.close()
       setPassword('')
@@ -38,21 +41,21 @@ const AttendanceCheckScreenController = () => {
   }, [showPasswordDrawer])
 
   // Validar contraseña
-  const handlePasswordSubmit = async () => {
+  const handlePasswordSubmit = useCallback(async () => {
     const error = await validatePassword(password)
     if (!error) {
       onPasswordSuccess?.()
     } else {
       setPasswordError(error)
     }
-  }
+  }, [password, onPasswordSuccess])
 
   /**
    * Expone validatePassword para la pantalla
    * @param {string} password - Contraseña a validar
    * @returns {Promise<string | null>} Mensaje de error o null si la contraseña es válida
    */
-  const validatePassword = async (password: string): Promise<string | null> => {
+  const validatePassword = useCallback(async (password: string): Promise<string | null> => {
     try {
       const passwordService = new PasswordPromptService()
       await passwordService.validatePassword(password)
@@ -60,7 +63,7 @@ const AttendanceCheckScreenController = () => {
     } catch (error) {
       return error instanceof Error ? error.message : t('errors.invalidPassword')
     }
-  }
+  }, [t])
 
   /**
    * Maneja el evento de registro de asistencia
@@ -68,7 +71,7 @@ const AttendanceCheckScreenController = () => {
    * - Obtiene coordenadas y las muestra en pantalla
    * @returns {Promise<void>}
    */
-  const handleCheckIn = async () => {
+  const handleCheckIn = useCallback(async () => {
     if (isButtonLocked || isLoadingLocation) return
 
     setIsLoadingLocation(true)
@@ -124,13 +127,13 @@ const AttendanceCheckScreenController = () => {
     } finally {
       setIsLoadingLocation(false)
     }
-  }
+  }, [isButtonLocked, isLoadingLocation, t])
 
   /**
    * Ejecuta el proceso de check-in después de validar la ubicación
    * @returns {Promise<void>}
    */
-  const performCheckIn = async () => {
+  const performCheckIn = useCallback(async () => {
     try {
       // Verificar si la biometría está habilitada y disponible
       const authStateController = new AuthStateController()
@@ -183,31 +186,31 @@ const AttendanceCheckScreenController = () => {
         error instanceof Error ? error.message : t('errors.unknownError')
       )
     }
-  }
+  }, [t])
 
   /**
    * Formatea las coordenadas para mostrarlas en pantalla
    * @param {ILocationCoordinates} coordinates - Coordenadas a formatear
    * @returns {string} Coordenadas formateadas
    */
-  const formatCoordinates = (coordinates: ILocationCoordinates): string => {
+  const formatCoordinates = useCallback((coordinates: ILocationCoordinates): string => {
     return `${coordinates.latitude.toFixed(6)}, ${coordinates.longitude.toFixed(6)}`
-  }
+  }, [])
 
   /**
    * Obtiene el texto de precisión formateado
    * @param {ILocationCoordinates} coordinates - Coordenadas con precisión
    * @returns {string} Precisión formateada
    */
-  const formatAccuracy = (coordinates: ILocationCoordinates): string => {
+  const formatAccuracy = useCallback((coordinates: ILocationCoordinates): string => {
     return `±${coordinates.accuracy.toFixed(1)}m`
-  }
+  }, [])
 
   /**
    * Abre la configuración de ubicación del dispositivo
    * @returns {Promise<void>}
    */
-  const openLocationSettings = async (): Promise<void> => {
+  const openLocationSettings = useCallback(async (): Promise<void> => {
     try {
       if (Platform.OS === 'ios') {
         // En iOS, abre la configuración general de privacidad y ubicación
@@ -229,27 +232,68 @@ const AttendanceCheckScreenController = () => {
         )
       }
     }
-  }
+  }, [t])
 
-  const onClosePasswordDrawer = () => {
+  const onClosePasswordDrawer = useCallback(() => {
     setShowPasswordDrawer(false)
     setPassword('')
     setPasswordError(null)
     setIsLoadingLocation(false)
-  }
+  }, [])
 
-  const setPasswordHandler = (password: string) => {
+  const setPasswordHandler = useCallback((password: string) => {
     setPassword(password)
-  }
+  }, [])
 
-  const onConfirmPasswordDrawer = () => {
+  const onConfirmPasswordDrawer = useCallback(() => {
     setShowPasswordDrawer(false)
     setPassword('')
     setPasswordError(null)
     setIsLoadingLocation(false)
-  }
+  }, [])
 
-  return {
+  const onPasswordSubmit = useCallback(async (password: string) => {
+    const error = await validatePassword(password)
+    if (!error) {
+      onPasswordSuccess?.()
+    } else {
+      setPasswordError(error)
+      throw new Error(error) // Throw para que el componente maneje el error
+    }
+  }, [onPasswordSuccess, validatePassword])
+
+  // Optimizaciones movidas desde el componente
+  const isButtonDisabled = useMemo(() => 
+    isButtonLocked || isLoadingLocation, [isButtonLocked, isLoadingLocation]
+  )
+
+  const buttonText = useMemo(() => {
+    if (isLoadingLocation) return '...'
+    if (isButtonLocked) return '---'
+    return 'Iniciar Turno'
+  }, [isLoadingLocation, isButtonLocked])
+
+  const locationContent = useMemo(() => {
+    if (currentLocation) {
+      return {
+        coordinates: formatCoordinates(currentLocation),
+        accuracy: formatAccuracy(currentLocation)
+      }
+    }
+    return null
+  }, [currentLocation, formatCoordinates, formatAccuracy])
+
+  const backdropComponent = useCallback((props: any) => (
+    <BottomSheetBackdrop 
+      {...props} 
+      appearsOnIndex={0}
+      disappearsOnIndex={-1}
+      opacity={0.5}
+    />
+  ), [])
+
+  // Memorizar el objeto de retorno completo para evitar recreaciones innecesarias
+  const controllerValue = useMemo(() => ({
     themeType,
     isButtonLocked,
     isLoadingLocation,
@@ -271,8 +315,40 @@ const AttendanceCheckScreenController = () => {
     onClosePasswordDrawer,
     password,
     setPasswordHandler,
-    onConfirmPasswordDrawer
-  }
+    onConfirmPasswordDrawer,
+    onPasswordSubmit,
+    // Nuevas optimizaciones
+    isButtonDisabled,
+    buttonText,
+    locationContent,
+    backdropComponent
+  }), [
+    themeType,
+    isButtonLocked,
+    isLoadingLocation,
+    handleCheckIn,
+    checkInTime,
+    currentLocation,
+    formatCoordinates,
+    formatAccuracy,
+    snapPoints,
+    showPasswordDrawer,
+    validatePassword,
+    passwordError,
+    onPasswordSuccess,
+    handlePasswordSubmit,
+    onClosePasswordDrawer,
+    password,
+    setPasswordHandler,
+    onConfirmPasswordDrawer,
+    onPasswordSubmit,
+    isButtonDisabled,
+    buttonText,
+    locationContent,
+    backdropComponent
+  ])
+
+  return controllerValue
 }
 
 export { AttendanceCheckScreenController }

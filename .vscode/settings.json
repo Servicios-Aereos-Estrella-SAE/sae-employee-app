@@ -1,0 +1,157 @@
+{
+  "react-performance-optimizer": {
+    "enabled": true,
+    "rules": {
+      "enforce-react-memo": {
+        "enabled": true,
+        "severity": "warning",
+        "message": "Consider wrapping this component with React.memo() to prevent unnecessary re-renders",
+        "pattern": "export const.*React\\.FC.*=.*\\(\\) => \\{"
+      },
+      "detect-inline-styles": {
+        "enabled": true,
+        "severity": "warning", 
+        "message": "Inline style arrays should be memoized with useMemo()",
+        "pattern": "style=\\{\\[.*\\]\\}"
+      },
+      "detect-inline-functions": {
+        "enabled": true,
+        "severity": "error",
+        "message": "Inline functions in props cause re-renders. Use useCallback()",
+        "pattern": "\\w+={\\(.*\\) => .*}"
+      },
+      "detect-missing-usememo": {
+        "enabled": true,
+        "severity": "warning",
+        "message": "Expensive calculations should be wrapped in useMemo()",
+        "patterns": [
+          "const \\w+ = .*\\.map\\(",
+          "const \\w+ = .*\\.filter\\(",
+          "const \\w+ = .*\\.reduce\\(",
+          "const \\w+ = Object\\.keys\\(",
+          "const \\w+ = .*\\.sort\\("
+        ]
+      },
+      "controller-separation": {
+        "enabled": true,
+        "severity": "info",
+        "message": "Consider moving this calculation to the controller",
+        "controller_patterns": [
+          "const is\\w+ = .*controller\\.",
+          "const \\w+Text = .*controller\\.",
+          "const formatted\\w+ = .*controller\\."
+        ],
+        "component_patterns": [
+          "const \\w+Styles = useMemo.*styles\\.",
+          "const \\w+Color = useMemo.*styles\\."
+        ]
+      }
+    },
+    "auto-fix": {
+      "enabled": true,
+      "fixes": [
+        {
+          "name": "wrap-with-react-memo",
+          "description": "Wrap component with React.memo()",
+          "pattern": "export const (\\w+): React\\.FC = \\(\\) => \\{",
+          "replacement": "export const $1: React.FC = React.memo(() => {"
+        },
+        {
+          "name": "memoize-style-array",
+          "description": "Wrap style array with useMemo()",
+          "pattern": "style=\\{\\[(.*?)\\]\\}",
+          "replacement": "style={useMemo(() => [$1], [/* dependencies */])}"
+        },
+        {
+          "name": "extract-inline-function",
+          "description": "Extract inline function to useCallback()",
+          "pattern": "(\\w+)=\\{\\((.*?)\\) => (.*?)\\}",
+          "replacement": "$1={useCallback(($2) => $3, [/* dependencies */])}"
+        }
+      ]
+    }
+  },
+  "typescript.suggest.autoImports": true,
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true,
+    "source.fixAll": true,
+    "source.fixAll.eslint": true,
+    "react-performance-optimizer.applyFixes": true
+  },
+  "editor.quickSuggestions": {
+    "strings": true,
+    "comments": false,
+    "other": true
+  },
+  "react-hooks/exhaustive-deps": "warn",
+  "workbench.colorCustomizations": {
+    "editor.wordHighlightBackground": "#ff000020",
+    "editor.selectionHighlightBackground": "#ff000040"
+  },
+  "files.associations": {
+    "*.controller.tsx": "typescript-controller",
+    "*.component.tsx": "typescript-component",
+    "*.tsx": "typescriptreact",
+    "*.ts": "typescript"
+  },
+  "emmet.includeLanguages": {
+    "typescript-controller": "typescript",
+    "typescript-component": "typescript"
+  },
+  "typescript.preferences.includePackageJsonAutoImports": "on",
+  "typescript.preferences.useLabelDetailsInCompletionEntries": true,
+  "editor.snippetSuggestions": "top",
+  "editor.lightbulb.enabled": true,
+  "git.inputValidation": "always",
+  "git.inputValidationLength": 0,
+  "git.inputValidationSubjectLength": 0,
+  "git.useCommitInputAsStashMessage": true,
+  "gitlens.gitCommands.commit.messageTemplate": "${type}(${scope}): ${description}",
+  "conventionalCommits.scopes": [
+    "asistencia",
+    "autenticación", 
+    "pantalla",
+    "controlador",
+    "componente",
+    "estilos",
+    "optimización",
+    "rendimiento",
+    "navegación",
+    "configuración",
+    "biometría",
+    "ubicación",
+    "api",
+    "datos",
+    "validación"
+  ],
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/.git": true,
+    "**/docs": true
+  },
+  "problems.decorations.enabled": true,
+  "extensions.recommendations": [
+    "ms-vscode.vscode-typescript-next",
+    "bradlc.vscode-tailwindcss",
+    "esbenp.prettier-vscode",
+    "ms-vscode.vscode-eslint",
+    "eamodio.gitlens",
+    "vivaxy.vscode-conventional-commits"
+  ],
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true,
+      "source.fixAll.eslint": true
+    }
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode", 
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true,
+      "source.fixAll.eslint": true
+    }
+  }
+} 

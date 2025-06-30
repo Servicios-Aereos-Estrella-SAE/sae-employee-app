@@ -1,0 +1,36 @@
+# <tipo>(alcance): <descripción breve en español>
+#
+# <descripción detallada opcional en español>
+#
+# Tipos disponibles:
+# feat:     nueva funcionalidad
+# fix:      corrección de bug
+# perf:     mejora de rendimiento
+# refactor: refactorización de código
+# style:    cambios de estilo (CSS, UI)
+# docs:     documentación
+# test:     pruebas
+# chore:    tareas de mantenimiento
+# ci:       integración continua
+# build:    construcción del proyecto
+#
+# Alcances sugeridos:
+# asistencia, autenticación, pantalla, controlador, componente,
+# estilos, optimización, rendimiento, navegación, configuración,
+# biometría, ubicación, api, datos, validación
+#
+# Ejemplos:
+# feat(asistencia): agregar validación de ubicación precisa
+# fix(autenticación): corregir pérdida de foco en input de contraseña
+# perf(pantalla): optimizar re-renders con React.memo y useMemo
+# refactor(controlador): mover cálculos de lógica de negocio al controlador
+# docs(reglas): actualizar reglas de optimización de rendimiento
+# style(estilos): mejorar diseño del botón de check-in
+# test(pruebas): agregar pruebas para componente de asistencia
+#
+# Recuerda:
+# - Usar imperativo presente en español (agregar, corregir, optimizar)
+# - Descripción breve: máximo 150 caracteres
+# - Descripción detallada: sin límite
+# - Todos los commits deben estar en español
+# - Incluir el alcance entre paréntesis cuando sea relevante 

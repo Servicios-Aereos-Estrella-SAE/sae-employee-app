@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import {
   View,
   Text,
@@ -14,18 +14,36 @@ import useAttendanceCheckStyle from './attendance-check.style'
 import { AttendanceCheckScreenController } from './attendance-check-screen.controller'
 import { Clock } from '../../components/clock/clock.component'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet'
-import { Button } from '../../components/button/button.component'
-import { TextInput } from '../../components/text-input/text-input.component'
-import { t } from 'i18next'
+import BottomSheet from '@gorhom/bottom-sheet'
+import { PasswordBottomSheet } from './password-bottom-sheet.component'
 
 /**
  * Pantalla para registro de asistencia
  * @returns {React.FC} 
  */
-export const AttendanceCheckScreen: React.FC = () => {
+export const AttendanceCheckScreen: React.FC = React.memo(() => {
   const controller = AttendanceCheckScreenController()
-  const styles = useAttendanceCheckStyle(controller.showPasswordDrawer)
+  const styles = useAttendanceCheckStyle()
+
+  // Solo las optimizaciones que dependen de styles se quedan aquí
+  const buttonWrapperStyles = useMemo(() => [
+    styles.checkInButtonWrapper,
+    controller.isButtonDisabled && styles.checkInButtonWrapperLocked
+  ], [styles.checkInButtonWrapper, styles.checkInButtonWrapperLocked, controller.isButtonDisabled])
+
+  const buttonStyles = useMemo(() => [
+    styles.checkInButton,
+    controller.isButtonDisabled && styles.checkInButtonLocked
+  ], [styles.checkInButton, styles.checkInButtonLocked, controller.isButtonDisabled])
+
+  const buttonTextStyles = useMemo(() => [
+    styles.checkInText,
+    controller.isButtonDisabled && styles.checkInTextLocked
+  ], [styles.checkInText, styles.checkInTextLocked, controller.isButtonDisabled])
+
+  const buttonIconColor = useMemo(() => 
+    controller.isButtonDisabled ? styles.checkButtonIconLocked.color : styles.checkButtonIcon.color, [controller.isButtonDisabled, styles.checkButtonIconLocked.color, styles.checkButtonIcon.color]
+  )
 
   return (
     <GestureHandlerRootView>
@@ -34,13 +52,11 @@ export const AttendanceCheckScreen: React.FC = () => {
           <SafeAreaView style={styles.container}>
             <StatusBar style={controller.themeType === 'dark' ? 'light' : 'dark'} />
             <View style={styles.checkInContainer}>
-              <View
-                style={[ styles.checkInButtonWrapper, (controller.isButtonLocked || controller.isLoadingLocation) && styles.checkInButtonWrapperLocked ]}
-              >
+              <View style={buttonWrapperStyles}>
                 <TouchableOpacity
-                  style={[ styles.checkInButton, (controller.isButtonLocked || controller.isLoadingLocation) && styles.checkInButtonLocked ]}
+                  style={buttonStyles}
                   onPress={controller.handleCheckIn}
-                  disabled={controller.isButtonLocked || controller.isLoadingLocation}
+                  disabled={controller.isButtonDisabled}
                 >
                   {controller.isLoadingLocation ? (
                     <ActivityIndicator 
@@ -50,20 +66,11 @@ export const AttendanceCheckScreen: React.FC = () => {
                   ) : (
                     <CheckInIcon
                       size={48}
-                      color={ (controller.isButtonLocked || controller.isLoadingLocation) ? styles.checkButtonIconLocked.color : styles.checkButtonIcon.color }
+                      color={buttonIconColor}
                     />
                   )}
-                  <Text
-                    style={[
-                      styles.checkInText,
-                      (controller.isButtonLocked || controller.isLoadingLocation) && styles.checkInTextLocked
-                    ]}
-                  >
-                    {controller.isLoadingLocation 
-                      ? '...' 
-                      : controller.isButtonLocked 
-                        ? '---' 
-                        : 'Iniciar Turno'}
+                  <Text style={buttonTextStyles}>
+                    {controller.buttonText}
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -76,6 +83,7 @@ export const AttendanceCheckScreen: React.FC = () => {
                 hourStyle={styles.hour}
                 dateStyle={styles.date}
               />
+              
               {/* Indicadores */}
               <View style={styles.indicatorsContainer}>
                 <View style={[ styles.indicator, controller.checkInTime && styles.indicatorActive ]}>
@@ -84,7 +92,7 @@ export const AttendanceCheckScreen: React.FC = () => {
                     color={ styles.checkIconIndicator.color }
                   />
                   <Text style={[ styles.indicatorLabel, controller.checkInTime && styles.indicatorLabelActive ]}>
-                  Entrada
+                    Entrada
                   </Text>
                   <Text style={[ styles.indicatorValue, controller.checkInTime && styles.indicatorValueActive ]}>
                     {controller.checkInTime || '--:--'}
@@ -96,10 +104,10 @@ export const AttendanceCheckScreen: React.FC = () => {
                     color={ styles.checkIconIndicator.color }
                   />
                   <Text style={[ styles.indicatorLabel, controller.checkInTime && styles.indicatorLabelActive ]}>
-                  Iniciar Comida
+                    Iniciar Comida
                   </Text>
                   <Text style={[ styles.indicatorValue, controller.checkInTime && styles.indicatorValueActive ]}>
-                  --:--:--
+                    --:--:--
                   </Text>
                 </View>
                 <View style={[ styles.indicator, controller.checkInTime && styles.indicatorActive ]}>
@@ -108,10 +116,10 @@ export const AttendanceCheckScreen: React.FC = () => {
                     color={ styles.checkIconIndicator.color }
                   />
                   <Text style={[ styles.indicatorLabel, controller.checkInTime && styles.indicatorLabelActive ]}>
-                  Terminar Comida
+                    Terminar Comida
                   </Text>
                   <Text style={[ styles.indicatorValue, controller.checkInTime && styles.indicatorValueActive ]}>
-                  --:--:--
+                    --:--:--
                   </Text>
                 </View>
                 <View style={[ styles.indicator, controller.checkInTime && styles.indicatorActive ]}>
@@ -120,10 +128,10 @@ export const AttendanceCheckScreen: React.FC = () => {
                     color={ styles.checkIconIndicator.color }
                   />
                   <Text style={[ styles.indicatorLabel, controller.checkInTime && styles.indicatorLabelActive ]}>
-                  Salida
+                    Salida
                   </Text>
                   <Text style={[ styles.indicatorValue, controller.checkInTime && styles.indicatorValueActive ]}>
-                  --:--:--
+                    --:--:--
                   </Text>
                 </View>
               </View>
@@ -131,13 +139,13 @@ export const AttendanceCheckScreen: React.FC = () => {
               {/* Información de ubicación */}
               <View style={styles.locationContainer}>
                 <Text style={styles.locationTitle}>Ubicación</Text>
-                {controller.currentLocation ? (
+                {controller.locationContent ? (
                   <View>
                     <Text style={styles.locationCoordinates}>
-                      {controller.formatCoordinates(controller.currentLocation)}
+                      {controller.locationContent.coordinates}
                     </Text>
                     <Text style={styles.locationAccuracy}>
-                    Precisión: {controller.formatAccuracy(controller.currentLocation)}
+                      Precisión: {controller.locationContent.accuracy}
                     </Text>
                   </View>
                 ) : (
@@ -156,35 +164,17 @@ export const AttendanceCheckScreen: React.FC = () => {
           snapPoints={controller.snapPoints}
           enablePanDownToClose={false}
           onClose={controller.onClosePasswordDrawer}
+          backdropComponent={controller.backdropComponent}
+          animateOnMount={true}
+          enableOverDrag={false}
         >
-          <BottomSheetView style={{ padding: 24 }}>
-            <TextInput
-              label={t('screens.attendanceCheck.password')}
-              value={controller.password || ''}
-              onChangeText={(text) => controller.setPasswordHandler?.(text)}
-              secureTextEntry
-              rightIcon="eye"
-            />
-            {controller.passwordError ? (
-              <Text style={{ color: 'red', marginTop: 8, textAlign: 'left' }}>{controller.passwordError}</Text>
-            ) : null}
-
-            <Button
-              title={t('screens.attendanceCheck.confirmButton')}
-              onPress={controller.handlePasswordSubmit}
-              style={{ marginTop: 10 }}
-            />
-            <TouchableOpacity
-              style={{ alignItems: 'center', marginTop: 12 }}
-              onPress={controller.onConfirmPasswordDrawer}
-            >
-              <Text style={{ color: '#88a4bf', fontSize: 16 }}>
-                {t('screens.attendanceCheck.cancelButton')}
-              </Text>
-            </TouchableOpacity>
-          </BottomSheetView>
+          <PasswordBottomSheet
+            onPasswordSubmit={controller.onPasswordSubmit}
+            onCancel={controller.onConfirmPasswordDrawer}
+            error={controller.passwordError}
+          />
         </BottomSheet>
       </AuthenticatedLayout>
     </GestureHandlerRootView>
   )
-}
+})
