@@ -74,10 +74,10 @@
   "typescript.suggest.autoImports": true,
   "typescript.preferences.importModuleSpecifier": "relative",
   "editor.codeActionsOnSave": {
-    "source.organizeImports": true,
-    "source.fixAll": true,
-    "source.fixAll.eslint": true,
-    "react-performance-optimizer.applyFixes": true
+    "source.organizeImports": "explicit",
+    "source.fixAll": "explicit",
+    "source.fixAll.eslint": "explicit",
+    "react-performance-optimizer.applyFixes": "explicit"
   },
   "editor.quickSuggestions": {
     "strings": true,
@@ -141,15 +141,15 @@
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.codeActionsOnSave": {
-      "source.organizeImports": true,
-      "source.fixAll.eslint": true
+      "source.organizeImports": "explicit",
+      "source.fixAll.eslint": "explicit"
     }
   },
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode", 
     "editor.codeActionsOnSave": {
-      "source.organizeImports": true,
-      "source.fixAll.eslint": true
+      "source.organizeImports": "explicit",
+      "source.fixAll.eslint": "explicit"
     }
   }
 } 

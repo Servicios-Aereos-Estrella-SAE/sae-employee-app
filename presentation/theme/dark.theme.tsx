@@ -1,12 +1,12 @@
-import { IAppTheme } from './app-theme.interface'
 import { MD3DarkTheme } from 'react-native-paper'
+import { IAppTheme } from './app-theme.interface'
 
 export const DARK_THEME: IAppTheme = {
   ...MD3DarkTheme,
   dark: true,
   colors: {
     ...MD3DarkTheme.colors,
-    primary: '#93a5de',
+    primary: '#303e67',
     accent: '#34d4ad',
     warning: '#FF993A',
     success: '#34d4ad',

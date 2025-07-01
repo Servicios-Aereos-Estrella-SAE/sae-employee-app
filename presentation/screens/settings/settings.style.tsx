@@ -55,14 +55,8 @@ const createSettingsStyle = (theme: IAppTheme, themeType: EThemeType) =>
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      shadowColor: 'rgba(0, 0, 0, 0.5)',
-      shadowOffset: {
-        width: 0,
-        height: hp(0.24)
-      },
-      shadowOpacity: 0.1,
-      shadowRadius: wp(2),
-      elevation: 5
+      borderWidth: 1,
+      borderColor: theme.colors.border
     },
     optionLeft: {
       flexDirection: 'row',

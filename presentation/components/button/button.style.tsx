@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native'
+import { Dimensions, StyleSheet } from 'react-native'
 import { IAppTheme } from '../../theme/app-theme.interface'
 import { useAppTheme } from '../../theme/theme-context'
 const { height } = Dimensions.get('window')
@@ -6,12 +6,12 @@ const { height } = Dimensions.get('window')
 const createButtonStyles = (theme: IAppTheme, mode: 'contained' | 'outlined' | 'text' | 'elevated' | 'contained-tonal') =>
   StyleSheet.create({
     button: {
-      backgroundColor: mode === 'contained' ? theme.colors.primary : 'transparent',
+      backgroundColor: mode === 'contained' ? theme.colors.primary : theme.colors.indicator,
       height: height * 0.055,
       justifyContent: 'center',
       alignItems: 'center',
       borderWidth: 2,
-      borderColor: theme.colors.primary,
+      borderColor: mode === 'contained' ? theme.colors.primary : theme.colors.indicator,
       width: '100%',
       borderRadius: 40
     },

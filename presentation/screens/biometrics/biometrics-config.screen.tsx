@@ -29,7 +29,7 @@ const BiometricsConfigScreen = (): React.ReactElement => {
         <View style={styles.content}>
           <View style={styles.header}>
             <Typography variant="h1" style={styles.title}>{t('screens.biometrics.title')}</Typography>
-            <Typography variant="h2" style={styles.subtitle}>{t('screens.biometrics.subtitle')}</Typography>
+            <Typography variant="h2" style={styles.subtitle} fontWeight='normal'>{t('screens.biometrics.subtitle')}</Typography>
           </View>
 
           <View style={styles.biometricOptions}>

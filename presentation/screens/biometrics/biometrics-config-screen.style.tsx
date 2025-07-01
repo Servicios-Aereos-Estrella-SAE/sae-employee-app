@@ -7,32 +7,28 @@ const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
 // Funciones helper para calcular dimensiones responsivas
 const hp = (percentage: number) => (screenHeight * percentage) / 100
 const wp = (percentage: number) => (screenWidth * percentage) / 100
-const fp = (percentage: number) => ((screenHeight + screenWidth) * percentage) / 200
 
 const createBiometricsConfigScreenStyle = (theme: IAppTheme) =>
   StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: theme.colors.background,
-      paddingTop: hp(17.5)
+      padding: hp(2)
     },
     content: {
       flex: 1,
-      padding: wp(5),
-      justifyContent: 'space-between'
+      justifyContent: 'flex-start'
     },
     header: {
       marginBottom: hp(3.75)
     },
     title: {
-      fontSize: fp(3.5),
       fontWeight: 'bold',
       color: theme.colors.text,
       marginBottom: hp(1.25),
       textAlign: 'center'
     },
     subtitle: {
-      fontSize: fp(2),
       color: theme.colors.text,
       lineHeight: hp(2.75),
       textAlign: 'center'
@@ -60,13 +56,11 @@ const createBiometricsConfigScreenStyle = (theme: IAppTheme) =>
       color: theme.colors.iconColor
     },
     optionTitle: {
-      fontSize: fp(2.25),
       fontWeight: 'bold',
       color: theme.colors.text,
       marginBottom: hp(0.625)
     },
     optionDescription: {
-      fontSize: fp(1.75),
       color: theme.colors.text,
       textAlign: 'center',
       paddingHorizontal: wp(5)
