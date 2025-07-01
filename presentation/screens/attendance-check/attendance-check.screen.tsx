@@ -1,20 +1,21 @@
+import BottomSheet from '@gorhom/bottom-sheet'
+import { StatusBar } from 'expo-status-bar'
 import React, { useMemo } from 'react'
 import {
-  View,
+  ActivityIndicator,
+  SafeAreaView,
+  ScrollView,
   Text,
   TouchableOpacity,
-  SafeAreaView,
-  ActivityIndicator
+  View
 } from 'react-native'
-import { StatusBar } from 'expo-status-bar'
-import AuthenticatedLayout from '../../layouts/authenticated-layout/authenticated.layout'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import { Clock } from '../../components/clock/clock.component'
 import { CheckInIcon } from '../../icons/check-in-icon/check-in.icon'
 import { CheckOutIcon } from '../../icons/check-out-icon/check-out.icon'
-import useAttendanceCheckStyle from './attendance-check.style'
+import AuthenticatedLayout from '../../layouts/authenticated-layout/authenticated.layout'
 import { AttendanceCheckScreenController } from './attendance-check-screen.controller'
-import { Clock } from '../../components/clock/clock.component'
-import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import BottomSheet from '@gorhom/bottom-sheet'
+import useAttendanceCheckStyle from './attendance-check.style'
 import { PasswordBottomSheet } from './password-bottom-sheet.component'
 
 /**
@@ -50,40 +51,71 @@ export const AttendanceCheckScreen: React.FC = React.memo(() => {
       <AuthenticatedLayout>
         <View style={styles.backgroundWrapper}>
           <SafeAreaView style={styles.container}>
-            <StatusBar style={controller.themeType === 'dark' ? 'light' : 'dark'} />
-            <View style={styles.checkInContainer}>
-              <View style={buttonWrapperStyles}>
-                <TouchableOpacity
-                  style={buttonStyles}
-                  onPress={controller.handleCheckIn}
-                  disabled={controller.isButtonDisabled}
-                >
-                  {controller.isLoadingLocation ? (
-                    <ActivityIndicator 
-                      size={48} 
-                      color={styles.checkButtonIcon.color} 
-                    />
-                  ) : (
-                    <CheckInIcon
-                      size={48}
-                      color={buttonIconColor}
-                    />
-                  )}
-                  <Text style={buttonTextStyles}>
-                    {controller.buttonText}
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            </View>
+            <StatusBar style={controller.themeType === 'light' ? 'light' : 'light'} />
 
-            {/* Contenido inferior en fondo blanco */}
-            <View style={styles.bottomCard}>
-              <Clock 
-                style={styles.timeContainer}
-                hourStyle={styles.hour}
-                dateStyle={styles.date}
-              />
-              
+            <ScrollView 
+              style={styles.scrollContainer}
+              contentContainerStyle={styles.scrollContent}
+              showsVerticalScrollIndicator={false}
+            >
+              <View style={styles.dateShiftContainer}>
+                <Text style={styles.dateShift}>
+                  Registro de Asistencia
+                </Text>
+              </View>
+
+              <View style={styles.checkInContainer}>
+                <View style={buttonWrapperStyles}>
+                  <TouchableOpacity
+                    style={buttonStyles}
+                    onPress={controller.handleCheckIn}
+                    disabled={controller.isButtonDisabled}
+                  >
+                    {controller.isLoadingLocation ? (
+                      <ActivityIndicator 
+                        size={48} 
+                        color={styles.checkButtonIcon.color} 
+                      />
+                    ) : (
+                      <CheckInIcon
+                        size={48}
+                        color={buttonIconColor}
+                      />
+                    )}
+                    <Text style={buttonTextStyles}>
+                      {controller.buttonText}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+
+              <View style={styles.bottomCard}>
+                <Clock 
+                  style={styles.timeContainer}
+                  hourStyle={styles.hour}
+                  dateStyle={styles.date}
+                />
+
+                {/* Información de ubicación */}
+                {/* <View style={styles.locationContainer}>
+                  <Text style={styles.locationTitle}>Ubicación</Text>
+                  {controller.locationContent ? (
+                    <View>
+                      <Text style={styles.locationCoordinates}>
+                        {controller.locationContent.coordinates}
+                      </Text>
+                      <Text style={styles.locationAccuracy}>
+                        Precisión: {controller.locationContent.accuracy}
+                      </Text>
+                    </View>
+                  ) : (
+                    <Text style={styles.locationPlaceholder}>
+                      {controller.isLoadingLocation ? 'Obteniendo ubicación...' : 'Ubicación no disponible'}
+                    </Text>
+                  )}
+                </View> */}
+              </View>
+
               {/* Indicadores */}
               <View style={styles.indicatorsContainer}>
                 <View style={[ styles.indicator, controller.checkInTime && styles.indicatorActive ]}>
@@ -92,7 +124,7 @@ export const AttendanceCheckScreen: React.FC = React.memo(() => {
                     color={ styles.checkIconIndicator.color }
                   />
                   <Text style={[ styles.indicatorLabel, controller.checkInTime && styles.indicatorLabelActive ]}>
-                    Entrada
+                      Entrada
                   </Text>
                   <Text style={[ styles.indicatorValue, controller.checkInTime && styles.indicatorValueActive ]}>
                     {controller.checkInTime || '--:--'}
@@ -104,10 +136,10 @@ export const AttendanceCheckScreen: React.FC = React.memo(() => {
                     color={ styles.checkIconIndicator.color }
                   />
                   <Text style={[ styles.indicatorLabel, controller.checkInTime && styles.indicatorLabelActive ]}>
-                    Iniciar Comida
+                      Iniciar Comida
                   </Text>
                   <Text style={[ styles.indicatorValue, controller.checkInTime && styles.indicatorValueActive ]}>
-                    --:--:--
+                      --:--:--
                   </Text>
                 </View>
                 <View style={[ styles.indicator, controller.checkInTime && styles.indicatorActive ]}>
@@ -116,10 +148,10 @@ export const AttendanceCheckScreen: React.FC = React.memo(() => {
                     color={ styles.checkIconIndicator.color }
                   />
                   <Text style={[ styles.indicatorLabel, controller.checkInTime && styles.indicatorLabelActive ]}>
-                    Terminar Comida
+                      Terminar Comida
                   </Text>
                   <Text style={[ styles.indicatorValue, controller.checkInTime && styles.indicatorValueActive ]}>
-                    --:--:--
+                      --:--:--
                   </Text>
                 </View>
                 <View style={[ styles.indicator, controller.checkInTime && styles.indicatorActive ]}>
@@ -128,33 +160,14 @@ export const AttendanceCheckScreen: React.FC = React.memo(() => {
                     color={ styles.checkIconIndicator.color }
                   />
                   <Text style={[ styles.indicatorLabel, controller.checkInTime && styles.indicatorLabelActive ]}>
-                    Salida
+                      Salida
                   </Text>
                   <Text style={[ styles.indicatorValue, controller.checkInTime && styles.indicatorValueActive ]}>
-                    --:--:--
+                      --:--:--
                   </Text>
                 </View>
               </View>
-
-              {/* Información de ubicación */}
-              <View style={styles.locationContainer}>
-                <Text style={styles.locationTitle}>Ubicación</Text>
-                {controller.locationContent ? (
-                  <View>
-                    <Text style={styles.locationCoordinates}>
-                      {controller.locationContent.coordinates}
-                    </Text>
-                    <Text style={styles.locationAccuracy}>
-                      Precisión: {controller.locationContent.accuracy}
-                    </Text>
-                  </View>
-                ) : (
-                  <Text style={styles.locationPlaceholder}>
-                    {controller.isLoadingLocation ? 'Obteniendo ubicación...' : 'Ubicación no disponible'}
-                  </Text>
-                )}
-              </View>
-            </View>
+            </ScrollView>
           </SafeAreaView>
         </View>
 

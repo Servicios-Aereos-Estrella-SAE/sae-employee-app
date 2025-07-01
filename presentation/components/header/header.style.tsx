@@ -1,75 +1,64 @@
-import { StyleSheet } from 'react-native'
-import { useAppTheme } from '../../theme/theme-context'
+import { Dimensions, StyleSheet } from 'react-native'
 import { IAppTheme } from '../../theme/app-theme.interface'
+import { useAppTheme } from '../../theme/theme-context'
 import { EThemeType } from '../../theme/types/theme-type.enum'
+
+const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
+
+// Helper functions for responsive sizing
+const wp = (percentage: number) => (screenWidth * percentage) / 100
+const hp = (percentage: number) => (screenHeight * percentage) / 100
+const sp = (size: number) => (screenWidth / 375) * size // Scale based on iPhone X width as reference
 
 const createHeaderLayoutStyle = (theme: IAppTheme, themeType: EThemeType) =>
   StyleSheet.create({
     safeArea: {
-      position: 'absolute',
       top: 0,
       left: 0,
       right: 0,
-      zIndex: 1,
-      backgroundColor: 'transparent'
+      backgroundColor: theme.colors.primary
     },
     header: {
-      height: 100,
+      height: hp(12), // 12% de la altura de la pantalla
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      paddingHorizontal: 15,
+      paddingHorizontal: wp(4), // 4% del ancho de la pantalla
       backgroundColor: 'transparent'
     },
     menuButton: {
-      width: 50,
-      height: 50,
-      borderRadius: 25,
-      backgroundColor: themeType === EThemeType.LIGHT ? '#FFFFFF' : '#2b3652',
+      width: wp(13), // 13% del ancho de la pantalla
+      height: wp(13), // Mantener aspecto cuadrado
+      borderRadius: wp(6.5), // Mitad del ancho para círculo perfecto
+      backgroundColor: themeType === EThemeType.LIGHT ? '#283458' : '#2b3652',
       alignItems: 'center',
-      justifyContent: 'center',
-      shadowColor: '#000',
-      shadowOffset: {
-        width: 0,
-        height: 2
-      },
-      shadowOpacity: 0.1,
-      shadowRadius: 8,
-      elevation: 5
+      justifyContent: 'center'
     },
     rightContainer: {
       flexDirection: 'row',
       alignItems: 'center',
-      backgroundColor: themeType === EThemeType.LIGHT ? '#FFFFFF' : '#2b3652',
-      borderRadius: 25,
-      paddingRight: 8,
-      paddingLeft: 16,
-      paddingVertical: 8,
-      shadowColor: '#000',
-      shadowOffset: {
-        width: 0,
-        height: 2
-      },
-      shadowOpacity: 0.1,
-      shadowRadius: 8,
-      elevation: 5
+      backgroundColor: themeType === EThemeType.LIGHT ? '#283458' : '#2b3652',
+      borderRadius: wp(6.5), // 6.5% del ancho de la pantalla
+      paddingRight: wp(2), // 2% del ancho de la pantalla
+      paddingLeft: wp(4), // 4% del ancho de la pantalla
+      paddingVertical: hp(1) // 1% de la altura de la pantalla
     },
     greeting: {
-      fontSize: 14,
+      fontSize: sp(14), // Escala basada en referencia iPhone X
       fontWeight: '500',
-      marginRight: 12,
-      color: theme.colors.text
+      marginRight: wp(3), // 3% del ancho de la pantalla
+      color: theme.colors.iconColor
     },
     avatar: {
-      width: 36,
-      height: 36,
-      borderRadius: 18,
+      width: wp(9.5), // 9.5% del ancho de la pantalla
+      height: wp(9.5), // Mantener aspecto cuadrado
+      borderRadius: wp(4.75), // Mitad del ancho para círculo perfecto
       backgroundColor: 'rgb(210, 237, 248)'
     },
     avatarTextWrapper: {
-      width: 36,
-      height: 36,
-      borderRadius: 18,
+      width: wp(9.5), // 9.5% del ancho de la pantalla
+      height: wp(9.5), // Mantener aspecto cuadrado
+      borderRadius: wp(4.75), // Mitad del ancho para círculo perfecto
       borderWidth: 2,
       borderColor: 'rgb(210, 237, 248)',
       display: 'flex',
@@ -78,7 +67,7 @@ const createHeaderLayoutStyle = (theme: IAppTheme, themeType: EThemeType) =>
       backgroundColor: 'rgb(210, 237, 248)'
     },
     avatarText: {
-      fontSize: 12,
+      fontSize: sp(12), // Escala basada en referencia iPhone X
       fontWeight: 'bold',
       color: '#333'
     },

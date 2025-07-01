@@ -1,14 +1,13 @@
-import { useEffect, useRef, useState, useCallback, useMemo } from 'react'
-import { Alert, Linking, Platform } from 'react-native'
+import BottomSheet, { BottomSheetBackdrop } from '@gorhom/bottom-sheet'
 import { DateTime } from 'luxon'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useAppTheme } from '../../theme/theme-context'
-import { LocationService, ILocationCoordinates } from '../../../src/features/authentication/infrastructure/services/location.service'
-import { BiometricsService } from '../../../src/features/authentication/infrastructure/services/biometrics.service'
-import { PasswordPromptService } from '../../../src/features/authentication/infrastructure/services/password-prompt.service'
+import { Alert, Linking, Platform } from 'react-native'
 import { AuthStateController } from '../../../src/features/authentication/infrastructure/controllers/auth-state.controller'
-import BottomSheet from '@gorhom/bottom-sheet'
-import { BottomSheetBackdrop } from '@gorhom/bottom-sheet'
+import { BiometricsService } from '../../../src/features/authentication/infrastructure/services/biometrics.service'
+import { ILocationCoordinates, LocationService } from '../../../src/features/authentication/infrastructure/services/location.service'
+import { PasswordPromptService } from '../../../src/features/authentication/infrastructure/services/password-prompt.service'
+import { useAppTheme } from '../../theme/theme-context'
 
 /**
  * Controlador para la pantalla de registro de asistencia
@@ -28,7 +27,7 @@ const AttendanceCheckScreenController = () => {
   const [password, setPassword] = useState('')
   
   // Memorizar snapPoints para evitar recreaciones
-  const snapPoints = useMemo(() => ['60%'], [])
+  const snapPoints = useMemo(() => ['65%'], [])
 
   // Abrir/cerrar drawer según controller
   useEffect(() => {

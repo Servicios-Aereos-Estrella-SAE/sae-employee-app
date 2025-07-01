@@ -1,12 +1,12 @@
 import { StyleSheet } from 'react-native'
-import { useAppTheme } from '../../theme/theme-context'
 import { IAppTheme } from '../../theme/app-theme.interface'
+import { useAppTheme } from '../../theme/theme-context'
 
 const createLayoutStyle = (theme: IAppTheme) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: 'transparent'
+      backgroundColor: theme.colors.background
     },
     content: {
       flex: 1,
