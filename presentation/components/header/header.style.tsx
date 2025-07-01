@@ -44,7 +44,6 @@ const createHeaderLayoutStyle = (theme: IAppTheme, themeType: EThemeType) =>
       paddingVertical: hp(1) // 1% de la altura de la pantalla
     },
     greeting: {
-      fontSize: sp(14), // Escala basada en referencia iPhone X
       fontWeight: '500',
       marginRight: wp(3), // 3% del ancho de la pantalla
       color: theme.colors.iconColor

@@ -1,8 +1,9 @@
-import { View, Text, TouchableOpacity, Image } from 'react-native'
+import { Image, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import useHeaderLayoutStyle from './header.style'
+import { Typography } from '../typography/typography.component'
 import SidebarIcon from './assets/sidebar.icon'
 import HeaderLayoutController from './header.controller'
+import useHeaderLayoutStyle from './header.style'
 import IHeaderProps from './types/header-props.interface'
 
 /**
@@ -21,7 +22,7 @@ const Header: React.FC<IHeaderProps> = ({ onMenuPress }) => {
           <SidebarIcon color={styles.sidebarIconColor.color} />
         </TouchableOpacity>
         <View style={styles.rightContainer}>
-          <Text style={[styles.greeting]}>{controller.authUserName()}</Text>
+          <Typography variant="h3" style={[styles.greeting]}>{controller.authUserName()}</Typography>
 
           {controller.authUserAvatarType === 'image' ? (
             <Image
@@ -30,7 +31,7 @@ const Header: React.FC<IHeaderProps> = ({ onMenuPress }) => {
             />
           ) : (
             <View style={styles.avatarTextWrapper}>
-              <Text style={styles.avatarText}>{controller.authUserAvatarSource}</Text>  
+              <Typography variant="body2" style={styles.avatarText}>{controller.authUserAvatarSource}</Typography>  
             </View>
           )}
         </View>

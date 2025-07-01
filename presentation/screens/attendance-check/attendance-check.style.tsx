@@ -15,8 +15,7 @@ const createAttendanceCheckStyle = (theme: IAppTheme) =>
     backgroundWrapper: {
       flex: 1,
       backgroundColor: theme.colors.background,
-      paddingLeft: wp(4),
-      paddingRight: wp(4)
+      padding: hp(2)
     },
     backgroundImage: {
       flex: 1,
@@ -63,7 +62,7 @@ const createAttendanceCheckStyle = (theme: IAppTheme) =>
       alignItems: 'center'
     },
     hour: {
-      fontSize: sp(14),
+      fontSize: sp(20),
       fontWeight: 'bold',
       color: theme.colors.text
     },
@@ -199,18 +198,11 @@ const createAttendanceCheckStyle = (theme: IAppTheme) =>
       paddingHorizontal: 0,
       paddingBottom: hp(2)
     },
-    dateShiftContainer: {
-      display: 'flex',
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      width: '100%',
-      marginTop: hp(4)
-    },
     dateShift: {
-      fontSize: sp(15),
-      fontWeight: 'bold',
-      color: theme.colors.text
+      color: theme.colors.text,
+      textAlign: 'center',
+      width: '100%',
+      marginTop: hp(0.5)
     }
   })
 

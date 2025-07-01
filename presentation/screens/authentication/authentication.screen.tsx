@@ -1,22 +1,23 @@
 import React from 'react'
 import {
-  View,
+  Image,
   KeyboardAvoidingView,
   Platform,
+  StatusBar as RNStatusBar,
+  SafeAreaView,
   ScrollView,
   TouchableOpacity,
-  SafeAreaView,
-  StatusBar as RNStatusBar,
-  Image
+  View
 } from 'react-native'
-import { Text, Divider, Snackbar } from 'react-native-paper'
+import { Divider, Snackbar } from 'react-native-paper'
 
 import { StatusBar } from 'expo-status-bar'
 import { useTranslation } from 'react-i18next'
 
-import { TextInput } from '../../components/text-input/text-input.component'
-import { Button } from '../../components/button/button.component'
 import { BiometricButton } from '../../components/biometric-button/biometric-button.component'
+import { Button } from '../../components/button/button.component'
+import { TextInput } from '../../components/text-input/text-input.component'
+import { Typography } from '../../components/typography/typography.component'
 
 import { AuthenticationScreenController } from './authentication-screen.controller'
 import useAuthenticationStyle from './authentication.style'
@@ -58,9 +59,9 @@ export const AuthenticationScreen: React.FC = () => {
             keyboardShouldPersistTaps="handled"
           >
             <View style={style.formContainer}>
-              <Text style={[style.title]}>
+              <Typography variant="h1" style={[style.title]}>
                 {controller.getWelcomeTitle()}
-              </Text>
+              </Typography>
 
               <TextInput
                 label={t('screens.authentication.email')}
@@ -81,9 +82,9 @@ export const AuthenticationScreen: React.FC = () => {
 
               <View style={style.forgotContainer}>
                 <TouchableOpacity>
-                  <Text style={[style.forgotText]}>
+                  <Typography variant="body2" style={[style.forgotText]}>
                     {t('screens.authentication.forgotPassword')}
-                  </Text>
+                  </Typography>
                 </TouchableOpacity>
               </View>
 
@@ -97,9 +98,9 @@ export const AuthenticationScreen: React.FC = () => {
                 <View style={style.biometricContainer}>
                   <View style={style.dividerContainer}>
                     <Divider style={[style.divider]} />
-                    <Text style={[style.orText]}>
+                    <Typography variant="body2" style={[style.orText]}>
                       {t('screens.authentication.or')}
-                    </Text>
+                    </Typography>
                     <Divider style={[style.divider]} />
                   </View>
                   <BiometricButton
@@ -113,7 +114,9 @@ export const AuthenticationScreen: React.FC = () => {
           </ScrollView>
         </KeyboardAvoidingView>
 
-        <Text style={{ textAlign: 'center', color: 'rgb(176, 176, 176)', marginBottom: 40 }}>API: {controller.settedAPIUrl}</Text>
+        <Typography variant="caption" style={{ textAlign: 'center', color: 'rgb(176, 176, 176)', marginBottom: 40 }}>
+          API: {controller.settedAPIUrl}
+        </Typography>
 
         <Snackbar
           visible={!!controller.securityAlert}

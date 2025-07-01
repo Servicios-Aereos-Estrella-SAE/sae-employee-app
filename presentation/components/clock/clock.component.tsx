@@ -1,7 +1,8 @@
 import React from 'react'
-import { Text, View } from 'react-native'
-import { IClockProps } from './types/clock-props.interface'
+import { View } from 'react-native'
+import { Typography } from '../typography/typography.component'
 import { ClockController } from './clock.controller'
+import { IClockProps } from './types/clock-props.interface'
 
 /**
  * Reloj
@@ -13,8 +14,8 @@ const Clock = React.memo(({ style, hourStyle, dateStyle }: IClockProps) => {
 
   return (
     <View style={style}>
-      <Text style={hourStyle}>{controller.hour}</Text>
-      <Text style={dateStyle}>{controller.date}</Text>
+      <Typography variant="h1" style={hourStyle}>{controller.hour}</Typography>
+      <Typography variant="body" style={dateStyle}>{controller.date}</Typography>
     </View>
   )
 })

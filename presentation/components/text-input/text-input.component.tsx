@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
+import { View } from 'react-native'
 import { TextInput as PaperTextInput } from 'react-native-paper'
-import { View, Text } from 'react-native'
+import { Typography } from '../typography/typography.component'
 import useTextInputStyles from './text-input.style'
 import { ITextInputProps } from './types/text-input-props.interface'
 
@@ -28,9 +29,9 @@ export const TextInput: React.FC<ITextInputProps> = ({
 
   return (
     <View style={styles.container}>
-      <Text style={[styles.labelText]}>
+      <Typography variant="body2" style={[styles.labelText]}>
         {label}
-      </Text>
+      </Typography>
 
       <PaperTextInput
         value={value}
@@ -79,7 +80,7 @@ export const TextInput: React.FC<ITextInputProps> = ({
         }
       />
 
-      {error && <Text style={styles.errorText}>{error}</Text>}
+      {error && <Typography variant="caption" style={styles.errorText}>{error}</Typography>}
     </View>
   )
 }

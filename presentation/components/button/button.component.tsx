@@ -1,6 +1,7 @@
 import React from 'react'
-import { TouchableOpacity, Text, View, ActivityIndicator } from 'react-native'
+import { ActivityIndicator, TouchableOpacity, View } from 'react-native'
 import { IconButton } from 'react-native-paper'
+import { Typography } from '../typography/typography.component'
 import useButtonStyles from './button.style'
 import { IButtonProps } from './types/button-props.interface'
 
@@ -53,9 +54,9 @@ export const Button: React.FC<IButtonProps> = ({
                 style={styles.iconStyle}
               />
             )}
-            <Text style={[styles.labelStyle, styles.buttonText]}>
+            <Typography variant="body" style={[styles.labelStyle, styles.buttonText]}>
               {title}
-            </Text>
+            </Typography>
           </View>
         )}
       </View>

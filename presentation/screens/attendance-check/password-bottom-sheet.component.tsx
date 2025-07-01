@@ -1,9 +1,10 @@
-import React, { useState, useCallback } from 'react'
-import { Text, TouchableOpacity } from 'react-native'
 import { BottomSheetView } from '@gorhom/bottom-sheet'
+import { t } from 'i18next'
+import React, { useCallback, useState } from 'react'
+import { TouchableOpacity } from 'react-native'
 import { Button } from '../../components/button/button.component'
 import { TextInput } from '../../components/text-input/text-input.component'
-import { t } from 'i18next'
+import { Typography } from '../../components/typography/typography.component'
 
 interface PasswordBottomSheetProps {
   onPasswordSubmit: (password: string) => Promise<void>
@@ -50,7 +51,7 @@ export const PasswordBottomSheet: React.FC<PasswordBottomSheetProps> = ({
         rightIcon="eye"
       />
       {error ? (
-        <Text style={{ color: 'red', marginTop: 8, textAlign: 'left' }}>{error}</Text>
+        <Typography variant="body2" style={{ color: 'red', marginTop: 8, textAlign: 'left' }}>{error}</Typography>
       ) : null}
 
       <Button
@@ -64,9 +65,9 @@ export const PasswordBottomSheet: React.FC<PasswordBottomSheetProps> = ({
         onPress={handleCancel}
         disabled={isSubmitting}
       >
-        <Text style={{ color: '#88a4bf', fontSize: 16 }}>
+        <Typography variant="body2" style={{ color: '#88a4bf', fontSize: 16 }}>
           {t('screens.attendanceCheck.cancelButton')}
-        </Text>
+        </Typography>
       </TouchableOpacity>
     </BottomSheetView>
   )

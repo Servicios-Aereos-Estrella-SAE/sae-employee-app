@@ -5,12 +5,12 @@ import {
   ActivityIndicator,
   SafeAreaView,
   ScrollView,
-  Text,
   TouchableOpacity,
   View
 } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { Clock } from '../../components/clock/clock.component'
+import { Typography } from '../../components/typography/typography.component'
 import { CheckInIcon } from '../../icons/check-in-icon/check-in.icon'
 import { CheckOutIcon } from '../../icons/check-out-icon/check-out.icon'
 import AuthenticatedLayout from '../../layouts/authenticated-layout/authenticated.layout'
@@ -58,10 +58,10 @@ export const AttendanceCheckScreen: React.FC = React.memo(() => {
               contentContainerStyle={styles.scrollContent}
               showsVerticalScrollIndicator={false}
             >
-              <View style={styles.dateShiftContainer}>
-                <Text style={styles.dateShift}>
+              <View>
+                <Typography variant="h2">
                   Registro de Asistencia
-                </Text>
+                </Typography>
               </View>
 
               <View style={styles.checkInContainer}>
@@ -82,9 +82,9 @@ export const AttendanceCheckScreen: React.FC = React.memo(() => {
                         color={buttonIconColor}
                       />
                     )}
-                    <Text style={buttonTextStyles}>
+                    <Typography variant="body" style={buttonTextStyles as any}>
                       {controller.buttonText}
-                    </Text>
+                    </Typography>
                   </TouchableOpacity>
                 </View>
               </View>
@@ -95,25 +95,9 @@ export const AttendanceCheckScreen: React.FC = React.memo(() => {
                   hourStyle={styles.hour}
                   dateStyle={styles.date}
                 />
-
-                {/* Información de ubicación */}
-                {/* <View style={styles.locationContainer}>
-                  <Text style={styles.locationTitle}>Ubicación</Text>
-                  {controller.locationContent ? (
-                    <View>
-                      <Text style={styles.locationCoordinates}>
-                        {controller.locationContent.coordinates}
-                      </Text>
-                      <Text style={styles.locationAccuracy}>
-                        Precisión: {controller.locationContent.accuracy}
-                      </Text>
-                    </View>
-                  ) : (
-                    <Text style={styles.locationPlaceholder}>
-                      {controller.isLoadingLocation ? 'Obteniendo ubicación...' : 'Ubicación no disponible'}
-                    </Text>
-                  )}
-                </View> */}
+                <Typography variant="body" style={styles.dateShift}>
+                  {controller.shiftDate}
+                </Typography>
               </View>
 
               {/* Indicadores */}
@@ -123,48 +107,48 @@ export const AttendanceCheckScreen: React.FC = React.memo(() => {
                     size={24}
                     color={ styles.checkIconIndicator.color }
                   />
-                  <Text style={[ styles.indicatorLabel, controller.checkInTime && styles.indicatorLabelActive ]}>
+                  <Typography variant="body2" style={[ styles.indicatorLabel, controller.checkInTime && styles.indicatorLabelActive ].filter(Boolean) as any}>
                       Entrada
-                  </Text>
-                  <Text style={[ styles.indicatorValue, controller.checkInTime && styles.indicatorValueActive ]}>
+                  </Typography>
+                  <Typography variant="body2" style={[ styles.indicatorValue, controller.checkInTime && styles.indicatorValueActive ].filter(Boolean) as any}>
                     {controller.checkInTime || '--:--'}
-                  </Text>
+                  </Typography>
                 </View>
                 <View style={[ styles.indicator, controller.checkInTime && styles.indicatorActive ]}>
                   <CheckOutIcon
                     size={24}
                     color={ styles.checkIconIndicator.color }
                   />
-                  <Text style={[ styles.indicatorLabel, controller.checkInTime && styles.indicatorLabelActive ]}>
+                  <Typography variant="body2" style={[ styles.indicatorLabel, controller.checkInTime && styles.indicatorLabelActive ].filter(Boolean) as any}>
                       Iniciar Comida
-                  </Text>
-                  <Text style={[ styles.indicatorValue, controller.checkInTime && styles.indicatorValueActive ]}>
+                  </Typography>
+                  <Typography variant="body2" style={[ styles.indicatorValue, controller.checkInTime && styles.indicatorValueActive ].filter(Boolean) as any}>
                       --:--:--
-                  </Text>
+                  </Typography>
                 </View>
                 <View style={[ styles.indicator, controller.checkInTime && styles.indicatorActive ]}>
                   <CheckOutIcon
                     size={24}
                     color={ styles.checkIconIndicator.color }
                   />
-                  <Text style={[ styles.indicatorLabel, controller.checkInTime && styles.indicatorLabelActive ]}>
+                  <Typography variant="body2" style={[ styles.indicatorLabel, controller.checkInTime && styles.indicatorLabelActive ].filter(Boolean) as any}>
                       Terminar Comida
-                  </Text>
-                  <Text style={[ styles.indicatorValue, controller.checkInTime && styles.indicatorValueActive ]}>
+                  </Typography>
+                  <Typography variant="body2" style={[ styles.indicatorValue, controller.checkInTime && styles.indicatorValueActive ].filter(Boolean) as any}>
                       --:--:--
-                  </Text>
+                  </Typography>
                 </View>
                 <View style={[ styles.indicator, controller.checkInTime && styles.indicatorActive ]}>
                   <CheckOutIcon
                     size={24}
                     color={ styles.checkIconIndicator.color }
                   />
-                  <Text style={[ styles.indicatorLabel, controller.checkInTime && styles.indicatorLabelActive ]}>
+                  <Typography variant="body2" style={[ styles.indicatorLabel, controller.checkInTime && styles.indicatorLabelActive ].filter(Boolean) as any}>
                       Salida
-                  </Text>
-                  <Text style={[ styles.indicatorValue, controller.checkInTime && styles.indicatorValueActive ]}>
+                  </Typography>
+                  <Typography variant="body2" style={[ styles.indicatorValue, controller.checkInTime && styles.indicatorValueActive ].filter(Boolean) as any}>
                       --:--:--
-                  </Text>
+                  </Typography>
                 </View>
               </View>
             </ScrollView>

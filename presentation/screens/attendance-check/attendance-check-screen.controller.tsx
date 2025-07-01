@@ -25,6 +25,7 @@ const AttendanceCheckScreenController = () => {
   const [passwordError, setPasswordError] = useState<string | null>(null)
   const bottomSheetRef = useRef<BottomSheet>(null)
   const [password, setPassword] = useState('')
+  const [shiftDate, setShiftDate] = useState<string | null>(null)
   
   // Pre-instanciar servicios para mejor rendimiento
   const authStateController = useMemo(() => new AuthStateController(), [])
@@ -316,9 +317,17 @@ const AttendanceCheckScreenController = () => {
     />
   ), [])
 
+  const getShiftDate = useMemo(() => {
+    const date = '08:00 to 17:00 - Rest (Sat, Sun)' // DateTime.now().setLocale('es').toFormat('dd/MM/yyyy')
+    setShiftDate(date)
+    return date
+  }, [])
+
   // Memorizar el objeto de retorno completo para evitar recreaciones innecesarias
   const controllerValue = useMemo(() => ({
     themeType,
+    shiftDate,
+    getShiftDate,
     isButtonLocked,
     isLoadingLocation,
     handleCheckIn,
@@ -348,6 +357,7 @@ const AttendanceCheckScreenController = () => {
     backdropComponent
   }), [
     themeType,
+    shiftDate,
     isButtonLocked,
     isLoadingLocation,
     handleCheckIn,
@@ -374,7 +384,8 @@ const AttendanceCheckScreenController = () => {
     authStateController,
     biometricService,
     locationService,
-    passwordService
+    passwordService,
+    getShiftDate
   ])
 
   return controllerValue

@@ -1,5 +1,6 @@
 import React from 'react'
-import { TouchableOpacity, View, Text } from 'react-native'
+import { TouchableOpacity, View } from 'react-native'
+import { Typography } from '../typography/typography.component'
 import useSidebarItemStyles from './sidebar-item.style'
 import { ISidebarItemProps } from './types/sidebar-item-props.interface'
 
@@ -14,9 +15,9 @@ const SidebarItem: React.FC<ISidebarItemProps> = ({ icon, label, labelStyle, tex
   return (
     <TouchableOpacity style={styles.menuItem} onPress={onPress}>
       <View style={styles.menuIcon}>{icon}</View>
-      <Text style={[styles.menuText, { color: textColor }, labelStyle]}>
+      <Typography variant="body" style={[styles.menuText, { color: textColor }, labelStyle]}>
         {label}
-      </Text>
+      </Typography>
     </TouchableOpacity>
   )
 }

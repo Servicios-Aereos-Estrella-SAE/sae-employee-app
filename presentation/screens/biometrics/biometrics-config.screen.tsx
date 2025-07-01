@@ -1,17 +1,17 @@
 import React from 'react'
-import {
-  View,
-  Text
-} from 'react-native'
 import { useTranslation } from 'react-i18next'
-import { BiometricsConfigScreenController } from './biometrics-config-screen.controller'
+import {
+  View
+} from 'react-native'
 import { Button } from '../../components/button/button.component'
-import { FingerprintIcon } from '../../icons/fingerprint-icon/fingerprint.icon'
+import { Typography } from '../../components/typography/typography.component'
+import { CheckIcon } from '../../icons/check-icon/check.icon'
 import { CogIcon } from '../../icons/cog-icon/cog.icon'
-import { useBiometricsConfigScreenStyle } from './biometrics-config-screen.style'
+import { FingerprintIcon } from '../../icons/fingerprint-icon/fingerprint.icon'
 import { WarningIcon } from '../../icons/warning-icon/warning.icon'
 import AuthenticatedLayout from '../../layouts/authenticated-layout/authenticated.layout'
-import { CheckIcon } from '../../icons/check-icon/check.icon'
+import { BiometricsConfigScreenController } from './biometrics-config-screen.controller'
+import { useBiometricsConfigScreenStyle } from './biometrics-config-screen.style'
 
 /**
  * Pantalla de configuración de biometría
@@ -28,8 +28,8 @@ const BiometricsConfigScreen = (): React.ReactElement => {
       <View style={styles.container}>
         <View style={styles.content}>
           <View style={styles.header}>
-            <Text style={styles.title}>{t('screens.biometrics.title')}</Text>
-            <Text style={styles.subtitle}>{t('screens.biometrics.subtitle')}</Text>
+            <Typography variant="h1" style={styles.title}>{t('screens.biometrics.title')}</Typography>
+            <Typography variant="h2" style={styles.subtitle}>{t('screens.biometrics.subtitle')}</Typography>
           </View>
 
           <View style={styles.biometricOptions}>
@@ -42,9 +42,9 @@ const BiometricsConfigScreen = (): React.ReactElement => {
                     <View style={styles.iconContainer}>
                       <CheckIcon size={styles.likeIcon.height} color={styles.likeIcon.color} />
                     </View>
-                    <Text style={styles.optionDescription}>
+                    <Typography variant="body" style={styles.optionDescription}>
                       {t('screens.biometrics.biometricsEnabled')}
-                    </Text>
+                    </Typography>
                   </View>
                 ) : (
                   // El dispositivo si soporta algún tipo de biométrico
@@ -55,10 +55,10 @@ const BiometricsConfigScreen = (): React.ReactElement => {
                         <View style={styles.iconContainer}>
                           <CogIcon size={styles.cogIcon.height} color={styles.iconButton.color} />
                         </View>
-                        <Text style={styles.optionTitle}>{t('screens.biometrics.notConfigured')}</Text>
-                        <Text style={styles.optionDescription}>
+                        <Typography variant="h3" style={styles.optionTitle}>{t('screens.biometrics.notConfigured')}</Typography>
+                        <Typography variant="body2" style={styles.optionDescription}>
                           {t('screens.biometrics.deviceSupportsButNotConfigured')}
-                        </Text>
+                        </Typography>
                       </View>
                     )}
 
@@ -68,15 +68,12 @@ const BiometricsConfigScreen = (): React.ReactElement => {
                         <View style={styles.iconContainer}>
                           <FingerprintIcon size={styles.fingerprintIcon.height} color={styles.iconButton.color} />
                         </View>
-                        <Text style={styles.optionTitle}>
+                        <Typography variant="h3" style={styles.optionTitle}>
                           {controller.biometricTextInfo.title}
-                          <Text style={styles.optionTitle}>
-                            {controller.biometricTextInfo.title}
-                          </Text>
-                        </Text>
-                        <Text style={styles.optionDescription}>
+                        </Typography>
+                        <Typography variant="body2" style={styles.optionDescription}>
                           {controller.biometricTextInfo.description}
-                        </Text>
+                        </Typography>
                       </View>
                     )}
                   </View>
@@ -88,10 +85,10 @@ const BiometricsConfigScreen = (): React.ReactElement => {
                 <View style={styles.iconContainer}>
                   <WarningIcon size={styles.warningIcon.height} color={styles.warningIcon.color} />
                 </View>
-                <Text style={styles.optionTitle}>{t('screens.biometrics.notSupported')}</Text>
-                <Text style={styles.optionDescription}>
+                <Typography variant="h3" style={styles.optionTitle}>{t('screens.biometrics.notSupported')}</Typography>
+                <Typography variant="body2" style={styles.optionDescription}>
                   {t('screens.biometrics.deviceNotSupported')}
-                </Text>
+                </Typography>
               </View>
             )}
           </View>

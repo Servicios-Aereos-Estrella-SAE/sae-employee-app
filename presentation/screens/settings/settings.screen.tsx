@@ -1,23 +1,23 @@
+import { StatusBar } from 'expo-status-bar'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import {
-  View,
+  Modal,
+  SafeAreaView,
   ScrollView,
   TouchableOpacity,
-  SafeAreaView,
-  Modal
+  View
 } from 'react-native'
-import { Text } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import { StatusBar } from 'expo-status-bar'
-import { useTranslation } from 'react-i18next'
 
+import { Typography } from '../../components/typography/typography.component'
+import { FingerprintIcon } from '../../icons/fingerprint-icon/fingerprint.icon'
+import { ThemeIcon } from '../../icons/theme-icon/theme.icon'
+import { TranslateIcon } from '../../icons/translate-icon/translate.icon'
 import AuthenticatedLayout from '../../layouts/authenticated-layout/authenticated.layout'
+import { EThemeType } from '../../theme/types/theme-type.enum'
 import { SettingsScreenController } from './settings-screen.controller'
 import useSettingsStyle from './settings.style'
-import { ThemeIcon } from '../../icons/theme-icon/theme.icon'
-import { FingerprintIcon } from '../../icons/fingerprint-icon/fingerprint.icon'
-import { TranslateIcon } from '../../icons/translate-icon/translate.icon'
-import { EThemeType } from '../../theme/types/theme-type.enum'
 
 /**
  * @description SettingsScreen es la pantalla que permite al usuario gestionar la configuración de la aplicación
@@ -40,12 +40,12 @@ export const SettingsScreen: React.FC = () => {
             bounces={false}
           >
             <View style={style.header}>
-              <Text style={style.title}>
+              <Typography variant="h1" textAlign="center" style={style.title}>
                 {t('screens.settings.title')}
-              </Text>
-              <Text style={style.subtitle}>
+              </Typography>
+              <Typography variant="h2" textAlign="center" fontWeight="normal" style={style.subtitle}>
                 {t('screens.settings.subtitle')}
-              </Text>
+              </Typography>
             </View>
 
             <View style={style.optionsContainer}>
@@ -60,12 +60,12 @@ export const SettingsScreen: React.FC = () => {
                     <FingerprintIcon color={style.iconColor.color} />
                   </View>
                   <View style={style.optionContent}>
-                    <Text style={style.optionTitle}>
+                    <Typography variant="h3">
                       {t('screens.settings.biometricsOption.title')}
-                    </Text>
-                    <Text style={style.optionDescription}>
+                    </Typography>
+                    <Typography variant="body2">
                       {t('screens.settings.biometricsOption.description')}
-                    </Text>
+                    </Typography>
                   </View>
                 </View>
                 <Icon 
@@ -89,18 +89,18 @@ export const SettingsScreen: React.FC = () => {
                     />
                   </View>
                   <View style={style.optionContent}>
-                    <Text style={style.optionTitle}>
+                    <Typography variant="h3">
                       {t('screens.settings.themeOption.title')}
-                    </Text>
-                    <Text style={style.optionDescription}>
+                    </Typography>
+                    <Typography variant="body2">
                       {t('screens.settings.themeOption.description')}
-                    </Text>
-                    <Text style={style.currentValue}>
+                    </Typography>
+                    <Typography variant="caption" color={style.currentValue.color}>
                       {controller.themeType === 'light' 
                         ? t('screens.settings.themeOption.lightTheme')
                         : t('screens.settings.themeOption.darkTheme')
                       }
-                    </Text>
+                    </Typography>
                   </View>
                 </View>
               </TouchableOpacity>
@@ -116,15 +116,15 @@ export const SettingsScreen: React.FC = () => {
                     <TranslateIcon color={style.iconColor.color} />
                   </View>
                   <View style={style.optionContent}>
-                    <Text style={style.optionTitle}>
+                    <Typography variant="h3">
                       {t('screens.settings.languageOption.title')}
-                    </Text>
-                    <Text style={style.optionDescription}>
+                    </Typography>
+                    <Typography variant="body2">
                       {t('screens.settings.languageOption.description')}
-                    </Text>
-                    <Text style={style.currentValue}>
+                    </Typography>
+                    <Typography variant="caption" color={style.currentValue.color}>
                       {controller.getCurrentLanguageName()}
-                    </Text>
+                    </Typography>
                   </View>
                 </View>
                 <Icon 
@@ -155,12 +155,12 @@ export const SettingsScreen: React.FC = () => {
               onPress={() => {}} // Prevenir cierre al tocar el modal
             >
               <View style={style.modalHeader}>
-                <Text style={style.modalTitle}>
+                <Typography variant="h3" textAlign="center">
                   {t('screens.settings.languageOption.modal.title')}
-                </Text>
-                <Text style={style.modalSubtitle}>
+                </Typography>
+                <Typography variant="body2" textAlign="center">
                   {t('screens.settings.languageOption.modal.subtitle')}
-                </Text>
+                </Typography>
               </View>
 
               <View style={style.languagesList}>
@@ -182,14 +182,12 @@ export const SettingsScreen: React.FC = () => {
                           color={style.iconColor.color} 
                         />
                       </View>
-                      <Text 
-                        style={[
-                          style.languageText,
-                          controller.currentLanguage === language.code && style.languageTextSelected
-                        ]}
+                      <Typography 
+                        variant="h3"
+                        color={controller.currentLanguage === language.code ? style.languageTextSelected.color : style.languageText.color}
                       >
                         {language.nativeName}
-                      </Text>
+                      </Typography>
                     </View>
                     {controller.currentLanguage === language.code && (
                       <Icon 
@@ -208,9 +206,9 @@ export const SettingsScreen: React.FC = () => {
                   onPress={controller.hideLanguageModal}
                   activeOpacity={0.7}
                 >
-                  <Text style={style.modalCancelText}>
+                  <Typography variant="body2" color={style.modalCancelText.color}>
                     {t('common.cancel')}
-                  </Text>
+                  </Typography>
                 </TouchableOpacity>
               </View>
             </TouchableOpacity>

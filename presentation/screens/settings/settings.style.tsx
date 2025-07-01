@@ -1,10 +1,11 @@
-import { StyleSheet, Dimensions } from 'react-native'
-import { useAppTheme } from '../../theme/theme-context'
+import { Dimensions, StyleSheet } from 'react-native'
 import { IAppTheme } from '../../theme/app-theme.interface'
+import { useAppTheme } from '../../theme/theme-context'
 import { EThemeType } from '../../theme/types/theme-type.enum'
 
 const { width, height: screenHeight } = Dimensions.get('window')
 const hp = (percentage: number) => (screenHeight * percentage) / 100
+const wp = (percentage: number) => (width * percentage) / 100
 
 /**
  * Función que crea los estilos para la pantalla de configuración
@@ -17,33 +18,30 @@ const createSettingsStyle = (theme: IAppTheme, themeType: EThemeType) =>
     container: {
       flex: 1,
       backgroundColor: theme.colors.background,
-      paddingTop: hp(15)
+      padding: wp(4)
     },
     safeAreaContent: {
       flex: 1,
       backgroundColor: theme.colors.background
     },
     scrollContent: {
-      flexGrow: 1,
-      paddingBottom: 10,
-      paddingLeft: 2,
-      paddingRight: 2
+      flexGrow: 1
     },
     header: {
-      marginBottom: 30,
-      marginTop: 20
+      marginBottom: hp(3.6),
+      flexDirection: 'column',
+      justifyContent: 'flex-start',
+      textAlign: 'left'
     },
     title: {
-      fontSize: width * 0.06,
       fontWeight: 'bold',
       color: theme.colors.text,
-      marginBottom: 8,
-      textAlign: 'center'
+      marginBottom: hp(1),
+      textAlign: 'left'
     },
     subtitle: {
-      fontSize: width * 0.035,
       color: theme.colors.text,
-      textAlign: 'center',
+      textAlign: 'left',
       opacity: 0.7
     },
     optionsContainer: {
@@ -51,19 +49,19 @@ const createSettingsStyle = (theme: IAppTheme, themeType: EThemeType) =>
     },
     optionCard: {
       backgroundColor: themeType === EThemeType.LIGHT ? '#FFFFFF' : theme.colors.cardBgColor,
-      borderRadius: 12,
-      padding: 16,
-      marginBottom: 12,
+      borderRadius: wp(3),
+      padding: wp(4),
+      marginBottom: hp(1.4),
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
       shadowColor: 'rgba(0, 0, 0, 0.5)',
       shadowOffset: {
         width: 0,
-        height: 2
+        height: hp(0.24)
       },
       shadowOpacity: 0.1,
-      shadowRadius: 8,
+      shadowRadius: wp(2),
       elevation: 5
     },
     optionLeft: {
@@ -72,31 +70,28 @@ const createSettingsStyle = (theme: IAppTheme, themeType: EThemeType) =>
       flex: 1
     },
     iconContainer: {
-      width: 48,
-      height: 48,
-      borderRadius: 24,
+      width: wp(12),
+      height: wp(12),
+      borderRadius: wp(6),
       alignItems: 'center',
       justifyContent: 'center',
-      marginRight: 16,
+      marginRight: wp(4),
       backgroundColor: theme.colors.indicatorActive
     },
     optionContent: {
       flex: 1
     },
     optionTitle: {
-      fontSize: 16,
       fontWeight: '600',
       color: theme.colors.text,
-      marginBottom: 4
+      marginBottom: hp(0.5)
     },
     optionDescription: {
-      fontSize: 14,
       color: theme.colors.text,
       opacity: 0.6,
-      marginBottom: 4
+      marginBottom: hp(0.5)
     },
     currentValue: {
-      fontSize: 12,
       color: theme.colors.primary,
       fontWeight: '500'
     },
@@ -113,53 +108,51 @@ const createSettingsStyle = (theme: IAppTheme, themeType: EThemeType) =>
       backgroundColor: 'rgba(0, 0, 0, 0.5)',
       justifyContent: 'center',
       alignItems: 'center',
-      padding: 20
+      padding: wp(5)
     },
     languageModalContainer: {
       backgroundColor: themeType === EThemeType.LIGHT ? '#FFFFFF' : theme.colors.surface,
-      borderRadius: 16,
-      padding: 20,
+      borderRadius: wp(4),
+      padding: wp(5),
       width: '100%',
-      maxWidth: 320,
+      maxWidth: wp(80),
       maxHeight: '80%',
       shadowColor: '#000',
       shadowOffset: {
         width: 0,
-        height: 4
+        height: hp(0.48)
       },
       shadowOpacity: 0.3,
-      shadowRadius: 8,
+      shadowRadius: wp(2),
       elevation: 8,
       borderWidth: themeType === EThemeType.DARK ? 1 : 0,
       borderColor: themeType === EThemeType.DARK ? theme.colors.border : 'transparent'
     },
     modalHeader: {
-      marginBottom: 20,
+      marginBottom: hp(2.4),
       alignItems: 'center'
     },
     modalTitle: {
-      fontSize: 18,
       fontWeight: 'bold',
       color: theme.colors.text,
-      marginBottom: 8
+      marginBottom: hp(1)
     },
     modalSubtitle: {
-      fontSize: 14,
       color: theme.colors.text,
       opacity: 0.7,
       textAlign: 'center'
     },
     languagesList: {
-      marginBottom: 20
+      marginBottom: hp(2.4)
     },
     languageOption: {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      paddingVertical: 12,
-      paddingHorizontal: 16,
-      marginBottom: 8,
-      borderRadius: 8,
+      paddingVertical: hp(1.4),
+      paddingHorizontal: wp(4),
+      marginBottom: hp(1),
+      borderRadius: wp(2),
       backgroundColor: themeType === EThemeType.LIGHT ? '#F8F9FA' : theme.colors.background,
       borderWidth: 1,
       borderColor: 'transparent'
@@ -174,16 +167,15 @@ const createSettingsStyle = (theme: IAppTheme, themeType: EThemeType) =>
       alignItems: 'center'
     },
     languageFlag: {
-      width: 24,
-      height: 24,
-      borderRadius: 12,
-      marginRight: 12,
+      width: wp(6),
+      height: wp(6),
+      borderRadius: wp(3),
+      marginRight: wp(3),
       backgroundColor: theme.colors.primary + '20',
       alignItems: 'center',
       justifyContent: 'center'
     },
     languageText: {
-      fontSize: 16,
       color: theme.colors.text,
       fontWeight: '500'
     },
@@ -196,12 +188,11 @@ const createSettingsStyle = (theme: IAppTheme, themeType: EThemeType) =>
       justifyContent: 'flex-end'
     },
     modalCancelButton: {
-      paddingVertical: 8,
-      paddingHorizontal: 16,
-      borderRadius: 8
+      paddingVertical: hp(1),
+      paddingHorizontal: wp(4),
+      borderRadius: wp(2)
     },
     modalCancelText: {
-      fontSize: 14,
       color: theme.colors.text,
       opacity: 0.7,
       fontWeight: '500'
