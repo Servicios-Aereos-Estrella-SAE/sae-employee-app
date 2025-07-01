@@ -2,9 +2,11 @@
   "common": {
     "loading": "Loading...",
     "error": "Error",
+    "warning": "Warning",
     "success": "Success",
     "cancel": "Cancel",
     "ok": "OK",
+    "understood": "Understood",
     "settings": "Settings",
     "authentication": {
       "biometricPromptMessage": "SAE Biometric Authentication",
@@ -109,6 +111,7 @@
     "passwordRequired": "Password is required",
     "invalidPassword": "The entered password is incorrect",
     "noStoredCredentials": "No stored credentials found",
+    "locationValidationWarning": "Check-in completed successfully, but there was an issue with location validation:",
     "goToSettingsMessage": "To resolve this issue, go to your device settings and enable location permissions with high precision."
   }
 }

@@ -108,11 +108,11 @@ export class LocationService {
         }
       }
 
-      // Obtener ubicación actual con alta precisión
+      // Obtener ubicación actual con configuración optimizada para mejor UX
       const location = await Location.getCurrentPositionAsync({
-        accuracy: Location.Accuracy.BestForNavigation,
-        timeInterval: 10000,
-        distanceInterval: 1,
+        accuracy: Location.Accuracy.High, // High en lugar de BestForNavigation para mejor velocidad
+        timeInterval: 5000, // Reducido de 10000 a 5000ms
+        distanceInterval: 5, // Incrementado de 1 a 5 metros para mejor velocidad
         mayShowUserSettingsDialog: true
       })
 

@@ -2,9 +2,11 @@
   "common": {
     "loading": "Cargando...",
     "error": "Error",
+    "warning": "Advertencia",
     "success": "Éxito",
     "cancel": "Cancelar",
     "ok": "Aceptar",
+    "understood": "Entendido",
     "settings": "Configuración",
     "authentication": {
       "biometricPromptMessage": "Autenticación biométrica",
@@ -109,6 +111,7 @@
     "passwordRequired": "La contraseña es requerida",
     "invalidPassword": "La contraseña ingresada es incorrecta",
     "noStoredCredentials": "No se encontraron credenciales almacenadas",
+    "locationValidationWarning": "El check-in se completó exitosamente, pero hubo un problema con la validación de ubicación:",
     "goToSettingsMessage": "Para resolver este problema, ve a la configuración de tu dispositivo y habilita los permisos de ubicación con alta precisión."
   }
 }

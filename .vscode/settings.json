@@ -90,14 +90,13 @@
     "editor.selectionHighlightBackground": "#ff000040"
   },
   "files.associations": {
-    "*.controller.tsx": "typescript-controller",
-    "*.component.tsx": "typescript-component",
+    "*.controller.tsx": "typescriptreact",
+    "*.component.tsx": "typescriptreact",
     "*.tsx": "typescriptreact",
     "*.ts": "typescript"
   },
   "emmet.includeLanguages": {
-    "typescript-controller": "typescript",
-    "typescript-component": "typescript"
+    "typescriptreact": "javascriptreact"
   },
   "typescript.preferences.includePackageJsonAutoImports": "on",
   "typescript.preferences.useLabelDetailsInCompletionEntries": true,

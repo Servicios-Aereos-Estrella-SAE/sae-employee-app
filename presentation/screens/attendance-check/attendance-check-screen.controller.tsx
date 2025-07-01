@@ -26,6 +26,12 @@ const AttendanceCheckScreenController = () => {
   const bottomSheetRef = useRef<BottomSheet>(null)
   const [password, setPassword] = useState('')
   
+  // Pre-instanciar servicios para mejor rendimiento
+  const authStateController = useMemo(() => new AuthStateController(), [])
+  const biometricService = useMemo(() => new BiometricsService(), [])
+  const locationService = useMemo(() => new LocationService(), [])
+  const passwordService = useMemo(() => new PasswordPromptService(), [])
+  
   // Memorizar snapPoints para evitar recreaciones
   const snapPoints = useMemo(() => ['65%'], [])
 
@@ -56,77 +62,21 @@ const AttendanceCheckScreenController = () => {
    */
   const validatePassword = useCallback(async (password: string): Promise<string | null> => {
     try {
-      const passwordService = new PasswordPromptService()
       await passwordService.validatePassword(password)
       return null
     } catch (error) {
       return error instanceof Error ? error.message : t('errors.invalidPassword')
     }
-  }, [t])
+  }, [passwordService, t])
 
   /**
-   * Maneja el evento de registro de asistencia
-   * - Valida ubicación precisa antes de permitir el check-in
-   * - Obtiene coordenadas y las muestra en pantalla
-   * @returns {Promise<void>}
+   * Valida la ubicación en segundo plano con configuración optimizada
+   * @returns {Promise<ILocationCoordinates>}
    */
-  const handleCheckIn = useCallback(async () => {
-    if (isButtonLocked || isLoadingLocation) return
-
-    setIsLoadingLocation(true)
-
-    try {
-      // Validar ubicación precisa antes del check-in
-      const locationService = new LocationService()
-      
-      try {
-        const coordinates = await locationService.getValidatedLocation(30) // Precisión de 30 metros - recomendado para asistencia laboral
-        setCurrentLocation(coordinates)
-        
-        // Proceder con el check-in solo si la ubicación es válida
-        await performCheckIn()
-      } catch (locationError) {
-        const errorMessage = locationError instanceof Error ? locationError.message : ''
-        
-        // Verificar si el error es de precisión o autorización
-        const isPrecisionError = errorMessage.includes('precisión') || errorMessage.includes('precision') || errorMessage.includes('accuracy')
-        const isPermissionError = errorMessage.includes('permission') || errorMessage.includes('autorización') || errorMessage.includes('denied')
-        
-        if (isPrecisionError || isPermissionError) {
-          Alert.alert(
-            t('common.error'),
-            `${errorMessage}\n\n${t('errors.goToSettingsMessage')}`,
-            [
-              {
-                text: t('common.cancel'),
-                style: 'cancel'
-              },
-              {
-                text: t('common.settings'),
-                onPress: () => {
-                  void openLocationSettings()
-                }
-              }
-            ]
-          )
-        } else {
-          Alert.alert(
-            t('common.error'),
-            errorMessage || t('errors.locationRequired')
-          )
-        }
-        return
-      }
-    } catch (error) {
-      console.error('Error en check-in:', error)
-      Alert.alert(
-        t('common.error'),
-        t('errors.unknownError')
-      )
-    } finally {
-      setIsLoadingLocation(false)
-    }
-  }, [isButtonLocked, isLoadingLocation, t])
+  const validateLocationInBackground = useCallback(async (): Promise<ILocationCoordinates> => {
+    // Usar configuración más rápida para no bloquear la UX
+    return await locationService.getValidatedLocation(50) // Precisión menos estricta: 50m vs 30m
+  }, [locationService])
 
   /**
    * Ejecuta el proceso de check-in después de validar la ubicación
@@ -135,11 +85,9 @@ const AttendanceCheckScreenController = () => {
   const performCheckIn = useCallback(async () => {
     try {
       // Verificar si la biometría está habilitada y disponible
-      const authStateController = new AuthStateController()
       const authState = await authStateController.getAuthState()
       const biometricsEnabled = authState?.props.biometricsPreferences?.isEnabled ?? false
       
-      const biometricService = new BiometricsService()
       const isBiometricAvailable = await biometricService.isBiometricAvailable()
       
       let isAuthenticated = false
@@ -185,7 +133,84 @@ const AttendanceCheckScreenController = () => {
         error instanceof Error ? error.message : t('errors.unknownError')
       )
     }
-  }, [t])
+  }, [authStateController, biometricService, t])
+
+  /**
+   * Maneja el evento de registro de asistencia
+   * - Inicia la autenticación inmediatamente para mejor UX
+   * - Valida ubicación en paralelo durante la autenticación
+   * @returns {Promise<void>}
+   */
+  const handleCheckIn = useCallback(async () => {
+    if (isButtonLocked || isLoadingLocation) return
+
+    setIsLoadingLocation(true)
+
+    try {
+      // Iniciar autenticación inmediatamente para mejor UX
+      // La validación de ubicación se hace en paralelo
+      const [authResult, locationResult] = await Promise.allSettled([
+        performCheckIn(),
+        validateLocationInBackground()
+      ])
+
+      // Verificar si la autenticación fue exitosa
+      if (authResult.status === 'rejected') {
+        console.error('Error en autenticación:', authResult.reason)
+        Alert.alert(
+          t('common.error'),
+          authResult.reason instanceof Error ? authResult.reason.message : t('errors.unknownError')
+        )
+        return
+      }
+
+      // Verificar resultado de ubicación después de la autenticación exitosa
+      if (locationResult.status === 'rejected') {
+        const locationError = locationResult.reason
+        const errorMessage = locationError instanceof Error ? locationError.message : ''
+        
+        // Verificar si el error es de precisión o autorización
+        const isPrecisionError = errorMessage.includes('precisión') || errorMessage.includes('precision') || errorMessage.includes('accuracy')
+        const isPermissionError = errorMessage.includes('permission') || errorMessage.includes('autorización') || errorMessage.includes('denied')
+        
+        if (isPrecisionError || isPermissionError) {
+          Alert.alert(
+            t('common.warning'),
+            `${t('errors.locationValidationWarning')}\n\n${errorMessage}`,
+            [
+              {
+                text: t('common.understood'),
+                style: 'default'
+              },
+              {
+                text: t('common.settings'),
+                onPress: () => {
+                  void openLocationSettings()
+                }
+              }
+            ]
+          )
+        } else {
+          Alert.alert(
+            t('common.warning'),
+            `${t('errors.locationValidationWarning')}\n\n${errorMessage || t('errors.locationRequired')}`
+          )
+        }
+      } else {
+        // Ubicación validada correctamente
+        setCurrentLocation(locationResult.value)
+      }
+
+    } catch (error) {
+      console.error('Error inesperado en check-in:', error)
+      Alert.alert(
+        t('common.error'),
+        t('errors.unknownError')
+      )
+    } finally {
+      setIsLoadingLocation(false)
+    }
+  }, [isButtonLocked, isLoadingLocation, t, validateLocationInBackground, performCheckIn])
 
   /**
    * Formatea las coordenadas para mostrarlas en pantalla
@@ -344,7 +369,12 @@ const AttendanceCheckScreenController = () => {
     isButtonDisabled,
     buttonText,
     locationContent,
-    backdropComponent
+    backdropComponent,
+    // Servicios pre-instanciados para dependencias
+    authStateController,
+    biometricService,
+    locationService,
+    passwordService
   ])
 
   return controllerValue
