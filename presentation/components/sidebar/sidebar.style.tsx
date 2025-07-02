@@ -1,11 +1,10 @@
-import { StyleSheet, Dimensions, Animated } from 'react-native'
+import { Dimensions, StyleSheet } from 'react-native'
 import { IAppTheme } from '../../theme/app-theme.interface'
 import { useAppTheme } from '../../theme/theme-context'
 import { EThemeType } from '../../theme/types/theme-type.enum'
 const { width } = Dimensions.get('window')
 
-
-const createSidebarStyles = (theme: IAppTheme, translateX: Animated.Value, themeType: EThemeType) =>
+const createSidebarStyles = (theme: IAppTheme, themeType: EThemeType) =>
   StyleSheet.create({
     overlay: {
       ...StyleSheet.absoluteFillObject,
@@ -23,7 +22,6 @@ const createSidebarStyles = (theme: IAppTheme, translateX: Animated.Value, theme
       shadowOffset: { width: 0, height: 4 },
       shadowOpacity: 0.12,
       overflow: 'hidden',
-      transform: [{ translateX }],
       backgroundColor: themeType === EThemeType.LIGHT ? '#FFFFFF' : theme.colors.background,
       shadowColor: theme.dark ? '#000' : '#000'
     },
@@ -109,9 +107,9 @@ const createSidebarStyles = (theme: IAppTheme, translateX: Animated.Value, theme
     }
   })
 
-const useSidebarStyles = (translateX: Animated.Value) => {
+const useSidebarStyles = () => {
   const { theme, themeType } = useAppTheme()
-  return createSidebarStyles(theme, translateX, themeType)
+  return createSidebarStyles(theme, themeType)
 }
 
 export default useSidebarStyles

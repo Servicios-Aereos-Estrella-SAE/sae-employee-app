@@ -1,6 +1,5 @@
 import React from 'react'
 import {
-  Image,
   KeyboardAvoidingView,
   Platform,
   StatusBar as RNStatusBar,
@@ -10,6 +9,15 @@ import {
   View
 } from 'react-native'
 import { Divider, Snackbar } from 'react-native-paper'
+import Animated, {
+  BounceIn,
+  FadeIn,
+  FadeInDown,
+  FadeInUp,
+  SlideInLeft,
+  SlideInRight,
+  ZoomIn
+} from 'react-native-reanimated'
 
 import { StatusBar } from 'expo-status-bar'
 import { useTranslation } from 'react-i18next'
@@ -21,6 +29,8 @@ import { Typography } from '../../components/typography/typography.component'
 
 import { AuthenticationScreenController } from './authentication-screen.controller'
 import useAuthenticationStyle from './authentication.style'
+
+const AnimatedTouchableOpacity = Animated.createAnimatedComponent(TouchableOpacity)
 
 /**
  * @description AuthenticationScreen es la pantalla que permite al usuario autenticarse con correo electrónico y contraseña
@@ -41,7 +51,8 @@ export const AuthenticationScreen: React.FC = () => {
     <View style={[style.container]}>
       <StatusBar style="light" translucent={true} />
 
-      <Image
+      <Animated.Image
+        entering={FadeInUp.delay(100).duration(400)}
         source={require('../../../assets/app-headbanner-2.png')}
         style={style.logoImage}
       />
@@ -58,65 +69,104 @@ export const AuthenticationScreen: React.FC = () => {
             bounces={false}
             keyboardShouldPersistTaps="handled"
           >
-            <View style={style.formContainer}>
-              <Typography variant="h1" style={[style.title]}>
-                {controller.getWelcomeTitle()}
-              </Typography>
+            <Animated.View 
+              entering={FadeInDown.delay(200).duration(300)}
+              style={style.formContainer}
+            >
+              <Animated.View
+                entering={FadeIn.delay(300).duration(250)}
+              >
+                <Typography variant="h1" style={[style.title]}>
+                  {controller.getWelcomeTitle()}
+                </Typography>
+              </Animated.View>
 
-              <TextInput
-                label={t('screens.authentication.email')}
-                value={controller.email || ''}
-                onChangeText={(text) => controller.setEmail?.(text)}
-                keyboardType="email-address"
-                leftIcon="account"
-              />
+              <Animated.View
+                entering={SlideInLeft.delay(400).duration(250)}
+              >
+                <TextInput
+                  label={t('screens.authentication.email')}
+                  value={controller.email || ''}
+                  onChangeText={(text) => controller.setEmail?.(text)}
+                  keyboardType="email-address"
+                  leftIcon="account"
+                />
+              </Animated.View>
 
-              <TextInput
-                label={t('screens.authentication.password')}
-                value={controller.password || ''}
-                onChangeText={(text) => controller.setPassword?.(text)}
-                secureTextEntry
-                leftIcon="lock"
-                rightIcon="eye"
-              />
+              <Animated.View
+                entering={SlideInRight.delay(500).duration(250)}
+              >
+                <TextInput
+                  label={t('screens.authentication.password')}
+                  value={controller.password || ''}
+                  onChangeText={(text) => controller.setPassword?.(text)}
+                  secureTextEntry
+                  leftIcon="lock"
+                  rightIcon="eye"
+                />
+              </Animated.View>
 
-              <View style={style.forgotContainer}>
-                <TouchableOpacity>
+              <Animated.View 
+                entering={FadeIn.delay(600).duration(200)}
+                style={style.forgotContainer}
+              >
+                <AnimatedTouchableOpacity
+                  entering={FadeIn.delay(650).duration(150)}
+                >
                   <Typography variant="body2" style={[style.forgotText]}>
                     {t('screens.authentication.forgotPassword')}
                   </Typography>
-                </TouchableOpacity>
-              </View>
+                </AnimatedTouchableOpacity>
+              </Animated.View>
 
-              <Button
-                title={t('screens.authentication.loginButton')}
-                onPress={() => controller.loginHandler?.('email')}
-                loading={Boolean(controller.loginButtonLoading)}
-              />
+              <Animated.View
+                entering={ZoomIn.delay(700).duration(250)}
+              >
+                <Button
+                  title={t('screens.authentication.loginButton')}
+                  onPress={() => controller.loginHandler?.('email')}
+                  loading={Boolean(controller.loginButtonLoading)}
+                />
+              </Animated.View>
 
               {controller.shouldShowBiometrics() && (
-                <View style={style.biometricContainer}>
-                  <View style={style.dividerContainer}>
+                <Animated.View 
+                  entering={FadeInUp.delay(800).duration(300)}
+                  style={style.biometricContainer}
+                >
+                  <Animated.View 
+                    entering={FadeIn.delay(900).duration(200)}
+                    style={style.dividerContainer}
+                  >
                     <Divider style={[style.divider]} />
                     <Typography variant="body2" style={[style.orText]}>
                       {t('screens.authentication.or')}
                     </Typography>
                     <Divider style={[style.divider]} />
-                  </View>
-                  <BiometricButton
-                    type={controller.biometricType || 'fingerprint'}
-                    onPress={() => controller.loginHandler?.('biometric')}
-                    disabled={Boolean(controller.loginButtonLoading)}
-                  />
-                </View>
+                  </Animated.View>
+                  
+                  <Animated.View
+                    entering={BounceIn.delay(1000).duration(300)}
+                  >
+                    <BiometricButton
+                      type={controller.biometricType || 'fingerprint'}
+                      onPress={() => controller.loginHandler?.('biometric')}
+                      disabled={Boolean(controller.loginButtonLoading)}
+                    />
+                  </Animated.View>
+                </Animated.View>
               )}
-            </View>
+            </Animated.View>
           </ScrollView>
         </KeyboardAvoidingView>
 
-        <Typography variant="caption" style={{ textAlign: 'center', color: 'rgb(176, 176, 176)', marginBottom: 40 }}>
-          API: {controller.settedAPIUrl}
-        </Typography>
+        <Animated.View
+          entering={FadeIn.delay(1100).duration(200)}
+        >
+          <Typography variant="caption" style={{ textAlign: 'center', color: 'rgb(176, 176, 176)', marginBottom: 40 }}>
+            API: {controller.settedAPIUrl}
+          </Typography>
+        </Animated.View>
 
         <Snackbar
           visible={!!controller.securityAlert}

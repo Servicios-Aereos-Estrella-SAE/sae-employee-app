@@ -8,6 +8,10 @@ import {
   TouchableOpacity,
   View
 } from 'react-native'
+import Animated, {
+  FadeInDown,
+  ZoomIn
+} from 'react-native-reanimated'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import { Typography } from '../../components/typography/typography.component'
@@ -18,6 +22,8 @@ import AuthenticatedLayout from '../../layouts/authenticated-layout/authenticate
 import { EThemeType } from '../../theme/types/theme-type.enum'
 import { SettingsScreenController } from './settings-screen.controller'
 import useSettingsStyle from './settings.style'
+
+const AnimatedTouchableOpacity = Animated.createAnimatedComponent(TouchableOpacity)
 
 /**
  * @description SettingsScreen es la pantalla que permite al usuario gestionar la configuración de la aplicación
@@ -31,7 +37,7 @@ export const SettingsScreen: React.FC = () => {
   return (
     <AuthenticatedLayout>
       <View style={style.container}>
-        <StatusBar style={controller.themeType === EThemeType.DARK ? 'light' : 'dark'} />
+        <StatusBar style={controller.themeType === EThemeType.DARK ? 'light' : 'light'} />
         
         <SafeAreaView style={style.safeAreaContent}>
           <ScrollView
@@ -39,18 +45,23 @@ export const SettingsScreen: React.FC = () => {
             showsVerticalScrollIndicator={false}
             bounces={false}
           >
-            <View style={style.header}>
+            {/* Header con animación */}
+            <Animated.View 
+              entering={FadeInDown.delay(100).duration(400)}
+              style={style.header}
+            >
               <Typography variant="h1" textAlign="center" style={style.title}>
                 {t('screens.settings.title')}
               </Typography>
               <Typography variant="h2" textAlign="center" fontWeight="normal" style={style.subtitle}>
                 {t('screens.settings.subtitle')}
               </Typography>
-            </View>
+            </Animated.View>
 
             <View style={style.optionsContainer}>
               {/* Opción de Configuración de Biometría */}
-              <TouchableOpacity
+              <AnimatedTouchableOpacity
+                entering={ZoomIn.delay(200).duration(400)}
                 style={style.optionCard}
                 onPress={controller.navigateToBiometrics}
                 activeOpacity={0.7}
@@ -73,10 +84,11 @@ export const SettingsScreen: React.FC = () => {
                   size={24} 
                   color={style.chevronColor.color} 
                 />
-              </TouchableOpacity>
+              </AnimatedTouchableOpacity>
 
               {/* Opción de Tema */}
-              <TouchableOpacity
+              <AnimatedTouchableOpacity
+                entering={ZoomIn.delay(350).duration(400)}
                 style={style.optionCard}
                 onPress={controller.toggleTheme}
                 activeOpacity={0.7}
@@ -103,10 +115,11 @@ export const SettingsScreen: React.FC = () => {
                     </Typography>
                   </View>
                 </View>
-              </TouchableOpacity>
+              </AnimatedTouchableOpacity>
 
               {/* Opción de Idioma */}
-              <TouchableOpacity
+              <AnimatedTouchableOpacity
+                entering={ZoomIn.delay(500).duration(400)}
                 style={style.optionCard}
                 onPress={controller.showLanguageModal}
                 activeOpacity={0.7}
@@ -132,7 +145,7 @@ export const SettingsScreen: React.FC = () => {
                   size={24} 
                   color={style.chevronColor.color} 
                 />
-              </TouchableOpacity>
+              </AnimatedTouchableOpacity>
             </View>
           </ScrollView>
         </SafeAreaView>

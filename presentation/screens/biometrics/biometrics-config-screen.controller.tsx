@@ -1,14 +1,14 @@
-import { useState, useEffect } from 'react'
-import { Alert, Platform } from 'react-native'
-import { useTranslation } from 'react-i18next'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { Alert, Platform } from 'react-native'
 import { RootStackParamList } from '../../../navigation/types/types'
-import { BiometricsService } from '../../../src/features/authentication/infrastructure/services/biometrics.service'
-import { AuthStateController } from '../../../src/features/authentication/infrastructure/controllers/auth-state.controller'
-import { AuthenticationLocalStorageService } from '../../../src/features/authentication/infrastructure/services/authentication-local-storage.service'
 import { AuthenticationEntity } from '../../../src/features/authentication/domain/entities/authentication-entity'
 import { IBiometricsPreferences } from '../../../src/features/authentication/domain/types/authentication.interface'
+import { AuthStateController } from '../../../src/features/authentication/infrastructure/controllers/auth-state.controller'
+import { AuthenticationLocalStorageService } from '../../../src/features/authentication/infrastructure/services/authentication-local-storage.service'
+import { BiometricsService } from '../../../src/features/authentication/infrastructure/services/biometrics.service'
 
 /**
  * Controlador para la pantalla de configuración de biometría
@@ -153,7 +153,7 @@ const BiometricsConfigScreenController = () => {
       await updateBiometricsPreferences(false)
       
       // Navegar a la pantalla de control de asistencia
-      navigation.replace('attendanceCheck')
+      navigation.replace('settingsScreen')
     } catch (error) {
       Alert.alert(
         t('common.error'),

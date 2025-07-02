@@ -1,3 +1,4 @@
+import { StatusBar } from 'expo-status-bar'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import {
@@ -25,6 +26,7 @@ const BiometricsConfigScreen = (): React.ReactElement => {
 
   return (
     <AuthenticatedLayout>
+      <StatusBar style={'light'} />
       <View style={styles.container}>
         <View style={styles.content}>
           <View style={styles.header}>

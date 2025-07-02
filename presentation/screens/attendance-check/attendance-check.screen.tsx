@@ -9,6 +9,12 @@ import {
   View
 } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import Animated, {
+  FadeIn,
+  FadeInDown,
+  FadeInLeft,
+  ZoomIn
+} from 'react-native-reanimated'
 import { Clock } from '../../components/clock/clock.component'
 import { Typography } from '../../components/typography/typography.component'
 import { CheckInIcon } from '../../icons/check-in-icon/check-in.icon'
@@ -17,6 +23,8 @@ import AuthenticatedLayout from '../../layouts/authenticated-layout/authenticate
 import { AttendanceCheckScreenController } from './attendance-check-screen.controller'
 import useAttendanceCheckStyle from './attendance-check.style'
 import { PasswordBottomSheet } from './password-bottom-sheet.component'
+
+const AnimatedTouchableOpacity = Animated.createAnimatedComponent(TouchableOpacity)
 
 /**
  * Pantalla para registro de asistencia
@@ -58,18 +66,35 @@ export const AttendanceCheckScreen: React.FC = React.memo(() => {
               contentContainerStyle={styles.scrollContent}
               showsVerticalScrollIndicator={false}
             >
-              <View>
+              {/* Título con animación */}
+              <Animated.View
+                entering={FadeInDown.delay(100).duration(300)}
+              >
                 <Typography variant="h2">
                   Registro de Asistencia
                 </Typography>
-              </View>
+              </Animated.View>
 
-              <View style={styles.checkInContainer}>
-                <View style={buttonWrapperStyles}>
-                  <TouchableOpacity
-                    style={buttonStyles}
+              {/* Botón principal con animación */}
+              <Animated.View 
+                entering={ZoomIn.delay(200).duration(400)}
+                style={[
+                  styles.checkInContainer,
+                  { zIndex: 10 }
+                ]}
+              >
+                <View style={[
+                  buttonWrapperStyles,
+                  { zIndex: 10 }
+                ]}>
+                  <AnimatedTouchableOpacity
+                    style={[
+                      buttonStyles,
+                      { zIndex: 10 }
+                    ]}
                     onPress={controller.handleCheckIn}
                     disabled={controller.isButtonDisabled}
+                    activeOpacity={0.8}
                   >
                     {controller.isLoadingLocation ? (
                       <ActivityIndicator 
@@ -85,11 +110,18 @@ export const AttendanceCheckScreen: React.FC = React.memo(() => {
                     <Typography variant="body" style={buttonTextStyles as any}>
                       {controller.buttonText}
                     </Typography>
-                  </TouchableOpacity>
+                  </AnimatedTouchableOpacity>
                 </View>
-              </View>
+              </Animated.View>
 
-              <View style={styles.bottomCard}>
+              {/* Tarjeta del reloj con animación */}
+              <Animated.View 
+                entering={ZoomIn.delay(250).duration(400)}
+                style={[
+                  styles.bottomCard,
+                  { zIndex: 1 }
+                ]}
+              >
                 <Clock 
                   style={styles.timeContainer}
                   hourStyle={styles.hour}
@@ -98,11 +130,21 @@ export const AttendanceCheckScreen: React.FC = React.memo(() => {
                 <Typography variant="body" style={styles.dateShift}>
                   {controller.shiftDate}
                 </Typography>
-              </View>
+              </Animated.View>
 
-              {/* Indicadores */}
-              <View style={styles.indicatorsContainer}>
-                <View style={[ styles.indicator, controller.checkInTime && styles.indicatorActive ]}>
+              {/* Indicadores con animaciones staggered */}
+              <Animated.View 
+                entering={FadeIn.delay(400).duration(300)}
+                style={[
+                  styles.indicatorsContainer,
+                  { zIndex: 1 }
+                ]}
+              >
+                {/* Entrada */}
+                <Animated.View 
+                  entering={FadeInLeft.delay(500).duration(400)}
+                  style={[ styles.indicator, controller.checkInTime && styles.indicatorActive ]}
+                >
                   <CheckOutIcon
                     size={24}
                     color={ styles.checkIconIndicator.color }
@@ -113,8 +155,13 @@ export const AttendanceCheckScreen: React.FC = React.memo(() => {
                   <Typography variant="body2" style={[ styles.indicatorValue, controller.checkInTime && styles.indicatorValueActive ].filter(Boolean) as any}>
                     {controller.checkInTime || '--:--'}
                   </Typography>
-                </View>
-                <View style={[ styles.indicator, controller.checkInTime && styles.indicatorActive ]}>
+                </Animated.View>
+
+                {/* Iniciar Comida */}
+                <Animated.View 
+                  entering={FadeInLeft.delay(650).duration(400)}
+                  style={[ styles.indicator, controller.checkInTime && styles.indicatorActive ]}
+                >
                   <CheckOutIcon
                     size={24}
                     color={ styles.checkIconIndicator.color }
@@ -125,8 +172,13 @@ export const AttendanceCheckScreen: React.FC = React.memo(() => {
                   <Typography variant="body2" style={[ styles.indicatorValue, controller.checkInTime && styles.indicatorValueActive ].filter(Boolean) as any}>
                       --:--:--
                   </Typography>
-                </View>
-                <View style={[ styles.indicator, controller.checkInTime && styles.indicatorActive ]}>
+                </Animated.View>
+
+                {/* Terminar Comida */}
+                <Animated.View 
+                  entering={FadeInLeft.delay(800).duration(400)}
+                  style={[ styles.indicator, controller.checkInTime && styles.indicatorActive ]}
+                >
                   <CheckOutIcon
                     size={24}
                     color={ styles.checkIconIndicator.color }
@@ -137,8 +189,13 @@ export const AttendanceCheckScreen: React.FC = React.memo(() => {
                   <Typography variant="body2" style={[ styles.indicatorValue, controller.checkInTime && styles.indicatorValueActive ].filter(Boolean) as any}>
                       --:--:--
                   </Typography>
-                </View>
-                <View style={[ styles.indicator, controller.checkInTime && styles.indicatorActive ]}>
+                </Animated.View>
+
+                {/* Salida */}
+                <Animated.View 
+                  entering={FadeInLeft.delay(950).duration(400)}
+                  style={[ styles.indicator, controller.checkInTime && styles.indicatorActive ]}
+                >
                   <CheckOutIcon
                     size={24}
                     color={ styles.checkIconIndicator.color }
@@ -149,8 +206,8 @@ export const AttendanceCheckScreen: React.FC = React.memo(() => {
                   <Typography variant="body2" style={[ styles.indicatorValue, controller.checkInTime && styles.indicatorValueActive ].filter(Boolean) as any}>
                       --:--:--
                   </Typography>
-                </View>
-              </View>
+                </Animated.View>
+              </Animated.View>
             </ScrollView>
           </SafeAreaView>
         </View>

@@ -5,4 +5,5 @@ export interface IThemeContextType {
   theme: IAppTheme
   themeType: EThemeType
   toggleTheme: () => void
+  isFirstLaunch: boolean
 }

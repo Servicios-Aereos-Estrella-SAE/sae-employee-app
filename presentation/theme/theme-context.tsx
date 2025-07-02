@@ -1,21 +1,23 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import React, { createContext, useContext, useEffect, useState } from 'react'
 // import { SAE_EMPLOYEEAPP_THEME_STORAGE_KEY } from '@env'
-import { useColorScheme, AppState, AppStateStatus } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { EThemeType } from './types/theme-type.enum'
-import { LIGHT_THEME } from './light.theme'
+import { AppState, AppStateStatus, useColorScheme } from 'react-native'
 import { DARK_THEME } from './dark.theme'
+import { LIGHT_THEME } from './light.theme'
 import { IThemeContextType } from './types/theme-context-type.interface'
+import { EThemeType } from './types/theme-type.enum'
 
 const SAE_EMPLOYEEAPP_THEME_STORAGE_KEY = 'SAE_EMPLOYEEAPP_THEME_STORAGE_KEY'
+const SAE_EMPLOYEEAPP_FIRST_LAUNCH_KEY = 'SAE_EMPLOYEEAPP_FIRST_LAUNCH_KEY'
 
 // Create theme context with default value
 
 const themeContext = createContext<IThemeContextType>({
   theme: LIGHT_THEME,
   themeType: EThemeType.LIGHT,
-  toggleTheme: () => {}
+  toggleTheme: () => {},
+  isFirstLaunch: true
 })
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -26,6 +28,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   const [themeType, setThemeType] = useState<EThemeType>(
     colorScheme === 'dark' ? EThemeType.DARK : EThemeType.LIGHT
   )
+  const [isFirstLaunch, setIsFirstLaunch] = useState<boolean>(true)
 
   // Load saved theme preference
   const loadSavedTheme = async (): Promise<void> => {
@@ -43,6 +46,24 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
       console.error('Error loading theme preference:', error)
       // Fallback to device theme
       setThemeType(colorScheme === 'dark' ? EThemeType.DARK : EThemeType.LIGHT)
+    }
+  }
+
+  // Check if this is the first launch
+  const checkFirstLaunch = async (): Promise<void> => {
+    try {
+      const hasLaunchedBefore = await AsyncStorage.getItem(SAE_EMPLOYEEAPP_FIRST_LAUNCH_KEY)
+      if (hasLaunchedBefore === null) {
+        // First launch
+        setIsFirstLaunch(true)
+        await AsyncStorage.setItem(SAE_EMPLOYEEAPP_FIRST_LAUNCH_KEY, 'false')
+      } else {
+        // Not first launch
+        setIsFirstLaunch(false)
+      }
+    } catch (error) {
+      console.error('Error checking first launch:', error)
+      setIsFirstLaunch(false)
     }
   }
 
@@ -66,6 +87,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   // Set theme based on saved preference or device theme by default
   useEffect(() => {
     loadSavedTheme()
+    checkFirstLaunch()
 
     // Add app state change listener
     const appStateSubscription = AppState.addEventListener(
@@ -94,7 +116,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   const theme = themeType === 'dark' ? DARK_THEME : LIGHT_THEME
 
   return (
-    <themeContext.Provider value={{ theme, themeType, toggleTheme }}>
+    <themeContext.Provider value={{ theme, themeType, toggleTheme, isFirstLaunch }}>
       {children}
     </themeContext.Provider>
   )

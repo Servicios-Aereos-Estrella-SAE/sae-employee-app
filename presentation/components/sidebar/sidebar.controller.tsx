@@ -1,13 +1,19 @@
-import React, { useEffect, useState } from 'react'
-import { Animated, Dimensions } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { useEffect, useState } from 'react'
+import { Dimensions } from 'react-native'
+import {
+  runOnJS,
+  useSharedValue,
+  withSpring,
+  withTiming
+} from 'react-native-reanimated'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { RootStackParamList } from '../../../navigation/types/types'
-import { useAppTheme } from '../../theme/theme-context'
-import { ISidebarProps } from './types/sidebar-props.interface'
 import { AuthStateController } from '../../../src/features/authentication/infrastructure/controllers/auth-state.controller'
 import { ClearSessionController } from '../../../src/features/authentication/infrastructure/controllers/clear-seassion.controller'
+import { useAppTheme } from '../../theme/theme-context'
+import { ISidebarProps } from './types/sidebar-props.interface'
 
 /**
  * Controlador del sidebar
@@ -18,7 +24,8 @@ import { ClearSessionController } from '../../../src/features/authentication/inf
  * @property {Function} handleLogout - Función para cerrar sesión
  * @property {Function} handleFullLogout - Función para cerrar sesión y redirigir a la pantalla de autenticación
  * @property {string} themeType - Tipo de tema (dark o light)
- * @property {Animated.Value} translateX - Valor de la animación de la barra lateral
+ * @property {SharedValue} translateX - Valor de la animación de la barra lateral
+ * @property {SharedValue} overlayOpacity - Valor de la animación del overlay
  * @property {EdgeInsets} insets - Insets de la pantalla
  * @property {string} authUserAvatarType - Tipo de avatar del usuario
  * @property {string} authUserAvatarSource - Fuente del avatar del usuario
@@ -27,7 +34,8 @@ import { ClearSessionController } from '../../../src/features/authentication/inf
  */
 const SidebarController = (props: ISidebarProps) => {
   const { width } = Dimensions.get('window')
-  const translateX = React.useRef(new Animated.Value(-width)).current
+  const translateX = useSharedValue(-width)
+  const overlayOpacity = useSharedValue(0)
   const insets = useSafeAreaInsets()
 
   const { themeType } = useAppTheme()
@@ -35,17 +43,44 @@ const SidebarController = (props: ISidebarProps) => {
   const [authUserAvatarSource, setAuthUserAvatarSource] = useState<string>('')
 
   useEffect(() => {
-    Animated.timing(translateX, {
-      toValue: props.isOpen ? 0 : -width,
-      duration: 300,
-      useNativeDriver: true
-    }).start()
+    if (props.isOpen) {
+      // Abrir sidebar
+      translateX.value = withSpring(0, {
+        duration: 400,
+        dampingRatio: 0.8
+      })
+      overlayOpacity.value = withTiming(1, {
+        duration: 300
+      })
+    } else {
+      // Cerrar sidebar
+      translateX.value = withTiming(-width, {
+        duration: 300
+      })
+      overlayOpacity.value = withTiming(0, {
+        duration: 200
+      })
+    }
     
     void authUserAvatar()
-  }, [props.isOpen])
+  }, [props.isOpen, width])
 
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>()
+
+  /**
+   * Cierra el sidebar con animación
+   */
+  const animatedClose = () => {
+    translateX.value = withTiming(-width, {
+      duration: 300
+    })
+    overlayOpacity.value = withTiming(0, {
+      duration: 200
+    }, () => {
+      runOnJS(props.onClose)()
+    })
+  }
 
   /**
    * Cierra sesión y redirige a la pantalla de autenticación
@@ -111,14 +146,17 @@ const SidebarController = (props: ISidebarProps) => {
    * @returns {void}
    */
   const navigateTo = (screen: keyof RootStackParamList) => {
-    props.onClose()
-    navigation.navigate(screen)
+    animatedClose()
+    setTimeout(() => {
+      navigation.navigate(screen)
+    }, 300)
   }
 
   return {
-    onClose: props.onClose,
+    onClose: animatedClose,
     isOpen: props.isOpen,
     translateX,
+    overlayOpacity,
     insets,
     handleLogout,
     handleFullLogout,

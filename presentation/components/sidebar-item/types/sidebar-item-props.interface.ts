@@ -6,6 +6,7 @@
  * @property {any} labelStyle - Estilos de la etiqueta del item del sidebar
  * @property {string} textColor - Color del texto del item del sidebar
  * @property {() => void} onPress - Función a ejecutar al pulsar el item del sidebar
+ * @property {number} delay - Delay en milisegundos para la animación de entrada
  */
 export interface ISidebarItemProps {
   icon: React.ReactNode
@@ -13,4 +14,5 @@ export interface ISidebarItemProps {
   labelStyle?: any
   textColor?: string
   onPress?: () => void
+  delay?: number
 }
