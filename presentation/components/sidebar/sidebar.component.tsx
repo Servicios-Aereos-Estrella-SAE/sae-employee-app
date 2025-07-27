@@ -15,7 +15,6 @@ import Animated, {
   useAnimatedStyle
 } from 'react-native-reanimated'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { ChangeAccountIcon } from '../../icons/change-account-icon/change-account.icon'
 import { ClockIcon } from '../../icons/clock-icon/clock.icon'
 import { CloseSidebarIcon } from '../../icons/close-sidebar-icon/close-sidebar.icon'
 import { CogIcon } from '../../icons/cog-icon/cog.icon'
@@ -205,13 +204,13 @@ const SidebarLayout: React.FC<ISidebarProps> = ({ isOpen, onClose }) => {
                 entering={SlideInLeft.delay(160).duration(200)}
                 style={styles.menuGroup}
               >
-                <SidebarItem
+                {/* <SidebarItem
                   icon={<ChangeAccountIcon color={styles.sidebarIcon.color} />}
                   label={t('sidebar.menuLinks.changeAccount')}
                   textColor={styles.sidebarIconText.color}
                   onPress={controller.handleFullLogout}
                   delay={350}
-                />
+                /> */}
                 <SidebarItem
                   icon={<LogoutIcon color={styles.logoutIcon.color} />}
                   label={t('sidebar.menuLinks.logout')}
