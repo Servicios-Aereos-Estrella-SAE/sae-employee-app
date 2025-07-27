@@ -30,14 +30,14 @@ const createHeaderLayoutStyle = (theme: IAppTheme, themeType: EThemeType) =>
       width: wp(13), // 13% del ancho de la pantalla
       height: wp(13), // Mantener aspecto cuadrado
       borderRadius: wp(6.5), // Mitad del ancho para círculo perfecto
-      backgroundColor: themeType === EThemeType.LIGHT ? '#283458' : '#2b3652',
+      backgroundColor: themeType === EThemeType.LIGHT ? '#29579b' : '#2b3652',
       alignItems: 'center',
       justifyContent: 'center'
     },
     rightContainer: {
       flexDirection: 'row',
       alignItems: 'center',
-      backgroundColor: themeType === EThemeType.LIGHT ? '#283458' : '#2b3652',
+      backgroundColor: themeType === EThemeType.LIGHT ? '#29579b' : '#2b3652',
       borderRadius: wp(6.5), // 6.5% del ancho de la pantalla
       paddingRight: wp(2), // 2% del ancho de la pantalla
       paddingLeft: wp(4), // 4% del ancho de la pantalla
@@ -46,7 +46,7 @@ const createHeaderLayoutStyle = (theme: IAppTheme, themeType: EThemeType) =>
     greeting: {
       fontWeight: '500',
       marginRight: wp(3), // 3% del ancho de la pantalla
-      color: theme.colors.iconColor
+      color: themeType === EThemeType.LIGHT ? '#fff' : theme.colors.iconColor
     },
     avatar: {
       width: wp(9.5), // 9.5% del ancho de la pantalla
@@ -71,7 +71,7 @@ const createHeaderLayoutStyle = (theme: IAppTheme, themeType: EThemeType) =>
       color: '#333'
     },
     sidebarIconColor: {
-      color: theme.colors.iconColor
+      color: themeType === EThemeType.LIGHT ? '#fff' : theme.colors.iconColor
     }
   })
 

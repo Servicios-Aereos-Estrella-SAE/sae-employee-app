@@ -76,9 +76,35 @@
       }
     },
     "attendanceCheck": {
+      "title": "Attendance Check",
       "password": "Enter your password",
       "confirmButton": "Confirm",
-      "cancelButton": "Cancel"
+      "cancelButton": "Cancel",
+      "connectionError": {
+        "title": "No connection",
+        "message": "Could not load attendance information",
+        "retryButton": "Reload",
+        "retrying": "Retrying..."
+      },
+      "checkTypes": {
+        "checkIn": "Check In",
+        "checkOut": "Check Out",
+        "checkEatIn": "Start Lunch",
+        "checkEatOut": "End Lunch"
+      },
+      "button": {
+        "loading": "...",
+        "locked": "---",
+        "register": "Register",
+        "complete": "Complete"
+      },
+      "defaultTime": "--:--:--",
+      "sessionExpired": {
+        "title": "Session Expired",
+        "message": "Your session has expired. Please log in again."
+      },
+      "registrationError": "Error registering attendance",
+      "deviceSettingsError": "Could not open device settings"
     }
   },
   "components": {

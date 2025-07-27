@@ -143,11 +143,11 @@ const AttendanceCheckScreenController = () => {
           // Cerrar sesión y limpiar datos de autenticación
           await clearSessionController.clearSession()
           Alert.alert(
-            'Sesión Expirada',
-            'Tu sesión ha expirado. Por favor, inicia sesión nuevamente.',
+            t('screens.attendanceCheck.sessionExpired.title'),
+            t('screens.attendanceCheck.sessionExpired.message'),
             [
               {
-                text: 'OK',
+                text: t('common.ok'),
                 onPress: () => {
                   // El AppNavigator detectará automáticamente que el usuario no está autenticado
                   // y redirigirá al login screen
@@ -257,9 +257,11 @@ const AttendanceCheckScreenController = () => {
         throw new Error('Token de autenticación no encontrado')
       }
 
-      // TODO: Obtener el employeeId real del authState cuando esté disponible
-      // Por ahora usar el mismo employeeId que se usa en setShiftDateData
-      const employeeId = 412
+      const employeeId = authState?.props.authState?.user?.props.person?.props.employee?.props.id || null
+
+      if (!employeeId) {
+        throw new Error('Employee ID no encontrado')
+      }
 
       const payload = {
         employeeId,
@@ -288,9 +290,9 @@ const AttendanceCheckScreenController = () => {
         try {
           await clearSessionController.clearSession()
           Alert.alert(
-            'Sesión Expirada',
-            'Tu sesión ha expirado. Por favor, inicia sesión nuevamente.',
-            [{ text: 'OK' }]
+            t('screens.attendanceCheck.sessionExpired.title'),
+            t('screens.attendanceCheck.sessionExpired.message'),
+            [{ text: t('common.ok') }]
           )
         } catch (clearError) {
           console.error('Error clearing session:', clearError)
@@ -305,7 +307,7 @@ const AttendanceCheckScreenController = () => {
         
         Alert.alert(
           t('common.error'),
-          `Error al registrar asistencia: ${errorMessage}`
+          `${t('screens.attendanceCheck.registrationError')}: ${errorMessage}`
         )
       }
       return false
@@ -523,7 +525,7 @@ const AttendanceCheckScreenController = () => {
         console.error('Error abriendo configuración general:', fallbackError)
         Alert.alert(
           t('common.error'),
-          'No se pudo abrir la configuración del dispositivo'
+          t('screens.attendanceCheck.deviceSettingsError')
         )
       }
     }
@@ -575,11 +577,11 @@ const AttendanceCheckScreenController = () => {
   )
 
   const buttonText = useMemo(() => {
-    if (isLoadingLocation) return '...'
-    if (isButtonLocked) return '---'
-    if (filteredAttendanceData.checkOutTime) return 'Turno Completado'
-    return 'Iniciar Turno'
-  }, [isLoadingLocation, isButtonLocked, filteredAttendanceData.checkOutTime])
+    if (isLoadingLocation) return t('screens.attendanceCheck.button.loading')
+    if (isButtonLocked) return t('screens.attendanceCheck.button.locked')
+    if (filteredAttendanceData.checkOutTime) return t('screens.attendanceCheck.button.complete')
+    return t('screens.attendanceCheck.button.register')
+  }, [isLoadingLocation, isButtonLocked, filteredAttendanceData.checkOutTime, t])
 
   const locationContent = useMemo(() => {
     if (currentLocation) {

@@ -76,9 +76,35 @@
       }
     },
     "attendanceCheck": {
+      "title": "Registro de Asistencia",
       "password": "Ingresa tu contraseña",
       "confirmButton": "Confirmar",
-      "cancelButton": "Cancelar"
+      "cancelButton": "Cancelar",
+      "connectionError": {
+        "title": "Sin conexión",
+        "message": "No se pudo cargar la información de asistencia",
+        "retryButton": "Volver a cargar",
+        "retrying": "Reintentando..."
+      },
+      "checkTypes": {
+        "checkIn": "Entrada",
+        "checkOut": "Salida",
+        "checkEatIn": "Inicio de comida",
+        "checkEatOut": "Fin de comida"
+      },
+      "button": {
+        "loading": "...",
+        "locked": "---",
+        "register": "Registrar",
+        "complete": "Completo"
+      },
+      "defaultTime": "--:--:--",
+      "sessionExpired": {
+        "title": "Sesión Expirada",
+        "message": "Tu sesión ha expirado. Por favor, inicia sesión nuevamente."
+      },
+      "registrationError": "Error al registrar asistencia",
+      "deviceSettingsError": "No se pudo abrir la configuración del dispositivo"
     }
   },
   "components": {

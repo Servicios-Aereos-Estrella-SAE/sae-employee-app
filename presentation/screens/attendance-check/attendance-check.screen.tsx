@@ -1,6 +1,7 @@
 import BottomSheet from '@gorhom/bottom-sheet'
 import { StatusBar } from 'expo-status-bar'
 import React, { useCallback, useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 import {
   ActivityIndicator,
   SafeAreaView,
@@ -33,6 +34,7 @@ const AnimatedTouchableOpacity = Animated.createAnimatedComponent(TouchableOpaci
 export const AttendanceCheckScreen: React.FC = React.memo(() => {
   const controller = AttendanceCheckScreenController()
   const styles = useAttendanceCheckStyle()
+  const { t } = useTranslation()
 
   // Solo las optimizaciones que dependen de styles se quedan aquí
   const buttonWrapperStyles = useMemo(() => [
@@ -134,7 +136,7 @@ export const AttendanceCheckScreen: React.FC = React.memo(() => {
                 entering={FadeInDown.delay(100).duration(300)}
               >
                 <Typography variant="h2">
-                  Registro de Asistencia
+                  {t('screens.attendanceCheck.title')}
                 </Typography>
               </Animated.View>
 
@@ -150,10 +152,10 @@ export const AttendanceCheckScreen: React.FC = React.memo(() => {
                   }}
                 >
                   <Typography variant="h3" style={{ textAlign: 'center', color: '#666' }}>
-                    Sin conexión
+                    {t('screens.attendanceCheck.connectionError.title')}
                   </Typography>
                   <Typography variant="body" style={{ textAlign: 'center', color: '#999', marginTop: 8 }}>
-                    No se pudo cargar la información de asistencia
+                    {t('screens.attendanceCheck.connectionError.message')}
                   </Typography>
                   
                   <TouchableOpacity 
@@ -178,7 +180,7 @@ export const AttendanceCheckScreen: React.FC = React.memo(() => {
                       />
                     )}
                     <Typography variant="body" style={{ color: '#ffffff', fontWeight: '500' }}>
-                      {controller.isRetrying ? 'Reintentando...' : 'Volver a cargar'}
+                      {controller.isRetrying ? t('screens.attendanceCheck.connectionError.retrying') : t('screens.attendanceCheck.connectionError.retryButton')}
                     </Typography>
                   </TouchableOpacity>
                 </Animated.View>
@@ -261,10 +263,10 @@ export const AttendanceCheckScreen: React.FC = React.memo(() => {
                         color={getIconColor(controller.attendanceData.checkInStatus)}
                       />
                       <Typography variant="body2" style={getLabelStyles(controller.attendanceData.checkInStatus, !!controller.attendanceData.checkInTime) as any}>
-                        Entrada
+                        {t('screens.attendanceCheck.checkTypes.checkIn')}
                       </Typography>
                       <Typography variant="body2" style={getValueStyles(controller.attendanceData.checkInStatus, !!controller.attendanceData.checkInTime) as any}>
-                        {controller.attendanceData.checkInTime || '--:--:--'}
+                        {controller.attendanceData.checkInTime || t('screens.attendanceCheck.defaultTime')}
                       </Typography>
                     </Animated.View>
 
@@ -278,10 +280,10 @@ export const AttendanceCheckScreen: React.FC = React.memo(() => {
                         color={getIconColor(controller.attendanceData.checkEatInStatus)}
                       />
                       <Typography variant="body2" style={getLabelStyles(controller.attendanceData.checkEatInStatus, !!controller.attendanceData.checkEatInTime) as any}>
-                        Inicio de comida
+                        {t('screens.attendanceCheck.checkTypes.checkEatIn')}
                       </Typography>
                       <Typography variant="body2" style={getValueStyles(controller.attendanceData.checkEatInStatus, !!controller.attendanceData.checkEatInTime) as any}>
-                        {controller.attendanceData.checkEatInTime || '--:--:--'}
+                        {controller.attendanceData.checkEatInTime || t('screens.attendanceCheck.defaultTime')}
                       </Typography>
                     </Animated.View>
 
@@ -295,10 +297,10 @@ export const AttendanceCheckScreen: React.FC = React.memo(() => {
                         color={getIconColor(controller.attendanceData.checkEatOutStatus)}
                       />
                       <Typography variant="body2" style={getLabelStyles(controller.attendanceData.checkEatOutStatus, !!controller.attendanceData.checkEatOutTime) as any}>
-                        Fin de comida
+                        {t('screens.attendanceCheck.checkTypes.checkEatOut')}
                       </Typography>
                       <Typography variant="body2" style={getValueStyles(controller.attendanceData.checkEatOutStatus, !!controller.attendanceData.checkEatOutTime) as any}>
-                        {controller.attendanceData.checkEatOutTime || '--:--:--'}
+                        {controller.attendanceData.checkEatOutTime || t('screens.attendanceCheck.defaultTime')}
                       </Typography>
                     </Animated.View>
 
@@ -312,10 +314,10 @@ export const AttendanceCheckScreen: React.FC = React.memo(() => {
                         color={getIconColor(controller.attendanceData.checkOutStatus)}
                       />
                       <Typography variant="body2" style={getLabelStyles(controller.attendanceData.checkOutStatus, !!controller.attendanceData.checkOutTime) as any}>
-                        Salida
+                        {t('screens.attendanceCheck.checkTypes.checkOut')}
                       </Typography>
                       <Typography variant="body2" style={getValueStyles(controller.attendanceData.checkOutStatus, !!controller.attendanceData.checkOutTime) as any}>
-                        {controller.attendanceData.checkOutTime || '--:--:--'}
+                        {controller.attendanceData.checkOutTime || t('screens.attendanceCheck.defaultTime')}
                       </Typography>
                     </Animated.View>
                   </Animated.View>

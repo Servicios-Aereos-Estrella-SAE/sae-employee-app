@@ -5,8 +5,8 @@ export default ({ config }) => {
   return {
     ...config,
     expo: {
-      name: "Empleados SAE",
-      slug: "sae-empleados",
+      name: "Demo ACME RH",
+      slug: "demo-rh-attendance",
       version: "1.0.0",
       orientation: "portrait",
       icon: "./assets/icon.png",
@@ -15,26 +15,27 @@ export default ({ config }) => {
       splash: {
         image: "./assets/splash-icon.png",
         resizeMode: "contain",
-        backgroundColor: "#303e67"
+        backgroundColor: "#ffffff"
       },
       ios: {
         supportsTablet: false,
-        bundleIdentifier: "com.sae.saeempleados",
+        bundleIdentifier: "com.demorh.acmeempleados",
         infoPlist: {
           NSFaceIDUsageDescription: "Face ID is used to authenticate the user",
           NSLocationWhenInUseUsageDescription: "Location is required to verify employee attendance at work premises.",
           NSLocationAlwaysAndWhenInUseUsageDescription: "Location is required to verify employee attendance at work premises.",
           NSLocationUsageDescription: "Location is required to verify employee attendance at work premises.",
-          UIBackgroundModes: ["location"]
+          UIBackgroundModes: ["location"],
+          ITSAppUsesNonExemptEncryption: false
         }
       },
       android: {
         adaptiveIcon: {
           foregroundImage: "./assets/adaptive-icon.png",
-          backgroundColor: "#093057"
+          backgroundColor: "#ffffff"
         },
         edgeToEdgeEnabled: true,
-        package: "com.sae.saeempleados",
+        package: "com.demorh.acmeempleados",
         versionCode: 1,
         permissions: [
           "ACCESS_FINE_LOCATION",
@@ -46,7 +47,7 @@ export default ({ config }) => {
       },
       extra: {
         eas: {
-          projectId: "d685a705-a875-401d-af68-b0344be036fc",
+          projectId: "abbdaf55-5afc-4045-8792-b927b74af07a",
           preview: {
             channel: "preview",
             distribution: "internal",
@@ -71,7 +72,7 @@ export default ({ config }) => {
         policy: "appVersion"
       },
       updates: {
-        url: "https://u.expo.dev/d685a705-a875-401d-af68-b0344be036fc",
+        url: "https://u.expo.dev/abbdaf55-5afc-4045-8792-b927b74af07a",
         enabled: true,
         fallbackToCacheTimeout: 0,
         checkAutomatically: "ON_LOAD"
