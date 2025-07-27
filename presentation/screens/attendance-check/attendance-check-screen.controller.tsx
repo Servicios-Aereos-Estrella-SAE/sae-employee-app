@@ -393,7 +393,7 @@ const AttendanceCheckScreenController = () => {
    * - Valida ubicación en paralelo durante la autenticación
    * @returns {Promise<void>}
    */
-  const handleCheckIn = useCallback(async () => {
+  const handleCheckIn = useCallback(async () => {    
     if (isButtonLocked || isLoadingLocation) return
 
     setIsLoadingLocation(true)

@@ -170,6 +170,7 @@ const SidebarLayout: React.FC<ISidebarProps> = ({ isOpen, onClose }) => {
                   icon={<ProfileIcon color={styles.sidebarIcon.color} />}
                   label={t('sidebar.menuLinks.profile')}
                   textColor={styles.sidebarIconText.color}
+                  onPress={() => { controller.navigateTo('profile') }}
                   delay={250}
                 />
               </Animated.View>

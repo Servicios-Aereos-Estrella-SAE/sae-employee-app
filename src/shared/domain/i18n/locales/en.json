@@ -8,6 +8,8 @@
     "ok": "OK",
     "understood": "Understood",
     "settings": "Settings",
+    "notAvailable": "Not available",
+    "retry": "Retry",
     "authentication": {
       "biometricPromptMessage": "SAE Biometric Authentication",
       "biometricFallbackLabel": "Use Password and Email",
@@ -105,6 +107,30 @@
       },
       "registrationError": "Error registering attendance",
       "deviceSettingsError": "Could not open device settings"
+    },
+    "profile": {
+      "title": "My Profile",
+      "subtitle": "Personal and work information",
+      "loading": "Loading profile...",
+      "error": "Error loading profile",
+      "personalInfo": "Personal Information",
+      "workInfo": "Work Information",
+      "legalInfo": "Legal Information",
+      "email": "Email",
+      "phone": "Phone",
+      "gender": "Gender",
+      "birthday": "Birth Date",
+      "maritalStatus": "Marital Status",
+      "placeOfBirth": "Place of Birth",
+      "employeeCode": "Employee Code",
+      "payrollNumber": "Payroll Number",
+      "hireDate": "Hire Date",
+      "contractType": "Contract Type",
+      "workSchedule": "Work Schedule",
+      "businessEmail": "Business Email",
+      "curp": "CURP",
+      "rfc": "RFC",
+      "imssNss": "IMSS NSS"
     }
   },
   "components": {

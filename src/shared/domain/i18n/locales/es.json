@@ -8,6 +8,8 @@
     "ok": "Aceptar",
     "understood": "Entendido",
     "settings": "Configuración",
+    "notAvailable": "No disponible",
+    "retry": "Reintentar",
     "authentication": {
       "biometricPromptMessage": "Autenticación biométrica",
       "biometricFallbackLabel": "Usar contraseña y correo electrónico",
@@ -105,6 +107,30 @@
       },
       "registrationError": "Error al registrar asistencia",
       "deviceSettingsError": "No se pudo abrir la configuración del dispositivo"
+    },
+    "profile": {
+      "title": "Mi Perfil",
+      "subtitle": "Información personal y laboral",
+      "loading": "Cargando perfil...",
+      "error": "Error al cargar el perfil",
+      "personalInfo": "Información Personal",
+      "workInfo": "Información Laboral",
+      "legalInfo": "Información Legal",
+      "email": "Correo Electrónico",
+      "phone": "Teléfono",
+      "gender": "Género",
+      "birthday": "Fecha de Nacimiento",
+      "maritalStatus": "Estado Civil",
+      "placeOfBirth": "Lugar de Nacimiento",
+      "employeeCode": "Código de Empleado",
+      "payrollNumber": "Número de Nómina",
+      "hireDate": "Fecha de Contratación",
+      "contractType": "Tipo de Contrato",
+      "workSchedule": "Horario de Trabajo",
+      "businessEmail": "Correo Laboral",
+      "curp": "CURP",
+      "rfc": "RFC",
+      "imssNss": "NSS (IMSS)"
     }
   },
   "components": {
