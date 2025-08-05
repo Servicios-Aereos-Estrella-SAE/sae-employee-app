@@ -5,8 +5,8 @@ export default ({ config }) => {
   return {
     ...config,
     expo: {
-      name: "Demo ACME RH",
-      slug: "demo-rh-attendance",
+      name: "GrupoSTI Demo",
+      slug: "demo-grupo-sti",
       version: "1.0.0",
       orientation: "portrait",
       icon: "./assets/icon.png",
@@ -19,7 +19,7 @@ export default ({ config }) => {
       },
       ios: {
         supportsTablet: false,
-        bundleIdentifier: "com.demorh.acmeempleados",
+        bundleIdentifier: "com.gruposti.demo",
         infoPlist: {
           NSFaceIDUsageDescription: "Face ID is used to authenticate the user",
           NSLocationWhenInUseUsageDescription: "Location is required to verify employee attendance at work premises.",
@@ -35,7 +35,7 @@ export default ({ config }) => {
           backgroundColor: "#ffffff"
         },
         edgeToEdgeEnabled: true,
-        package: "com.demorh.acmeempleados",
+        package: "com.gruposti.demo",
         versionCode: 1,
         permissions: [
           "ACCESS_FINE_LOCATION",

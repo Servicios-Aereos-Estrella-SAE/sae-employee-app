@@ -30,14 +30,14 @@ const createHeaderLayoutStyle = (theme: IAppTheme, themeType: EThemeType) =>
       width: wp(13), // 13% del ancho de la pantalla
       height: wp(13), // Mantener aspecto cuadrado
       borderRadius: wp(6.5), // Mitad del ancho para círculo perfecto
-      backgroundColor: themeType === EThemeType.LIGHT ? '#29579b' : '#2b3652',
+      backgroundColor: themeType === EThemeType.LIGHT ? '#1f119b' : '#2b3652',
       alignItems: 'center',
       justifyContent: 'center'
     },
     rightContainer: {
       flexDirection: 'row',
       alignItems: 'center',
-      backgroundColor: themeType === EThemeType.LIGHT ? '#29579b' : '#2b3652',
+      backgroundColor: themeType === EThemeType.LIGHT ? '#1f119b' : '#2b3652',
       borderRadius: wp(6.5), // 6.5% del ancho de la pantalla
       paddingRight: wp(2), // 2% del ancho de la pantalla
       paddingLeft: wp(4), // 4% del ancho de la pantalla

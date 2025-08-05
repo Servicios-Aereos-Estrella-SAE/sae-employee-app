@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState, useEffect } from 'react'
-import { Alert } from 'react-native'
-import { useTranslation } from 'react-i18next'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { RootStackParamList } from '../../../navigation/types/types'
-import { LoginController } from '../../../src/features/authentication/infrastructure/controllers/login.controller'
-import { ELoginTypes } from '../../../src/features/authentication/application/types/login-types.enum'
-import { BiometricsService } from '../../../src/features/authentication/infrastructure/services/biometrics.service'
-import { AuthStateController } from '../../../src/features/authentication/infrastructure/controllers/auth-state.controller'
-import { LocationService, ILocationCoordinates } from '../../../src/features/authentication/infrastructure/services/location.service'
+import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { Alert } from 'react-native'
 import { environment } from '../../../config/environment'
+import { RootStackParamList } from '../../../navigation/types/types'
+import { ELoginTypes } from '../../../src/features/authentication/application/types/login-types.enum'
+import { AuthStateController } from '../../../src/features/authentication/infrastructure/controllers/auth-state.controller'
+import { LoginController } from '../../../src/features/authentication/infrastructure/controllers/login.controller'
+import { BiometricsService } from '../../../src/features/authentication/infrastructure/services/biometrics.service'
+import { ILocationCoordinates, LocationService } from '../../../src/features/authentication/infrastructure/services/location.service'
 
 // import Constants from 'expo-constants'
 
@@ -21,8 +21,10 @@ import { environment } from '../../../config/environment'
 const AuthenticationScreenController = () => {
   const [loginButtonLoading, setLoginButtonLoading] = useState(false)
   const [userName, setUserName] = useState('')
-  const [email, setEmail] = useState('wramirez@siler-mx.com')
-  const [password, setPassword] = useState('xab@ubm0qyn0BPK5cpj')
+  // const [email, setEmail] = useState('wramirez@siler-mx.com')
+  // const [password, setPassword] = useState('xab@ubm0qyn0BPK5cpj')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [biometricAvailable, setBiometricAvailable] = useState(false)
   const [hasStoredCredentials, setHasStoredCredentials] = useState(false)
   const [securityAlert, setSecurityAlert] = useState<string | null>(null)
